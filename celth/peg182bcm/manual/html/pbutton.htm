@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegButton</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton serves
+as the base class for nearly all PEG button style objects. PegButton provides
+the BF_REPEAT timer operation, default frame drawing, and default selection
+SIGNALS. You would not normally create an instance of PegButton in your
+system software, however PegButton is very useful as a base class for your
+own custom button styles.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbitbutn.htm">PegBitmapButton</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptxtbutn.htm">PegTextButton</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pradbutn.htm">PegRadioButton</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pchkbox.htm">PegCheckBox</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton supports
+the standard frame styles FF_NONE, FF_THIN, FF_THICK, FF_RAISED, and FF_RECESSED.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton also supports
+the button styles BF_REPEAT and BF_DOWNACTION.</FONT></FONT>
+
+<P><A NAME="Signals"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Signals</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton sends
+the PSF_CLICKED signal when selected.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegButton(const PegRect &amp;Rect, WORD wId = 0, WORD wFlags = AF_ENABLED)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegButton(WORD wId = 0, WORD wFlags = AF_ENABLED)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The first constructor
+creates a PegButton with a defined size and position. The second constructor
+creates a PegButton with an undefined position.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Disable(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function disables
+the button, and prevents it from being selected.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton overrides
+the Draw() function to provide the 3D appearance when the button is selected.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Enable(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Enables the button,
+and allows the button to be selected.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegButton catches
+PM_LBUTTONDOWN, PM_LBUTTONUP, and PM_TIMER messages.</FONT></FONT>
+
+<P><A NAME="PROTECTED"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Protected
+Members:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void DrawFocusIndicator(BOOL bDraw)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is provided
+only when PEG_DRAW_FOCUS is defined. This function is called by PegButton to
+draw the focus indication for all PegButton derived classes.
+<P>
+The DrawFocusIndicator function is called in two places: when the button is visible
+and received focus, and when the button is re-drawn and already has focus.
+
+<P>
+When called because focus is received, the incoming parameter is TRUE. This
+indicates that the function should do any drawing required, including invalidation,
+BeginDraw, and EndDraw, to indicate that the object has focus.
+
+<P>
+When called during a re-draw because the button has focus, the incoming parameter
+is FALSE. This indicates that the function is being called at the conclusion of
+the Draw() routine, and therefore need only perform those drawing operations
+needed to indicate that the button has focus.
+</P>
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void EraseFocusIndicator(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+provided only when PEG_DRAW_FOCUS is defined. This function is called when
+a button derived object loses input focus. The default operation of this
+function is to re-draw the button client area.</FONT></FONT>
+
+</BODY>
+</HTML>

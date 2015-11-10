@@ -1,0 +1,354 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegTextBox</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox is a multi-line
+text display control. PegTextBox is derived from PegWindow and PegTextThing,
+and therefore supports the functionality of both of these PEG classes.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The font, color,
+size, scrolling mode and other parameters can be modified, giving PegTextbox
+a wide variety of appearances.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">By default, PegTextBox
+left-justifies the displayed text. Center-justification is also supported.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Lines of text that
+are too long to fit in the client width of the textbox are also wrapped
+by default to use two or more lines. This is controlled by the EF_WRAP
+style flag. The wrapping algorithm searches for whitespace, comma, or hyphen
+characters as logical points to break long lines. If a suitable breaking
+point is not found, PegTextBox simply breaks a line at the last character
+which fits within the client width area.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If a PegTextBox is
+used to display a long section of text that requires more vertical lines
+than are visible in the TextBox client area, you can use the SetScrollMode(WSM_AUTOVSCROLL)
+function to give the PegTextBox a vertical scroll bar.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Internally, PegTextBox
+maintains a set of WORD offsets into the block of text displayed by the
+PegTextBox window.&nbsp; These offsets are the starting character offsets
+corresponding to each line of text. This allows PegTextBox to quickly display
+new lines of text as the text is scrolled up and down. Only a fixed maximum
+number of offsets are calculated at any one time (max is 100). This window
+of line-start offsets slides up and down as the user scrolls the text in
+the window. You can access these line-start offsets if needed using member
+functions.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to scroll
+bars, PegTextBox catches PK_PGUP and PK_PGDN PM_KEY message to scroll the
+displayed text up and down, page by page.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox does not
+allow user editing. The text data displayed in the textbox can only be
+modified via program control using the DataSet() or Append() member functions.
+For a full edit-style control, refer to PegEditBox.</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprompt.htm">PegPrompt</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pstring.htm">PegString</A></FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><A HREF="pwindow.htm">PegWindow</A></FONT></U><FONT FACE="Arial,Helvetica"></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><A HREF="ptxtthng.htm">PegTextThing</A></FONT></U><FONT FACE="Arial,Helvetica"></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><A HREF="peditbox.htm">PegEditBox</A></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>EF_WRAP</TD>
+
+<TD COLSPAN="2">When this style is applied the textbox will wrap long lines
+to prevent them from being clipped.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>TT_COPY</TD>
+
+<TD COLSPAN="2">Instructs the PegTextBox to copy the text string assigned.
+This flag should be used when the text string assigned to the PegString
+is created dynamically using temporary storage.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox supports
+no extended signals.</FONT></FONT>
+<BR>&nbsp;
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox is derived
+from <A HREF="pwindow.htm">PegWindow</A> and <A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTextBox(const PegRect &amp;Rect, WORD wId = 0, WORD wStyle = FF_RECESSED|EF_WRAP|TJ_LEFT,
+PEGCHAR *Text = NULL, WORD wMaxChars = 1000)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegTextBox. wMaxChars is the maximum number of characters that
+the textbox will be required to support. If more than this
+number of characters are assigned using the DataSet() function, the extra
+characters fall off the end. If more than this number of total characters
+are assigned using the Append() function, the oldest characters fall off
+the top.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Append(const PEGCHAR *pText, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function appends
+the indicated text to the current textbox string value. If the total number
+of textbox chars &gt;= the maximum number of chars, PegTextBox will remove
+the overflow characters from the start of the textbox string. This operation
+facilitates creation of terminal style windows. The textbox will automatically
+redraw to reflect the new text if the bDraw value is TRUE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void DataSet(const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox overrides
+the DataSet function to reset any scroll bars and to recalculate line offsets.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox overrides
+the Draw() function to display the textbox border and text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR *FindLinePointer(SIGNED iLine)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Finds the PEGCHAR
+at the start of the given line. If iLine is beyond the total number of
+lines, then the method returns NULL.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void GetHScrollInfo(PegScrollInfo *Put)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox overrides
+the PegWindow::GetHScrollInfo function to make the scroll bars operate relative
+to the contained text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetLineIndex(SIGNED iLine)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the starting index into the total text string at which the text for line
+iLine begins.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR *GetLineStart(SIGNED iLine, SIGNED *pLength)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the indicated line of text. Programmers must remember that
+the textbox text lines are actually subsets of a larger text string, i.e.
+the returned string is not necessarily terminated at end of the requested
+line. If the pLength parameter is non-NULL, this function returns the number
+of characters (excluding \r or \n characters) displayed on this text line.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetMaxChars(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the maximum number of characters the textbox will contain.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetTopLine(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the index of the top line currently displayed in the textbox.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void GetVScrollInfo(PegScrollInfo *Put)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox overrides
+the PegWindow::GetVScrollInfo function to make the scroll bars operate
+relative to the contained text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetWidestLine(void){return miWidestLine;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns the line number of the widest line.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED LineCount(void) {return miTotalLines;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the total number of lines contained in the textbox. This is the
+total number of lines available, as opposed to the number of lines actually
+visible.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL LineDown(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to scroll the textbox down one line under program control.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL LineUp(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to scroll the textbox up one line under program control.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void MarkLine(SIGNED iLine)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to "mark" one line of text. The marked line of text will be displayed
+using the PCI_STEXT and PCI_SELECTED foreground and background colors.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox catches
+several mouse and keyboard messages.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Resize(PegRect NewSize)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox overrides
+the Resize() function to re-calculate the layout of the displayed text
+lines.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void RewindDataSet(const PEGCHAR *pText)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function assigns
+the text string pText to the PegTextBox, and also resets the textbox to the
+top line. This is useful when the textbox content is changed, after the
+user may have scrolled the textbox down some number of lines. When this
+function is used the new text is always displayed from the start.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetFont(PegFont *pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextBox overrides
+the SetFont() function to re-calculate the layout of the displayed text
+lines.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetMaxChars(WORD wMax)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to modify the maximum number of characters the TextBox will allow.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTopLine(SIGNED iLine)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function will
+scroll the textbox to the indicated line number under program control.
+If the requested line is too far down, i.e. past the last line of text,
+PegTextBox sets the top line such that the last line of text is visible
+at the bottom of the textbox client area.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTopLineToEnd(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function will
+scroll the textbox down such that the last line of the textbox is visible.</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>&nbsp;
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Protected
+Members:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED miWidestLine</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Holds the width
+of the widest textbox line, in pixels.</FONT></FONT>
+
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED miLeftOffset</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This value indicates
+how far the textbox has scrolled from the leftmost anchor point.</FONT></FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+each different styles of PegTextBox:</FONT></FONT>
+<BR>&nbsp;
+
+<P><IMG SRC="image31.gif" >
+<BR>&nbsp;
+
+<P><IMG SRC="image32.gif" >
+<BR>&nbsp;
+
+<P><IMG SRC="image33.gif" >
+<BR>&nbsp;
+
+<P><IMG SRC="image34.gif" >
+<BR>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The complete source
+for the last example shown above can be found in the example program \peg\examples\vecfont
+distributed with your PEG release.</FONT></FONT>
+</BODY>
+</HTML>

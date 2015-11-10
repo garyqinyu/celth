@@ -1,0 +1,201 @@
+
+
+
+#include <stdlib.h>   
+#include <stdio.h>   
+#include <errno.h>   
+#include <pthread.h> 
+
+#include "bstd.h"
+#include "bkni.h"
+
+#include "celth_stddef.h"
+#include "celth_rtos.h"
+
+
+
+
+CELTH_CHAR* pVersion = "celth_v0.1"; 
+
+extern	CELTH_INT	CELTHOSL_Init		( CELTH_VOID ) 
+{
+return 0;
+}
+extern	CELTH_INT	CELTHOSL_Terminate	( CELTH_VOID ) 
+{
+return 0;
+}
+
+extern	CELTH_CONST	CELTH_CHAR*	CELTHOSL_GetVersion( CELTH_VOID ) 
+{
+ return pVersion;
+
+}
+
+extern	CELTHOSL_TaskId_t		CELTHOSL_TaskCreate	( CELTH_CONST CELTH_CHAR*		pcName,
+														CELTHOSL_EntryPoint_t	pfEntryPoint,
+														CELTH_VOID*				pParam,
+														CELTH_INT					iStackSize,
+														CELTH_INT					iPriority
+ )
+ {
+ 
+ 
+	pthread_t*  pPt=NULL;
+	pthread_attr_t attr;   
+ 
+	struct sched_param param;
+   
+	size_t stacksize;
+/*	size_t guardsize=512;*/
+   
+   
+	int Minpriority,Maxpriority;
+   
+   
+   
+   
+  
+	
+   pPt=malloc(sizeof(pthread_t)*1);
+   
+   if(pPt!=NULL)
+   {
+
+    pthread_attr_init(&attr);
+
+
+    pthread_attr_setschedpolicy(&attr, SCHED_RR);
+
+   Maxpriority = sched_get_priority_max( SCHED_RR );
+   Minpriority = sched_get_priority_min( SCHED_RR );
+
+   if((iPriority>Maxpriority)||(iPriority<Minpriority))
+   {
+		iPriority = Minpriority;
+   }
+
+
+   
+   
+
+	pthread_attr_setguardsize(&attr,512);
+
+if(iStackSize!=0)
+{
+stacksize=iStackSize;
+pthread_attr_setstacksize(&attr, stacksize);
+
+
+}
+
+    param.sched_priority = iPriority;
+
+    pthread_attr_setschedparam(&attr, &param);
+ 
+     
+   pthread_create (pPt, &attr, pfEntryPoint, pParam);  
+  
+  }
+  
+  
+   
+ return (CELTHOSL_TaskId_t) pPt;
+ }
+ 
+extern	CELTHOSL_TaskId_t		CELTHOSL_TaskId        ( CELTH_CONST CELTH_CHAR*	pucName )
+{
+return NULL;
+}
+extern	CELTHOSL_TaskId_t		CELTHOSL_TaskIdSelf    ( CELTH_VOID )
+{
+return NULL;
+}
+
+extern	CELTH_VOID                CELTHOSL_TaskDelay     ( CELTH_INT iDelay )
+{
+return NULL;
+}
+extern	CELTH_INT                 CELTHOSL_TaskDelete    ( CELTHOSL_TaskId_t pTaskId )
+{
+return 0;
+}
+extern	CELTH_INT                 CELTHOSL_TaskSuspend   ( CELTHOSL_TaskId_t pTaskId )
+{
+return 0;
+}
+extern	CELTH_INT                 CELTHOSL_TaskResume    ( CELTHOSL_TaskId_t pTaskId )
+{
+return 0;
+}
+ 
+ 
+ extern CELTH_VOID CELTHOSL_Reboot(CELTH_VOID)
+{
+return NULL;
+}
+
+extern CELTH_Status_t CELTHOSL_GetTick(CELTH_DWORD* pdwTicks)
+{
+return 0;
+}
+ 
+ 
+extern	CELTH_Status_t	CELTHOSL_EventCreate(CELTHOSL_EventId_t* peEventId )
+{
+
+
+return BKNI_CreateEvent(peEventId);  
+
+}
+extern	CELTH_VOID	CELTHOSL_EventDelete( CELTHOSL_EventId_t  eEventId )
+{
+ return BKNI_DestroyEvent((BKNI_EventHandle)(eEventId));
+}
+extern	CELTH_VOID	CELTHOSL_ResetEvent( CELTHOSL_EventId_t  eEventId )
+{
+return BKNI_ResetEvent((BKNI_EventHandle)(eEventId));
+
+
+}
+extern	CELTH_VOID	CELTHOSL_SetEvent(CELTHOSL_EventId_t    eEventId )
+{
+return BKNI_SetEvent((BKNI_EventHandle)(eEventId));
+
+}
+
+extern  CELTH_Status_t  CELTHOSL_WaitForEvent(CELTHOSL_EventId_t eEventId, CELTH_INT iTimeoutMsec)
+{
+return BKNI_WaitForEvent((BKNI_EventHandle)(eEventId),iTimeoutMsec);
+}
+ 
+ 
+ 
+ 
+ 
+/* memory function */
+
+CELTH_VOID*   CELTHOSL_MemoryAlloc		( CELTH_INT iSize ) 
+{
+
+
+CELTH_VOID*	pvoid	= NULL;
+
+pvoid	= malloc(iSize);
+
+return	pvoid;
+
+
+}
+CELTH_VOID	CELTHOSL_MemoryFree		( CELTH_VOID* pBlock ) 
+{
+
+  free(pBlock);
+
+}
+
+ 
+ 
+ 
+ 
+ 

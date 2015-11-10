@@ -1,0 +1,197 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegSpinButton</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpinButton is
+a thumbwheel style control that is normally used to adjust a numeric value
+displayed in an adjacent object. PegSpinButton objects can be horizontal
+or vertical in orientation.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are two forms
+of PegSpinButton. The first form is created when the spin button has a
+'buddy' object. A buddy object is a PegTextThing derived object that is
+automatically updated as the spin button is manipulated by the end user.
+The second form of PegSpinButton has no buddy object, and therefore reports
+spin button selection to the parent window for application level processing.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When a spin button
+has a buddy object, that object should be designed to display a numeric
+value. When the spin button is operated by the end user, the spin button
+will first convert the buddy object string to an integer, then increment
+or decrement the integer value as required, and then convert the integer
+value back to a string for assignment to the buddy object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The buddy object,
+if any,&nbsp; is required to have TT_COPY style. This is required because
+the string value assigned to the buddy object is dynamically constructed.
+If the buddy object does not have TT_COPY style, this style is added automatically
+by the spin button object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pslider.htm">PegSlider</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptxtthng.htm">PegTextThing</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpinButton supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>SB_VERTICAL</TD>
+
+<TD COLSPAN="2">Creates a vertical spin button. The default is to create
+a horizontally oriented spin button.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If a PegSpinButton
+has a non-zero ID value, it sends PSF_SPIN_MORE and PSF_SPIN_LESS signals
+to the parent window as the spin button is selected by the end user.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PSF_SPIN_MORE and
+PSF_SPIN_LESS signal messages contain the following data:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.pSource = Pointer to spin button control.
+Message.iData = ID of spin button control.</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpinButton is
+derived from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegSpinButton(SIGNED iLeft, SIGNED iTop, WORD wId = 0, WORD wStyle =
+AF_ENABLED|SB_VERTICAL)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegSpinButton(const PegRect &amp;Rect, WORD wId = 0, WORD wStyle = AF_ENABLED|SB_VERTICAL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These two constructors
+are used to create a PegSpinButton that has no buddy object. These spin
+buttons will send notification signals to the parent object as the spin
+button is operated. The first version create a PegSpinButton with default
+width and height, which is PEG_SCROLL_WIDTH.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The second version
+creates a PegSpinButton with a fully defined size.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegSpinButton(SIGNED iLeft, SIGNED iTop, PegTextThing *buddy, LONG lMin,
+LONG lMax, SIGNED iStep, WORD wId = 0, WORD wStyle = AF_ENABLED|SB_VERTICAL)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegSpinButton(const PegRect &amp;Rect, PegTextThing *buddy, LONG lMin,
+LONG lMax, SIGNED iStep, WORD wId = 0, WORD wStyle = AF_ENABLED|SB_VERTICAL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These two constructors
+are used to create a PegSpinButton that has a buddy object. These spin buttons
+directly update the buddy object, in addition to sending PSF_SPIN_MORE
+and PSF_SPIN_LESS signals to the button parent.&nbsp; The first version
+creates a PegSpinButton with default width and height, which is PEG_SCROLL_WIDTH.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The second version
+creates a PegSpinButton with a fully defined size.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpinButton catches
+messages from the spin button directional selection arrows to update the
+buddy object or send signals to the spin button parent.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetBuddy(PegTextThing *buddy)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+can be used to reset the buddy object pointer of the spin button.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetLimits(LONG lMin, LONG lMax, SIGNED iStep = -1)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to reset the spin button limits and step value. A positive step
+value causes the spin button to increase the value of a buddy object when
+the "Up" or "Right" spin buttons are pressed. A negative step value reverses
+the direction of increment/decrement.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetOutputWidth(SIGNED iWidth) {miOutputWidth = iWidth;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to specify a fixed-width output format for spin buttons with a
+buddy object. The iWidth parameter indicates how many digits the output
+value should contain. The output string is left-padded with zeros if required
+to fill the indicated width.&nbsp;</FONT></FONT>&nbsp;
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following illustrates
+a vertical PegSpinButton with a PegPrompt buddy object:</FONT></FONT>
+<BR><IMG SRC="image17.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;
+<HR>The following function creates a PegPrompt for displaying a numeric
+value. The prompt will be updated by a vertical PegSpinButton object. The
+range of values will be 20 through 80, and the value will increment/decrement
+by 5 each time the spin button is operated.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::AddSpinPrompt(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ChildRect;
+&nbsp;&nbsp;&nbsp; ChildRect.Set(20, 20, 100, 40);
+&nbsp;&nbsp;&nbsp; PegPrompt *pPrompt = new PegPrompt(PromptRect, "20", 0,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FF_RECESSED|TJ_RIGHT|TT_COPY);
+&nbsp;&nbsp;&nbsp; Add(pPrompt);
+
+&nbsp;&nbsp;&nbsp; // set the spin button position to the right of the prompt:
+
+&nbsp;&nbsp;&nbsp; ChildRect.wLeft = pPrompt->mReal.wRight + 1;
+&nbsp;&nbsp;&nbsp; ChildRect.wRight = ChildRect.wLeft + PEG_SCROLL_WIDTH;
+&nbsp;&nbsp;&nbsp; PegSpinButton *pSpin = new PegSpinButton(ChildRect,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pPrompt, 20, 80, 5, SB_VERTICAL);
+&nbsp;&nbsp;&nbsp; Add(pSpin);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

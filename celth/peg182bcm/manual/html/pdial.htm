@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.7">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegDial</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDial is an abstract
+base class from which <A HREF="pfdial.htm">PegFiniteDial</A> and <A HREF="pfbdial.htm">PegFiniteBitmapDial</A>
+are derived. PegDial provides the base functionality common to all the
+derived dial objects in the PEG library.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">It is important to understand how the angle
+value works on the dial. Consider an <I>xy</I> coordinate system (Figures 1 and 2, below). 
+A point <I>P</I> in the <I>xy</I> plane has coordinates <I>(x,y)</I> where <I>x</I> is considered 
+positive along <I>OX</I> and negative along <I>OX'</I> while <I>y</I> is positive along <I>OY</I>
+and negative along <I>OY'</I>. The angle <I>A</I> described <I>counterclockwise</I> from <I>OX</I>
+is considered <I>positive</I>. If it is described <I>clockwise</I> from <I>OX</I> it is
+considered <I>negative</I>. We call <I>X'OX</I> and <I>Y'OY</I> the <I>x</I> and <I>y</I> axis
+respectively.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The various quadrants are denoted by I,II,III and IV
+called the first, second, third and fourth quadrants, respectively. In Figure 1, for example, angle <I>A</I>
+is in the second quadrant while in Figure 2, angle <I>A</I> is in the third quadrant.</FONT></FONT>
+
+<BR>&nbsp;
+<CENTER><IMAGE SRC="dialfigs.gif" BORDER="0"></CENTER>
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When working with angles with any PegDial derived
+class, 0 degrees is always on line <I>OX</I> with greater angle values going <I>counterclockwise</I>. 
+Therefore, line <I>OY</I> is at 90 degrees, line <I>OX'</I> is at 180 degrees and line <I>OY'</I> is
+at 270 degrees.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pthing.htm">PegThing</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pfdial.htm">PegFiniteDial</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pfbdial.htm">PegFiniteBitmapDial</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pcdial.htm">PegCircularDial</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pcbdial.htm">PegCircularBitmapDial</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDial supports
+the standard frame styles FF_NONE, FF_THIN, FF_THICK, FF_RAISED, and FF_RECESSED.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDial also supports
+the following additional styles:</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<CENTER><TABLE BORDER WIDTH="100%" >
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">DS_CLOCKWISE</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">Sets the direction that the data will
+move the needle. Having this flag set causes the needle to move in a clockwise direction
+as the current value gets larger. Clearing this flag will cause the needle to move in a
+counter clockwise direction.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_TICMARKS</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">If this flag is set, the dial will draw
+tick marks at the defined intervals.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_THINNEEDLE</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">Will draw the needle as a thin single
+line.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_THICKNEEDLE</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">Will draw the needle as a thick single
+line.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_POLYNEEDLE</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">Will draw the needle using a filled polygon.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_RECTCOR</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">Rectangle Center of Rotation. Will use
+the center of the bounding rectangle (mReal) as the center for the anchor
+of the needle.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_USERCOR</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">User Center of Rotation. Allows the user
+to specify where the center anchor will be for the needle. This allows
+for off center bitmaps to be used for backgrounds on the dial.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">DS_STANDARDSTYLE</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">A combination of DS_THINNEEDLE | DS_CLOCKWISE
+| DS_TICMARKS | DS_RECTCOR.</FONT></TD>
+</TR>
+
+<TR>
+<TD><FONT FACE="Arial,Helvetica">AF_TRANSPARENT</FONT></TD>
+
+<TD><FONT FACE="Arial,Helvetica">Enables the background to be drawn using the background color of the parent.</FONT></TD>
+</TR>
+</TABLE></CENTER>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDial does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDial is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDial(PegRect &amp;Rect, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor simply takes a
+reference to a PegRect and a WORD for the style flags.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDial(SIGNED iLeft, SIGNED iTop, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor simply
+takes SIGNED values to describe the left and top position of the dial. By
+default, an object created in this fashion will have a width and height of
+100 pixels.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>COLORVAL GetAnchorColor(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetAnchorColor(COLORVAL tColor)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions provide retrieval and 
+setting of the color used to draw the needle anchor.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetAnchorWidth(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetAnchorWidth(WORD wWidth)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions provide retrieval and 
+setting of the anchor width.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetCurAngle(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the current angle of the needle.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetCurrentValue(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the current value.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>COLORVAL GetDialColor(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetDialColor(COLORVAL tColor)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions provide retrieval and 
+setting of the color used to draw the dial face.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetMinAngle(void) const</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method 
+returns the minimum angle supported by the dial.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetMinValue(void) const</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method 
+returns the minimum value supported by the dial.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetMaxAngle(void) const</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method 
+returns the maximum angle supported by the dial.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetMaxValue(void) const</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method 
+returns the maximum value supported by the dial.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>COLORVAL GetNeedleColor(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetNeedleColor(COLORVAL tColor)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions allow for the 
+setting and retrieving of the current color of the needle.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetNeedleLength(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetNeedleLength(WORD wLength)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions allow for the 
+setting and retrieving of the current length of the needle. The value can be between
+0 and 100 (inclusive). This value is used to calculate the length of the needle based on the
+lesser of the width or height of the dial. For example, if this value is set to 80, then
+the length of the needle is 80% of the width or height of the dial, whichever is smaller.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetTicFreq(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTicFreq(LONG lFreq)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions provide retrieval and 
+setting of the tick mark frequency. This determines the interval at which tick marks will be 
+drawn on the dial face.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetTicLen(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTicLen(WORD wLength)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions provide retrieval and 
+setting of the tick mark length. This value works the same way as the needle length. The value
+is a percentage of the width or height of the dial, whichever is smaller. Therefore, if this
+value was set to 10, then the tick length would be 10% of the width or height of the dial, whichever
+is smaller.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual LONG IncrementValue(LONG lValue, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This virtual method 
+increments the current value of the dial. By default, if the object is 
+visible, it will redraw itself. To supress this behavior, set bRedraw to
+FALSE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetValue(LONG lValue, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This virtual method allows 
+the current value to be set. By default, if the object is visible, it will
+redraw itself. To circumvent this behavior, set bRedraw to FALSE.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">See <A HREF="pfdial.htm#Examples">PegFiniteDial</A> 
+or <A HREF="pfbdial.htm#Examples">PegFiniteBitmapDial</A> for examples of PegDial derived objects.
+</FONT></FONT>
+
+<HR>
+</BODY>
+</HTML>

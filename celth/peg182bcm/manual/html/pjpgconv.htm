@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegJpgConvert</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegJpgConvert is
+a PegImageConvert derived class for reading and de-compressing JPG input
+images. Before using PegJpgConvert, be sure to read fully the PegImageConvert
+base class documentation.
+
+<P>The PegJpgConvert class is only included in the PEG library if
+ PEG_JPG_CONVERT is defined in header file pconfig.hpp.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegJpgConvert reads
+JPG image files and produces PegBitmap structures. The structures produced 
+are NOT deleted when the PegJpgConvert object is
+deleted, unless you first call the DestroyImages() function before deleting
+the PegJpgConvert object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Normal usage is to
+create the PegJpgConvert object, use it to read and decompress any number
+of JPG images, and to retrieve the PegBitmap structures from the conversion
+object using the GetBitmapList() function. Once you have retrieved the output 
+produced, you can delete the conversion object without losing any data. After
+you are done using or displaying the PegBitmaps produced, you should free the memory associated
+with the run-time conversion by deleting the PegBitmap(s). You can delete
+PegBitmap by calling Screen()->DestroyBitmap(pMap).</FONT></FONT>
+
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegJpgConvert header
+file, "\peg\include\pjpgconv.hpp", includes several definitions specific to the JPG decoder.
+These definitions can be turned on or off (defined or not defined) to fine
+tune the memory usage and feature support of the JPG converter. Note that
+<B>run-time decompression of JPG images is CPU and memory intensive!</B> Run-time
+decoding of random JPG images requires a target system with at least several hundred
+KBytes of dynamic memory, and possibly also virtual memory capablities. For this
+reason we encourage users who have a the ablity to design out the use of JPG to
+opt instead for GIF or PNG encoded images, which use much less memory during
+the decode process.
+
+<P>JPG_VIRTUAL_MEMORY is defined if your target system has file I/O capability
+using the standard ANSI-C file access functions. JPG_VIRTUAL_MEMORY must be
+enabled to support multi-scan and progressive JPG files, but is not required
+for other (i.e. single scan) JPG file types.
+
+<P>DEFAULT_MAX_JPEG_MEM defines the maximum amount of dynamic memory the JPG
+decoder may use. If JPG_VIRTUAL_MEMORY is defined, virtual memory will be used
+if additional memory is required during the decode process. If JPG_VIRTUAL_MEMORY
+is not defined, DEFAULT_MAX_JPEG_MEM must be large enough to allow the decoder
+to create the intermediate data objects used during the decode process. The
+amount of memory required is largely dependant on the type of JPG files being
+decoded and the file (image) size. For small (i.e. up to 200x200) images,
+64K Bytes of dynamic memory has proven to be sufficient. For larger or more
+complex images, larger dynamic memory regions will be required. Trial and error
+is the only method for determining the best setting for your system.
+It is interesting to note that since JPG is an analog encode/decode process,
+running out of memory results in a loss of image quality, it does not usually
+prevent the JPG decoder from producing an image.
+
+</FONT></FONT>
+<BR>&nbsp;
+
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbmpconv.htm">PegBmpConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pgifconv.htm">PegGifConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pimgconv.htm">PegImageConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ppngconv.htm">PegPngConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pquant.htm">PegQuant</A></FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegJpgConvert is
+derived from PegImageConvert.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegJpgConvert(WORD wId)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates an image conversion object.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL ReadImage(SIGNED iCount = 1)</B></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL ReadImage(FILE *fd, SIGNED iCount = 1)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function reads
+the JPG image. The iCount parameter is ignored for JPG image files. The second
+form of the function is defined only if PIC_FILE_MODE is defined in the 
+\peg\include\pimgconv.hpp header file. The first form of the function is used
+to transfer source file data from an external source (such as a www broswer
+network stack) to the image decoder.
+
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A complete working
+example program using the run-time image conversion classes is provided
+in your PEG distribution in the directory \peg\examples\imgbrows.</FONT></FONT>
+</BODY>
+</HTML>

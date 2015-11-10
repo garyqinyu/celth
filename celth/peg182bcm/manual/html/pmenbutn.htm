@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegMenuButton</FONT></FONT></B></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuButton is
+a button class used to populate PegMenu and PegMenuBar objects. PegMenuButton
+sends selection signals to the owner of the PegMenu or PegMenuBar.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Custom appearance
+for PegMenuButton objects can be created by altering the PegMenuButton
+Draw() function or preferably by deriving new versions of PegMenuButton
+from the PegMenuButton class. Overriding the Draw() function of PegMenuButton
+allows the developer to create any desired menu button appearance.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The styles for PegMenuButton
+descriptions are very important. They define whether the item sends a simple
+command, or if the item defines additional characteristics such as 'dotable'
+or 'checkable'.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuButton objects
+are automatically created by <A HREF="pmenubar.htm">PegMenuBar</A> and
+<A HREF="pmenu.htm">PegMenu</A>
+objects to satisfy the corresponding PegMenuDescriptions. It is NOT necessary
+to create individual PegMenuButton objects manually. Simply defining the
+PegMenuDescription is all that is required to create a fully functional
+command menu.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenubar.htm">PegMenuBar</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenu.htm">PegMenu</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmendesc.htm">PegMenuDescription</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuButton supports
+the following style flags:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">BF_SEPARATOR&nbsp; - The menu button is a separator item.
+BF_CHECKABLE&nbsp; - The menu button can be 'checked' or 'unchecked'
+BF_CHECKED&nbsp;&nbsp;&nbsp; - If checkable, defines initial state of the menu button
+BF_DOTABLE&nbsp;&nbsp;&nbsp; - The menu button is mutually exclusive when selected
+BF_DOTTED&nbsp;&nbsp;&nbsp;&nbsp; - If dotable, defines initial state of the menu button</FONT></FONT></PRE>
+<A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuButton is
+derived from classes <A HREF="pthing.htm">PegThing</A> and <A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMenuButton(PegMenuDescription
+*pDesc)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegMenuButton
+constructor creates a PegMenuButton object. The description should contain
+either a valid button ID or the address of an additional PegMenuDescription
+array.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void CloseMenu(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function closes
+the submenu associated with the PegMenuButton, if any.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuButton overrides
+the Draw() function to display the menu command text string. This function
+may be overridden to define a custom menu button appearance.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*Find(WORD wID, BOOL bRecursive = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method searches
+through its child objects to find an object with an id of wID. If bRecursive
+is true, it will search through the button's ancestry until it either
+finds the object or exhausts the list of child objects.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMenuButton
+*FindButton(PEGCHAR *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to find a particular PegMenuButton object. This function is called
+by PegMenu and PegMenuBar to recursively search the menu tree when the associated
+functions of the same name are invoked.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegRect GetMinSize(UCHAR uType)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the minimum height and width required to display the PegMenuButton object.
+The returned value includes space for checkmarks, dot selection, and sub-menu
+indicator bitmaps.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *GetOwner(void)
+{return mpOwner;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the owner
+object of the button.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>inline
+PegMenu *GetSubMenu(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the sub-menu associated with a menu button, or NULL if the
+button has no sub-menu.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+BOOL IsChecked(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For BF_CHECKABLE
+PegMenuButton objects, this function returns TRUE if the item is currently
+selected, else FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+BOOL IsDotted(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For BF_DOTABLE PegMenuButton
+objects, this function returns TRUE if the item is currently selected,
+else FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+IsPointerOver(void) {return mbPointerOver;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns a boolean
+stating whether the mouse pointer is over this menu button.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+BOOL IsSeperator(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+true if the menu button is a separator style button.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+IsSubVisible(void) {return mbSubVisible;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns a boolean
+stating whether the sub menu of this button is visible.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuButton catches
+PM_POINTERENTER, PM_POINTEREXIT, PM_LBUTTONDOWN, and PM_LBUTTONUP messages.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetChecked(BOOL State)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to check or uncheck a checkable menu item under program control,
+rather than through the normal method of user selection.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetDotted(BOOL State)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to select a dotable menu item under program control, rather than
+through the normal method of user selection.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetEnabled(BOOL State)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to Enable or Disable a menu button at any time. Disabled menu buttons
+are drawn with a modified appearance to indicate to the end user that they
+are not active.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetOwner(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called by PegMenu and PegMenuBar objects to assign the button parent. This
+directs the menu button command signals to the menu owner window, instead
+of to the menu parent window.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetSubMenu(PegMenu *pMenu)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to assign at run-time the sub-menu associated with a menu button.
+This is commonly used when a PegMenu is defined or modified at run time
+using a dynamically constructed PegMenuDescription. This function does
+<B>not</B>
+need to be called if the PegMenuDescription for a menu tree is statically
+defined.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+examples of PegMenuBar, PegMenu, and PegMenuButton:</FONT></FONT>
+<P><IMG SRC="image12.gif" >
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenu.htm#Examples">PegMenu
+example</A>. <A HREF="pmenubar.htm#Examples">PegMenuBar example</A>.</FONT></FONT>
+</BODY>
+</HTML>

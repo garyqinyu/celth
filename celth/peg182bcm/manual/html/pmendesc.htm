@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegMenuDescription</FONT></FONT></B></CENTER>
+&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuDescption
+is a structure used to define PegMenuButton objects. Arrays of PegMenuDescriptions
+are used to define any number of nested menus and sub-menus. PegMenuDescription
+arrays are terminated with an entry filled with 0 or NULL values.&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegMenuDescription
+structure is defined as:</FONT></FONT>
+<PRE>
+
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">struct PegMenuDescription
+
+{
+
+&nbsp;&nbsp;&nbsp; PEGCHAR *pText;
+
+&nbsp;&nbsp;&nbsp; WORD wId;
+
+&nbsp;&nbsp;&nbsp; WORD wStyle;
+
+&nbsp;&nbsp;&nbsp; PegMenuDescription *pSubMenu;
+
+};</FONT></FONT></B></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenu.htm">PegMenu</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenbutn.htm">PegMenuButton</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenubar.htm">PegMenuBar</A></FONT></FONT>
+</BODY>
+</HTML>

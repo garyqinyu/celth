@@ -1,0 +1,218 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegPrompt</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt is a text
+display object. PegPrompt can be drawn with several different border styles,
+and can be updated dynamically for interactive updates or real-time information
+display. PegPrompt does not support user editing.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt will by
+default send PSF_CLICKED signals to its parent object if the prompt
+Id is non-zero. By default PegPrompt objects cannot be selected, and do
+not send signals.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt can also
+be used to populate PegComboBox and PegList objects.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The font used by
+PegPrompt can be changed at any time by using the SetFont() function, which
+is a PegTextThing member function. Likewise, the color used by PegPrompt
+can be set at any time by calling the SetColor() function.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pstring.htm">PegString</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>TJ_RIGHT</TD>
+
+<TD>Right justified text.</TD>
+</TR>
+
+<TR>
+<TD>TJ_LEFT</TD>
+
+<TD>Left justified text.</TD>
+</TR>
+
+<TR>
+<TD>TJ_CENTER</TD>
+
+<TD>Centered text.</TD>
+</TR>
+
+<TR>
+<TD>TT_COPY</TD>
+
+<TD>Instructs the prompt to copy the string assigned. This flag should
+be used when the string assigned to the prompt is created dynamically using
+temporary storage.</TD>
+</TR>
+
+<TR>
+<TD>AF_TRANSPARENT</TD>
+
+<TD>Does not fill client area, assumes same color as parent.</TD>
+</TR>
+
+<TR>
+<TD>AF_ENABLED</TD>
+
+<TD>Prompt can be selected. The prompt will also send a PSF_FOCUS_RECEIVED
+signal to it's parent.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to the
+common signals defined by PegThing, PegPrompt supports the PSF_CLICKED
+and PSF_FOCUS_RECEIVED signal notifications.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt is derived
+from <A HREF="pthing.htm">PegThing</A> and <A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPrompt(const PegRect &amp;Rect, const PEGCHAR *Text, WORD wId = 0,
+WORD wStyle = FF_NONE|TJ_LEFT|AF_TRANSPARENT)</B></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPrompt(SIGNED iLeft, SIGNED iTop, SIGNED iWidth, const PEGCHAR *Text,
+WORD wId = 0, WORD wStyle = FF_NONE|TJ_LEFT|AF_TRANSPARENT, PegFont *pFont
+= NULL)</B></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPrompt(SIGNED iLeft, SIGNED iTop, const PEGCHAR *Text, WORD wId =
+0, WORD wStyle = FF_NONE|TJ_LEFT|AF_TRANSPARENT, PegFont *pFont = NULL)</B></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are three PegPrompt
+constructors. The first allows you to fully specify the PegPrompt position
+and size. The second and third automatically determine the prompt height
+based on the font passed to the constructor or the default font prompt
+if no font is passed. The second constructor allows you to specify the
+overall prompt width, while using the third constructor allows the prompt
+to calculate the minimum width required to display the specified text in
+the specified font.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void DataSet(const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt overrides
+the DataSet() function to invalidate the prompt client area.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt overrides
+the Draw() function to display the prompt text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt catches
+PM_LBUTTONUP messages.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetFont(PegFont *pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt overrides
+the SetFont() function to invalidate the prompt client area.&nbsp;</FONT></FONT>&nbsp;
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+each different styles of PegPrompt:</FONT></FONT>
+<BR><IMG SRC="image14.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;
+<HR>The following function creates a PegPrompt object with a custom font:</FONT></FONT>
+<PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">extern PegFont CustomFont;
+
+void MyWindow::AddCustomPrompt(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ChildRect;
+&nbsp;&nbsp;&nbsp; ChildRect.Set(0, 0, 100, 40);
+&nbsp;&nbsp;&nbsp; PegPrompt *pPrompt = new PegPrompt(ChildRect, "FooBar");
+&nbsp;&nbsp;&nbsp; pPrompt->SetFont(&amp;CustomFont);
+&nbsp;&nbsp;&nbsp; Add(pPrompt);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

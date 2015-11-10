@@ -1,0 +1,411 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegWindow</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow defines
+a basic rectangular area on the screen. Important functionality added by
+PegWindow includes the concept of scrolling a virtual client area.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow objects
+may be used as is, but more commonly serve as the base class for the more
+refined window classes such as <A HREF="pdecwin.htm">PegDecoratedWindow</A>
+and <A HREF="pdialog.htm">PegDialog</A>. PegWindow provides the capabilities
+of being re-sized by the user, having a virtual client area, having one
+of several frame styles, and controlling non-client-area scroll bars.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A PegWindow drawn
+with a raised border provides a blank panel that is useful for splash screens.
+A PegWindow with no border is useful as a container for other objects.
+The window can be moved to different locations or added to different parent
+objects, and all of the window's children will move with the window.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A simple way to create
+a window with a virtual scrolling client area is to nest a large window
+within the client area of a parent window.
+An <A HREF="#Examples">example</A> of this is included
+in the examples section for PegWindow.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow and PegWindow
+derived classes are also by default <A HREF="mansup.htm#VIEWPORTS">Viewports</A>.
+This means that objects underneath PegWindow are not allowed to obscure
+the screen area owned by the window. This is an important performance enhancing
+feature of PEG, and also provides improved visual appeal.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When a PegWindow
+object is resized, all children of the window receive PM_PARENTSIZED system
+messages. This message can be caught by child objects to position and size
+themselves relative to their parent window.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A window defaults
+to PSF_MOVEABLE and PSF_SIZEABLE if the FF_THICK frame style is used. For
+all other frame styles, the window will default to non-sizeable and non-moveable.
+This can be overridden by calling AddStatus() or RemoveStatus() after constructing
+the window.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A window defaults
+to having no scroll bars, and automatic scrolling mode is disabled. The
+member function SetScrollMode() is used to alter the scrolling mode of
+the window.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="mansup.htm#SCROLLING">How
+Scrolling Works</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="mansup.htm#VIEWPORTS">Viewports</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdecwin.htm">PegDecoratedWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdialog.htm">PegDialog</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmesgwin.htm">PegMessageWindow</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow derives
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegWindow(const
+PegRect &amp;Rect, WORD wStyle = FF_THICK)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor is used
+when the initial size and position of the window are know at the time the
+window is created. Rect defines the mReal position of the window.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegWindow(WORD
+wStyle = FF_THICK)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+is used when the default position
+of the window is not known at the time the window is constructed, or the
+window size and position are self determined. When this constructor is
+used, the window should determine its position before or when the PM_SHOW
+message is received. This should be done in two steps:</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">1) Set the window
+mReal member variable.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">2) Call InitClient(),
+to initialize the window's client area.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Add(PegThing *pWho, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow overrides
+this method to not only add the pWho object, but also to give this object
+focus if necessary.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void AddIcon(PegIcon *pIcon)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function positions
+and adds a PegIcon object to the window. The window will automatically
+determine the correct position for the PegIcon object. It should be noted
+that any PegWindow derived object can contain icons. It is sometimes assumed
+that only PegPresentationManager can act as a PegIcon container, which
+is not the case.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+CheckAutoScroll(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If either WSM_AUTOVSCROLL
+or WSM_AUTOHSCROLL scroll modes are set, this function is called when the
+window is re-sized to determine if scroll bars need to be updated. Derived
+classes also call this function at times when the scroll bars may need
+to be added or removed.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR
+CurrentMoveMode(void) {return muMoveMode;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the current
+move mode of the window.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The Draw() function
+of PegWindow is broken out into two sections. The function DrawFrame()
+is called first to draw the window frame, and then the child objects of
+the window are drawn. Classes derived from PegWindow may find it convenient
+to use the DrawFrame() function as part of an overridden Draw() routine.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void DrawFrame(BOOL bFill = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function draws
+the window frame using the current frame style flags. This function can
+be useful to PegWindow derived classes that have overridden the Draw()
+function.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Execute(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to execute any window modally. The Execute() function does not
+return until the window is closed. Under the MULTITHREAD model, calling
+execute from a task other then PegTask causes the window and any subsequent
+windows to execute from within the calling task's thread.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In most cases, a window
+should be added to PegPresentationManager before calling the Execute()
+function of the window. The exception is when MULTITHREAD operation is
+enabled, and the user desires to execute the window from within a secondary
+thread. In this case, calling Execute() will automatically add the window
+to PegPresentationManager, and the window will run from within the thread
+of the calling task.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void GetHScrollInfo(PegScrollInfo *pPut)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called by PegWindow and non-client PegHScroll children to determine the
+appearance and range of the window horizontal scroll bar. The default PegWindow
+implementation queries the position of all client-area child objects to
+determine the horizontal scroll information. This function is often overridden
+in derived PegWindow classes to provide custom scrolling operation.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegBitmap *GetIcon(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the PegBitmap currently associated with the window Icon.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+UCHAR GetScrollMode(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the current
+window scroll mode.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void GetVScrollInfo(PegScrollInfo *pPut)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called by PegWindow and non-client PegVScroll children to determine the
+appearance and range of the window vertical scroll bar. The default PegWindow
+implementation queries the position of all client-area child objects to
+determine the vertical scroll information. This function is often overridden
+in derived PegWindow classes to provide custom scrolling operation.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GlobalModalExecute(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Normally a call to Execute() will make a window modal within its own task, while windows in other tasks can still get focus and read mouse/keyboard input.  This function makes a window modal over all tasks.  It is only provided if #define PEGMULTITHREAD is enabled in the configuration file pconfig.hpp.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void
+InitClient(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Initializes the
+client region, taking into account the presence and size of a border.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+IsMaximized(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns TRUE if
+the window is maximized, else FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+IsModal(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns TRUE if
+the window is modal, else FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow overrides
+the Message function, primarily to catch mouse clicks for re-sizing the
+window. PegWindow also catches SIGNAL(IDB_CLOSE, PSF_CLICKED) to close
+the window.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void
+MoveFocusToFirstClientChild(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Moves the focus
+to the first child of the window.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Resize(PegRect NewSize)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow overrides
+the Resize() function to send PM_PARENTSIZED notifications to child objects,
+and to update scroll bars. This function is often overridden to provide
+custom operation.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetIcon(PegBitmap *pMap)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function assigns
+the bitmap that will be associated with the window icon.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetScrollMode(UCHAR wMode)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets
+the operation of non-client-area scroll bars. Non-client-area scroll bars
+are used to provide the appearance of a virtual-client area. The available
+scroll modes are:</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">WSM_AUTOVSCROLL...Add
+vertical scroll bar when needed</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">WSM_VSCROLL.......Add
+vertical scroll bar always</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">WSM_AUTOHSCROLL...Add
+horizontal scroll bar when needed</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">WSM_HSCROLL.......Add
+horizontal scroll bar always</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">WSM_AUTOSCROLL....AUTOVSCROLL|AUTOHSCROLL</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">WSM_CONTINUOUS....Continuous,
+smooth scrolling</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Automatic scrolling
+relies on the values returned by the GetVScrollInfo() and GetHScrollInfo()
+functions to determine when each scroll bar is required. If the PegScrollInfo.wVisible
+value is &gt;= the overall scroll range, the corresponding scroll bar is
+not required.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The WSM_CONTINUOUS
+mode can be included with any other modes. This flag causes the scroll
+bars to send scroll messages continuously as they are dragged by the user,
+rather than the default operation which is to send a scroll message only
+when the scroll button is released.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Continuous scrolling
+requires greater hardware performance and/or hardware acceleration in the
+video controller to provide the best smooth scrolling. Performance-limited
+platforms should not use the WSM_CONTINUOUS flag.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Protected
+Members:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+UCHAR BorderContains(PegPoint Point)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called on receipt of PM_POINTERMOVE messages to determine if the mouse is
+over the window border. The return value is 0 if the mouse pointer is not
+over the window border, or a MoveMode. The MoveModes are defined in the
+file \peg\include\pwindow.hpp.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR
+muScrollMode</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The current window
+scroll mode.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+mbModal</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">TRUE if window is
+executing modally.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+mbMaximized</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">TRUE if window is
+currently maximized.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR
+muMoveMode</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The current move
+or resize mode of the window.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegHScroll
+*mpHScroll</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to non-client
+horizontal scroll bar if present, else NULL.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegVScroll
+*mpVScroll</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to non-client
+vertical scroll bar if present, else NULL.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Default PegWindow:</FONT></FONT>
+<P><IMG SRC="image1.gif" >
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegWindow with FF_RAISED
+frame style:</FONT></FONT>
+<P><IMG SRC="image2.gif" >
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Two PegWindow objects
+nested within another PegWindow. The child windows have scrolling enabled:</FONT></FONT>
+<P><IMG SRC="image3.gif" >
+<P>
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates a PegWindow and adds the window to PegPresentationManager. The
+window will have a default (thick) border, and will be 190 pixels wide
+by 110 pixels tall, and will be centered on the screen.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void SomeObject::CreateWindow(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect WinSize;
+&nbsp;&nbsp;&nbsp; WinSize.Set(10, 10, 200, 120);
+&nbsp;&nbsp;&nbsp; PegWindow *pWin = new PegWindow(WinSize);
+&nbsp;&nbsp;&nbsp; Presentation()-&gt;Center(pWin);
+&nbsp;&nbsp;&nbsp; Presentation()-&gt;Add(pWin);
+}</FONT></FONT></PRE>
+
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+will create a PegWindow with a recessed frame and add the window to the
+current object. The window will fill the client area of the current object.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void SomeObject::AddClientWindow(void)
+{
+&nbsp;&nbsp;&nbsp; PegWindow *pWin = new PegWindow(mClient, FF_RECESSED);
+&nbsp;&nbsp;&nbsp; Add(pWin);
+}</FONT></FONT></PRE>
+
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates two PegWindow objects. The second window will be a child of the
+first. The second window is also much larger than the first. We will configure
+the outer parent window to provide scroll bars, so that the user can pan
+to display all areas of the child window. The resulting parent/child window
+combination will be centered on the screen.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void SomeObject::CreateScrollingWindow(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ParentRect, ChildRect;
+
+&nbsp;&nbsp;&nbsp; ParentRect.Set(0, 0, 200, 140);
+&nbsp;&nbsp;&nbsp; ChildRect.Set(0, 0, 800, 800);
+
+&nbsp;&nbsp;&nbsp; PegWindow *pOuter = new PegWindow(ParentRect);
+&nbsp;&nbsp;&nbsp; PegWindow *pChild = new PegWindow(ChildRect, FF_NONE);
+&nbsp;&nbsp;&nbsp; pOuter-&gt;Center(pChild);
+&nbsp;&nbsp;&nbsp; pOuter-&gt;Add(pChild);
+&nbsp;&nbsp;&nbsp; pOuter-&gt;SetScrollMode(WSM_AUTOSCROLL);
+
+&nbsp;&nbsp;&nbsp; Presentation()-&gt;Center(pOuter);
+&nbsp;&nbsp;&nbsp; Presentation()-&gt;Add(pOuter);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

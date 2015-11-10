@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegLight</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLight is the base class for
+<A HREF="pclight.htm">PegColorLight</A> and <A HREF="pblight.htm">PegBitmapLight</A>.
+PegLight provides the basic functionality necessary to implement a state driven
+object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLight is a state light
+that is capable of graphically displaying the state of an object. Given the necessary
+amount of memory, it is capable of supporting WORD number of states. This, 
+of course, is target dependent.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pclight.htm">PegColorLight</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pblight.htm">PegBitmapLight</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLight supports the standard PegThing styles
+for borders: FF_NONE, FF_THIN, FF_RECESSED and FF_RAISED.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLight does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLight is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegLight(PegRect &amp;Rect, WORD wNumStates, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes a reference to a PegRect to determine its size, 
+a WORD value for the number of states it supports, and a style WORD. It is 
+important to remember that the light states are 0 based. Therefore, the 
+first state is 0 and the last state is wNumStates - 1.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegLight(SIGNED iLeft, SIGNED iTop, WORD wNumStates, WORD wStyle)
+</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes left and top coordinates for the placement of the
+light. By default, this will create a light 100 pixels in height and 100 pixels
+in width. It also takes a WORD for the desired number of states and the
+typical style word. As stated above, it is important to remember that
+the states are 0 based.
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual WORD DecrementState(BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method decrements the
+current state of the light. If the state is already at the first state, then it will
+wrap up to the last state. This method returns the value of the current state of
+the light.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetCurrentState(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns
+the current state of the light.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetNumStates(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the
+total number of states supported by the light.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual WORD IncrementState(BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method increments the
+current state of the light. If the state is already at the last state, it will wrap
+back to the first state. This method returns the value of the current state of the light.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual WORD SetNumStates(WORD wState)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In this class, this
+function merely sets the number of states supported by the object as well
+as ensures that the current state is within the range of the newly
+assigned number of states. In the derived classes, PegColorLight and 
+PegBitmapLight, this method provides increased functionality. See those 
+pages for a better description of setting the number of states at 
+runtime after the object has been constructed.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual WORD SetState(WORD wState, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method attempts to set the
+current state of the light to wState. If wState is less than zero, or wState is greater than
+the number of states minus one, then the current state of the light is unchanged. 
+This method returns the current state of the light.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">See <A HREF="pclight.htm#Examples">PegColorLight</A>
+or <A HREF="pblight.htm#Examples">PegBitmapLight</A> for examples of PegLight derived objects.
+</FONT></FONT>
+
+<HR>
+</BODY>
+</HTML>

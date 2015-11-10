@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="UltraEdit32">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegDecoratedButton</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+is a PegButton class that has the ability to display both text and a PegBitmap.
+The location of the text relative to the bitmap is user selectable using
+a set of extended style flags. PegDecoratedButton also supports a 'flyover'
+mode, where the button appears flat until the pointer is over the button.</FONT></FONT>
+<BR>&nbsp;
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbutton.htm">PegButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbitbutn.htm">PegBitmapButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptxtbutn.htm">PegTextButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pradbutn.htm">PegRadioButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pchkbox.htm">PegCheckBox</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+supports the standard frame styles FF_NONE, FF_THIN, FF_THICK, FF_RAISED,
+and FF_RECESSED.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+also supports the button styles BF_REPEAT and BF_DOWNACTION.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+also supports two extended styles, BF_ORIENT_TR and BF_ORIENT_BR. These
+style flags are independent of the PegButton derived style flags. These
+flags allow the bitmap and text to be positioned relative to each other.
+Here is how they work together.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<CENTER><TABLE BORDER COLS=2 WIDTH="90%" >
+<TR>
+<TD>!BF_ORIENT_TR &amp;&amp; !BF_ORIENT_BR</TD>
+
+<TD>Bitmap is displayed to the left of the text</TD>
+</TR>
+
+<TR>
+<TD>BF_ORIENT_TR &amp;&amp; !BF_ORIENT_BR</TD>
+
+<TD>Bitmap is displayed above the text</TD>
+</TR>
+
+<TR>
+<TD>!BF_ORIENT_TR &amp;&amp; BF_ORIENT_BR</TD>
+
+<TD>Bitmap is displayed below the text</TD>
+</TR>
+
+<TR>
+<TD>BF_ORIENT_TR &amp;&amp; BF_ORIENT_BR</TD>
+
+<TD>Bitmap is displayed to the right of the text</TD>
+</TR>
+</TABLE></CENTER>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+sends the PSF_CLICKED signal when selected.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+is derived from <A HREF="pbutton.htm">PegButton</A>.</FONT></FONT>
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDecoratedButton(PegRect &amp;Rect,
+const PEGCHAR *pText, PegBitmap *pBitmap, WORD wId = 0, WORD wStyle = AF_ENABLED,
+WORD wExStyle = 0, BOOL bFlyOver = FALSE)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDecoratedButton(SIGNED
+iLeft, SIGNED iTop, SIGNED iWidth, const PEGCHAR *pText, PegBitmap *pBitmap,
+WORD wId = 0, WORD wStyle = AF_ENABLED, WORD wExStyle = 0, BOOL bFlyOver
+= FALSE)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDecoratedButton(SIGNED
+iLeft, SIGNED iTop, const PEGCHAR *pText, PegBitmap *pBitmap, WORD wId = 0, WORD
+wStyle = AF_ENABLED, WORD wExStyle = 0, BOOL bFlyOver = FALSE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The first constructor
+creates a PegDecoratedButton with a user defined size. The second constructor
+allows you to specify a top and left position for the button, as well as
+the width, allowing the PegDecoratedButton to determine its own height
+based on the size of the text and bitmap as well as their relative positions.
+The third constructor allows the button to automatically size itself relative
+to the text and bitmap size.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+overrides the Draw() function to draw the associated text and bitmap.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+GetFlyOver(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns a boolean indicating if the PegDecoratedButton flyover mode
+for drawing itself is enabled or disabled.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+InFlyOver(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns whether or not the button is currently operating in flyover mode. In other
+words, if flyover mode is set to TRUE, then this will return TRUE if the
+pointer is over the button. If the pointer is currently not over the button,
+then this will return FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedButton
+overrides the Message() method to catch the PM_NONCURRENT, PM_POINTER_ENTER,
+and PM_POINTER_EXIT messages.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetBitmap(PegBitmap *pNewBitmap)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+assigns the bitmap associated with the button. The bitmap may be changed
+at any time.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetFlyOver(BOOL bFlyOver)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+enables or disables the PegDecoratedButton flyover mode for
+drawing itself.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+examples of PegDecoratedButton:</FONT></FONT>
+<P><A HREF="decbtn.gif"><IMG SRC="decbtn.gif" ALT="PegDecoratedButton Example image" HEIGHT=361 WIDTH=620></A>
+<BR>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+The above example shows seven PegDecoratedButtons on the parent window. The first row of three 
+does not have flyover enabled. (They are always drawn just like any other PegButton derived object).
+They also demonstrate having only text, only a bitmap and having both on a single button.
+</FONT></FONT>
+</P>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+The other four PegDecoratedButtons in the diamond pattern have flyover enabled. They are drawn flat
+until the pointer 'flies over' them. At that point, the border (if any) is drawn. This style is typical
+of most tool bar buttons in modern GUIs. They also demonstrate how the text and bitmap may be 
+relatively positioned on the button.
+</FONT></FONT>
+</P>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+The PegToolBar on the parent window has one PegToolBarPanel attached to it with three
+PegDecoratedButtons on it. These buttons are also being drawn in 'flyover' style. (They
+do not draw their borders until the pointer is over them.) When a PegDecoratedButton is put
+on a PegToolBarPanel, it is best to have the bitmap situated either to the right or to the
+left of the text, not on the top or bottom, since the height of the button is restricted
+when it is on a PegToolBarPanel.
+</FONT></FONT>
+</P>
+
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+The following example creates the four PegDecoratedButtons displayed in the above image
+in a diamond pattern on the parent PegDecoratedWindow.
+</FONT></FONT>
+</P>
+
+<PRE>
+<FONT FACE="Courier New"><FONT COLOR="#000000">
+extern PegBitmap gbGreenDotBitmap;
+.
+.
+.
+PegRect Rect;
+.
+.
+.
+Rect.Shift(-175, 75);
+pButton = new PegDecoratedButton(Rect, "Text on the Bottom", &amp;gbGreenDotBitmap,
+    0, AF_ENABLED, BF_ORIENT_TR, TRUE);
+pWindow->Add(pButton);
+
+Rect.Shift(-150, 50);
+pButton = new PegDecoratedButton(Rect, "Text on the Right", &amp;gbGreenDotBitmap,
+    0, AF_ENABLED, 0, TRUE);
+pWindow->Add(pButton);
+
+Rect.Shift(150, 50);
+pButton = new PegDecoratedButton(Rect, "Text on the Top", &amp;gbGreenDotBitmap,
+    0, AF_ENABLED, BF_ORIENT_BR, TRUE);
+pWindow->Add(pButton);
+
+Rect.Shift(150, -50);
+pButton = new PegDecoratedButton(Rect, "Text on the Left", &amp;gbGreenDotBitmap,
+    0, AF_ENABLED, BF_ORIENT_TR | BF_ORIENT_BR, TRUE);
+pWindow->Add(pButton);
+</FONT></FONT></PRE>
+
+<HR>
+</BODY>
+</HTML>

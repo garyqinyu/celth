@@ -1,0 +1,32 @@
+//#if !defined(__winpeg_rh)                // Sentry use file only if it's not already included.
+//#define __winpeg_rh
+
+/*  Project winpeg
+    Swell Software, Inc.
+    Copyright © 1995. All Rights Reserved.
+
+    SUBSYSTEM:    winpeg.exe Application
+    FILE:         winpeg.h
+    AUTHOR:       Kenneth G. Maxwell
+
+
+    OVERVIEW
+    ========
+    Constant definitions for all resources defined in winpeg.rc.      
+*/
+
+
+
+//
+// Application specific definitions:
+//
+
+#define IDI_PEGAPP     1001            // Application icon
+
+//#define ID_KEYPADMAP 1002
+//#define IDB_BITMAP1  1003
+
+#define IDB_KEYPADMAP                    101
+//#define IDB_BITMAP1                     103
+
+//#endif         // __winpeg_rh sentry.

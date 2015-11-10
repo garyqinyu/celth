@@ -1,0 +1,162 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegRadioButton</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegRadioButton provides
+a mutually exclusive selection indicator. When a PegRadioButton is selected
+by the user, it finds all sibling radio buttons and de-selects them.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In order to allow
+multiple radio-buttons to be selected on a single window or dialog, you
+must group the buttons into separate containers. <A HREF="pgroup.htm">PegGroup</A>
+is commonly used for this purpose, although you can also use a transparent
+PegThing for this purpose just as well. Radio button objects that have
+the same parent are mutually exclusive, so by grouping the radio buttons
+onto different parent objects you can allow many different radio buttons
+to be selected at the same time.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbitbutn.htm">PegBitmapButton</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptxtbutn.htm">PegTextButton</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pgroup.htm">PegGroup</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pchkbox.htm">PegCheckBox</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegRadioButton supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>AF_ENABLED</TD>
+
+<TD COLSPAN="2">When this style is TRUE the radio button is active and
+can be selected by the user. Otherwise the button is not active, and is
+drawn with a slightly different appearance.</TD>
+</TR>
+
+<TR>
+<TD>BF_SELECTED</TD>
+
+<TD>When this style is TRUE the radio button will be drawn selected when
+first display. Only one radio button with a common parent should include
+this style.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Signals</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegRadioButton sends
+PSF_DOT_ON and PSF_DOT_OFF signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegRadioButton is
+derived from <A HREF="pthing.htm">PegThing</A> and <A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegRadioButton(PegRect &amp;Rect, const PEGCHAR *text, WORD wId = 0, WORD wStyle
+= AF_ENABLED)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegRadioButton(SIGNED iLeft, SIGNED itop, const PEGCHAR *text, WORD wId =
+0, WORD wStyle = AF_ENABLED)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The first constructor
+creates a PegRadioButton with a fully defined position and size. The second
+constructor creates a PegRadioButton that self determines its height and
+width based on the default font and textwidth of the specified string.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegRadioButton overrides
+the Draw() function to draw the radio button indicator bitmap and radio
+button text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual BOOL IsSelected(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+TRUE if the radio button is selected, else FALSE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegRadioButton catches
+the PM_LBUTTONDOWN message to toggle the radio button selection state.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetSelected(BOOL bSelected = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to select or de-select a radio button at any time.&nbsp;</FONT></FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+each different styles of PegRadioButton:</FONT></FONT>
+<BR><IMG SRC="image15.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;
+<HR>The following function creates a PegGroup and adds several radio button
+children to the group. The radio button "Button1" will initially be selected:</FONT></FONT>
+<PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::AddSelectGroup(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ChildRect;
+&nbsp;&nbsp;&nbsp; ChildRect.Set(20, 20, 120, 100);
+&nbsp;&nbsp;&nbsp; PegGroup *pGroup = new PegGroup(ChildRect, "Select One");
+&nbsp;&nbsp;&nbsp; pGroup->Add(new PegRadioButton(30, 30, "Button1", IDR_BUTTON1, AF_ENABLED|BF_SELECTED));
+&nbsp;&nbsp;&nbsp; pGroup->Add(new PegRadioButton(30, 50, "Button2", IDR_BUTTON2));
+&nbsp;&nbsp;&nbsp; pGroup->Add(new PegRadioButton(30, 70, "Button3", IDR_BUTTON3));
+&nbsp;&nbsp;&nbsp; Add(pGroup);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegCircularDial</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegCircularDial is 
+an HMI output gadget that provides an analog equivalent to a digital readout.
+It can be fed any integral data from any source.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The dial is catagorized
+as circular because it allows for multiple revolutions of the needle. Each
+lap of the needle around the circumference of the dial adds a specific 
+value to the accumulative value. To achieve this, the user must specify a
+reference angle (the angle on the dial where the lap begins) as well as a
+value per revolution. Coupled with the minimum and maximum values supported
+by the dial, this allows for predicatble circular behavior.
+
+<P>
+As an example, if the minimum value of the dial was 0 and the maximum was
+900, and the value per revolution was 300 and the reference angle was 90,
+then setting the current value of the dial to 0 would force the needle to
+draw at 90 degrees. Incrementing the value up to 300 would make the needle 
+do one complete revolution around the dial. When the current value reached
+900, the needle would be at 90 degrees, having traveled around the
+circumference of the dial three times.
+</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdial.htm">PegDial</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegCircularDial supports
+the styles described in <A HREF="pdial.htm#Styles">PegDial.</A></FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegCircularDial does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegCircularDial is derived
+from <A HREF="pdial.htm">PegDial</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegCircularDial(PegRect &amp;Rect, SIGNED iRefAngle, LONG lValuePerRev,
+LONG lMinValue, LONG lMaxValue, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor 
+takes a reference to a PegRect to determine its size. It then takes a SIGNED
+value to denote the reference angle. The reference angle is the point on the
+dial at which the minimum value that the dial supports will be mapped, as well
+as where a complete revolution is counted. lValuePerRev tells the dial how 
+much to increment it's internal current value for each revolution of the 
+needle around the circumference of the dial. It then takes LONG's for the
+minimum and maximum value, and a style WORD.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegCircularDial(SIGNED iLeft, SIGNED iTop, SIGNED iRefAngle,
+LONG lValPerRev, LONG lMinValue, LONG lMaxValue, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor takes
+SIGNED values to determine the left and top positions of the dial. By default,
+an object created using this constructor will have a width and height of 100
+pixels. The remaining arguments are the same as above.
+</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegCircularDial
+overrides the Draw() function.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetRefAngle(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This inline function returns the internal reference angle.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetValuePerRev(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This inline function returns the internal value per revolution.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetLimits(SIGNED iRefAngle, LONG lValuePerRev, LONG lMinValue, LONG lMaxValue) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This function sets limits on the angle and the min/max value of the dial.  The needle is redrawn if necessary.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is an example of three PegCircularDials
+on a PegDecoratedWindow.</FONT></FONT>
+
+<P>
+<CENTER><IMAGE SRC="pcdial.gif" BORDER="0"></CENTER>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The above PegCircularDial were created by the
+following code snippet:</FONT></FONT>
+
+<PRE>
+PegCircularDial *mpDial1, *mpDial2, *mpDial3;
+.
+.
+.
+PegRect WinRect;
+WinRect.Set(50, 50, 200, 200);
+mpDial1 = new PegCircularDial(WinRect, 0, 300, 0, 900, AF_TRANSPARENT | DS_STANDARDSTYLE);
+mpDial1->SetTicFreq(10);
+mpDial1->SetTicLen(10);
+mpDial1->SetDialColor(CYAN);
+mpDial1->RemoveStatus(PSF_VIEWPORT);
+
+WinRect.Shift(160, 0);
+mpDial2 = new PegCircularDial(WinRect, 270, 180, 0, 1800, FF_RAISED);
+mpDial2->Style(mpDial2->Style() | DS_THICKNEEDLE | DS_TICMARKS | DS_RECTCOR | DS_CLOCKWISE);
+mpDial2->SetColor(PCI_NORMAL, DARKGRAY);
+mpDial2->SetNeedleColor(BLUE);
+mpDial2->SetTicFreq(10);
+mpDial2->SetTicLen(20);
+
+WinRect.Shift(160, 0);
+mpDial3 = new PegCircularDial(WinRect, 180, 360, 0, 720, FF_RECESSED);
+mpDial3->Style(mpDial3->Style() | DS_POLYNEEDLE | DS_TICMARKS | DS_RECTCOR | DS_CLOCKWISE);
+mpDial3->SetColor(PCI_NORMAL, LIGHTGRAY);
+mpDial3->SetDialColor(GREEN);
+mpDial3->SetNeedleColor(YELLOW);
+mpDial3->SetTicFreq(10);
+mpDial3->SetTicLen(20);
+    
+Add(mpDial1);
+PegPrompt* pPrompt = new PegPrompt(105, 210, 40, "0", 101, FF_RECESSED | TJ_CENTER | TT_COPY);
+pPrompt->SetColor(PCI_NTEXT, RED);
+Add(pPrompt);
+    
+Add(mpDial2);
+pPrompt = new PegPrompt(265, 210, 40, "0", 102, FF_RECESSED | TJ_CENTER | TT_COPY);
+pPrompt->SetColor(PCI_NTEXT, BLUE);
+Add(pPrompt);
+
+pPrompt = new PegPrompt(425, 210, 40, "0", 103, FF_RECESSED | TJ_CENTER | TT_COPY);
+pPrompt->SetColor(PCI_NTEXT, GREEN);
+Add(pPrompt);
+Add(mpDial3);
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

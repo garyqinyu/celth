@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<BR><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegPoint</FONT></FONT></B>
+&nbsp;
+<P><FONT FACE="Arial,Helvetica">
+The PegPoint structure contains a single pixel address.
+<HR>
+
+<P>The PegPoint structure is defined as:
+<BR>
+<B>
+<PRE>
+
+struct PegPoint
+{
+    SIGNED x;
+    SIGNED y;
+    BOOL operator != (const PegPoint &amp;InPoint)
+    BOOL operator == (const PegPoint &amp;InPoint)
+    PegPoint operator +(const PegPoint &amp;Point)
+};
+
+</PRE>
+</B>
+
+&nbsp;
+
+</FONT>
+</BODY>
+</HTML>

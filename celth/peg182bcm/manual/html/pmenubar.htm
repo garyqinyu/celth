@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegMenuBar</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar is a window
+decoration used to position and display a user command menu. PegMenuBar
+is designed to work in conjunction with PegDecoratedWindow objects. PegMenuBar
+may be added to any type of object.  However, the client area of objects
+other than PegDecoratedWindow will not properly be reduced unless this
+is done in the application software.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar automatically
+positions and sizes itself to the parent window. PegMenuBar may contain
+any number of <A HREF="pmenbutn.htm">PegMenuButton</A> objects.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar accepts
+a <A HREF="pmendesc.htm">PegMenuDescription</A> parameter. This description
+defines the PegMenuButton objects that will initially be created and displayed
+on the menu bar. The PegMenuDescription is most often defined statically,
+or defined by PegWindowBuilder, but the PegMenuDescription can also be
+created dynamically during program execution.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When dynamically
+created PegMenuDescriptions are used to create instances of PegMenuBar,
+it is important to include the TT_COPY flag in each PegMenuDescription
+style. By default, the menu descriptions are not copied.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar also provides
+functions for finding, adding, and removing PegMenuButton objects at any
+time. This allows PegMenu objects to be altered at run time under program
+control. The functions for finding and modifying menu command objects are
+recursive, and search the entire menu tree for the specified items.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar automatically
+creates and displays <A HREF="pmenu.htm">PegMenu</A> objects when top-level
+menu commands are selected.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenu.htm">PegMenu</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenbutn.htm">PegMenuButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmendesc.htm">PegMenuDescription</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMenuBar(PegMenuDescription
+*pDesc)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegMenuBar constructor
+creates a PegMenuBar object with PegMenuButton children. The children are
+defined by the <A HREF="pmendesc.htm">PegMenuDescription</A> parameter.
+PegMenuBar automatically determines its position and size.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void
+CloseSiblings(PegMenuButton *pNotMe)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method closes
+all of the siblings of pNotMe.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu overrides
+the Draw() function to draw the menu bar background.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMenuButton
+*FindButton(const PEGCHAR *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function searches
+for a PegMenuButton child with a matching command string. This function
+is in addition to the normal Find(WORD wId) which may also be used to find
+specific PegMenu command buttons.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The pointer returned
+can be used to Enable/Disable/Remove the PegMenuButton. This function is
+recursive, and will search the entire menu tree for the indicated command
+button.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual BOOL
+InFlyoverMode(void) {return mbFlyoverMode;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the state
+of the menu being in flyover mode.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar catches
+PM_PARENTSIZED and PM_NONCURRENT messages.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void
+SetFlyoverMode(BOOL bState)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function puts
+the PegMenuBar object in flyover mode. Flyover mode means that as the mouse
+is moved over submenu items, they are automatically highlighted.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+examples of PegMenuBar, PegMenu, and PegMenuButton:</FONT></FONT>
+<P><IMG SRC="image12.gif" >
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates a PegMenuBar and adds the menu bar to the parent window. In this
+example, "HelpMenu", "WindowsMenu", "OptionsMenu", and "FileMenu" are additional PegMenuDescription
+arrays (not shown) that define the submenus of the menu bar.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">static PegMenuDescription MainMenu[] = {
+&nbsp;&nbsp;&nbsp; {"Help",&nbsp;&nbsp;&nbsp;&nbsp; 0, AF_ENABLED, HelpMenu},
+&nbsp;&nbsp;&nbsp; {"Disabled", 1, 0, NULL},
+&nbsp;&nbsp;&nbsp; {"Windows", 0, AF_ENABLED, WindowsMenu},
+&nbsp;&nbsp;&nbsp; {"Options", 0, AF_ENABLED, OptionsMenu},
+&nbsp;&nbsp;&nbsp; {"File", 0, AF_ENABLED, FileMenu},
+&nbsp;&nbsp;&nbsp; {"", 0, 0, NULL}
+};
+
+void MyWindow::AddMenuBar(void)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add(new PegMenuBar(MainMenu));
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

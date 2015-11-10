@@ -1,0 +1,98 @@
+#!build
+default:
+	library
+	:cx_option=no_rtti
+	:cx_e_option=msgnumbers
+	:dependency=nodepend
+	:tools_dir=d:\green\win32
+	:cx_silent=161
+	:sysincdirs=..\..\..\include
+	:deflibraries=d:\green\win32
+c:\peg\source\winpeg.cpp
+	C++
+c:\peg\source\pbitmaps.cpp
+	C++
+c:\peg\source\pbutton.cpp
+	C++
+c:\peg\source\pchart.cpp
+	C++
+c:\peg\source\pcombo.cpp
+	C++
+c:\peg\source\pdecwin.cpp
+	C++
+c:\peg\source\pdialog.cpp
+	C++
+c:\peg\source\pfonts.cpp
+	C++
+c:\peg\source\pgroup.cpp
+	C++
+c:\peg\source\picon.cpp
+	C++
+c:\peg\source\plist.cpp
+	C++
+c:\peg\source\pliteral.cpp
+	C++
+c:\peg\source\pmenfont.cpp
+	C++
+c:\peg\source\pmenu.cpp
+	C++
+c:\peg\source\pmesgwin.cpp
+	C++
+c:\peg\source\pmessage.cpp
+	C++
+c:\peg\source\pmltbtn.cpp
+	C++
+c:\peg\source\pnotebk.cpp
+	C++
+c:\peg\source\ppresent.cpp
+	C++
+c:\peg\source\pprogbar.cpp
+	C++
+c:\peg\source\pprogwin.cpp
+	C++
+c:\peg\source\pprompt.cpp
+	C++
+c:\peg\source\prect.cpp
+	C++
+c:\peg\source\pscreen.cpp
+	C++
+c:\peg\source\pscroll.cpp
+	C++
+c:\peg\source\pslider.cpp
+	C++
+c:\peg\source\pspin.cpp
+	C++
+c:\peg\source\pspread.cpp
+	C++
+c:\peg\source\pstatbar.cpp
+	C++
+c:\peg\source\pstring.cpp
+	C++
+c:\peg\source\psysfont.cpp
+	C++
+c:\peg\source\ptable.cpp
+	C++
+c:\peg\source\ptermwin.cpp
+	C++
+c:\peg\source\ptextbox.cpp
+	C++
+c:\peg\source\pthing.cpp
+	C++
+c:\peg\source\ptitle.cpp
+	C++
+c:\peg\source\ptree.cpp
+	C++
+c:\peg\source\pvprompt.cpp
+	C++
+c:\peg\source\pwindow.cpp
+	C++
+c:\peg\source\w32scrn.cpp
+	C++
+c:\peg\source\panimwin.cpp
+	C++
+c:\peg\source\pstchart.cpp
+	C++
+c:\peg\source\pmlchart.cpp
+	C++
+c:\peg\source\plnchart.cpp
+	C++

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER>
+<P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegTextThing</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextThing serves
+as a base class for all PEG objects that display or manipulate text. This
+provides a common set of API functions for all PEG classes that display
+text, such as <A HREF="ptitle.htm">PegTitle</A>, <A HREF="ptxtbutn.htm">PegTextButton</A>,
+<A HREF="pprompt.htm">PegPrompt</A>,
+<A HREF="pstring.htm">PegString</A> and others.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextThing provides
+string storage and manipulation functionality for all PegTextThing derived
+classes. This insulates the PEG classes from the character encoding method,
+which enables PEG to support both 8-bit ASCII and 16-bit UNICODE character
+encoding methods without dramatic changes to any of the derived classes.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">It is important to
+understand that by default PegTextThing does <B>NOT</B> copy text strings
+when string assignment is made. PegTextThing normally copies only the pointer
+to the text string. If the TT_COPY style flag is associated with the PegTextThing
+derived class, PegTextThing copies the actual text string when an assignment
+is made.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For this reason,
+if you dynamically create a string that will be associated with a PegTextThing
+derived class, you should use the TT_COPY style when the class is constructed.
+For example, if you build up a string in an automatic character array using
+a function like itoa or sprintf, the storage for that character string
+is temporary storage, usually on the stack. After the function returns,
+the storage is no longer valid. If you are using a PegTextThing class in
+this way, the TT_COPY should be used.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If the string associated
+with an object is static, which is most often the case, the TT_COPY flag
+should not be used. For example, when a PegTitle is created like this:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle *pTitle = new PegTitle("Hello World");</FONT></FONT></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">the string is a string
+literal. The compile/linker will allocate storage space for this string
+and the storage space will never be deleted. In this case it is not necessary
+for PegTextThing to copy the actual string data.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextThing is
+a PEG base class.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>PegTextThing
+Style Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTextThing supports
+only the TT_COPY flag. At the application level, an instance of PegTextThing
+is not directly created. Instead, the style passed to a derived class constructor
+is forwarded to PegTextThing. The TT_COPY flag is therefore passed indirectly
+during derived class construction.</FONT></FONT>
+<P><A NAME="Members"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTextThing(const
+PEGCHAR *Text, WORD wCopy = 0)</B></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTextThing(WORD
+wCopy = 0)</B></FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR
+*DataGet(void) {return mpText;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns a pointer to the text string associated with an object.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void DataSet(const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called to assign the string associated with any object derived from PegTextThing.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegFont *GetFont(void) {return mpFont;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the font associated with a PegTextThing derived object.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetCopyMode(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method allows
+copy mode to be set to true <I>after</I> the object has been constructed.
+Once set to true, it can not be set back to false. This forces the object
+to behave as if you had passed the TT_COPY flag in the constructor. In
+that it makes a copy of the text and stores it internally.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetFont(PegFont *Font) {mpFont = Font;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+assigns the font associated with any PegTextThing derived object.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+WORD TextLength(void) {return mwStrLen;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the number of characters in the string currently associated with
+any PegTextThing derived object.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Protected
+Members:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR
+mbCopy</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">TRUE/FALSE value
+indicating if the string copy mode is in effect.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegFont
+*mpFont</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to the PegFont
+associated with the object.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR
+*mpText</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to the string
+associated with the object.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD
+mwStrLen</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Number of characters
+in the current assigned string.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following function
+creates a PegTextButton, which is a PegTextThing derived class, and assigns
+a custom font to the button. The font is named 'CustomButtonFont'. The
+button is then added to the parent window.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">extern PegFont CustomButtonFont;
+
+void MyWindow::AddCustomButton(PEGCHAR *ButtonText)
+{
+&nbsp;&nbsp;&nbsp; PegTextButton *pButton = new PegTextButton(10, 10, 80, ButtonText);
+&nbsp;&nbsp;&nbsp; pButton->SetFont(&amp;CustomButtonFont);
+&nbsp;&nbsp;&nbsp; Add(pButton);
+}</FONT></FONT></PRE>
+
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following function
+obtains the string associated with a prompt. The string is converted to
+an integer, a range check is made, and the modified value is then re-assigned
+to the prompt. Note that in this case, the prompt should be created with
+the TT_COPY flag enabled.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::CheckPromptVal(PegPrompt *pPrompt, SIGNED iMin, SIGNED iMax)
+{
+&nbsp;&nbsp;&nbsp; PEGCHAR *pString = pPrompt->DataGet();
+&nbsp;&nbsp;&nbsp; BOOL bReplace = FALSE;
+
+&nbsp;&nbsp;&nbsp; if (pString)
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SIGNED iVal = atoi(pString);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (iVal &lt; iMin)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iVal = iMin;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bReplace = TRUE;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (iVal > iMax)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iVal = iMax;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bReplace = TRUE;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iVal = iMin;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bReplace = TRUE;
+&nbsp;&nbsp;&nbsp; }
+
+&nbsp;&nbsp;&nbsp; if (bReplace)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // prompt is out of range?
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PEGCHAR cTemp[40];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; itoa(iVal, cTemp, 10);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pPrompt->DataSet(cTemp);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // re-assign string
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pPrompt->Draw();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and re-draw
+&nbsp;&nbsp;&nbsp; }
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

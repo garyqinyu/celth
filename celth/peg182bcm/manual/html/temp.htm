@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>temp</TITLE>
+</HEAD>
+<BODY>
+<IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Modified the format in which
+new releases are posted. The core library, ImageConvert, FontCapture, and
+WindowBuilder are now each posted as individual components available for
+download. This change simplifies our internal testing and release procedures,
+and enables us to post enhancements more quickly. Seperate release notes
+are now provided for each component, further simplifying the release, download,
+and update process.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Created new sub-directories
+for PegScreen derived screen drivers. These drivers are once again included
+in each PEG release.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added Profile-Mode screen
+driver templates. These templates allow PEG do be used with a screen that
+has been mounted in a rotated or profile orientation.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added SED1356 screeen driver.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Improved performance of Cirrus
+Logic screen driver and Chips&amp;Technologies 65545 screen driver.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added Video Memory Manager.
+This feature is automatically turned on when using a hardware-accelerated
+screen driver. This allows bitmaps created with CreateBitmap() to be placed
+in unused video memory, and displayed using hardware BitBlt capability.
+This is used for very fast animations or Sprite display.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>Important: </B>Added DestroyBitmap()
+function to all screen drivers. This is the opposite of the CreateBitmap()
+function. Any PegBitmap created by calling the CreateBitmap() function
+must now be deleted using the DestroyBitmap() function. This is required
+to allow consistent operation with systems running with our without the
+Video Memory Manager.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added CreatePegScreen() function
+to all screen drivers. This simplifies ALL of the OS integration and standalone
+PegTask implementations. The PegTask startup code no longer needs to know
+which screen driver is being used, but simply calls CreatePegScreen(),
+the implementation of which is determined by which screen driver has been
+linked into your system.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added SDS CrossCode compiler
+to our verification list.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added several new example
+programs.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added support for run-time
+image scaling. Images can now be resized at run time to any&nbsp; x-y resolution.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added a new configuration
+flag, PEG_AWT_SUPPORT, that turns on several features required for supporting
+the Java AWT specification. Also modifies the operation of certain internal
+clipping functions.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Fix bug in DRAW_FOCUS operation
+that allowed multiple objects to be drawn as if they owned input focus.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Improved documentation of
+settings available for fine-tuning touch screen operation.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> PegSpreadSheet: Added new
+member functions and improved overall operation.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> PegTextBox: Restructured
+to use double-buffered drawing techniques. This improves the appearance
+and eliminates flashing perceived when editing text.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> PegString: Restructured to
+use double-buffered drawing techniques. This improves the appearance and
+eliminates flashing perceived when editing text.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added Eliptical Arc function
+when running in PEG_AWT_SUPPORT mode.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added general XOR drawing
+capability, also intended for use when running in PEG_AWT_SUPPORT mode.
+
+<P><IMG SRC="bullet3.jpg" HEIGHT=11 WIDTH=12> Added GetBitmapPixel() and
+PutBitmapPixel() functions, used to modify individual pixels in off-screen
+bitmaps.
+</BODY>
+</HTML>

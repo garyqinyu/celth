@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegRect</FONT></FONT></B></CENTER>
+&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegRect structure
+contains a rectangular screen dimension, along with a large number of operators
+making it convenient to manipulate rectangular areas of the display screen.&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegRect structure
+is defined as:</FONT></FONT>
+<PRE>
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">struct PegRect
+{
+&nbsp;&nbsp;&nbsp; SIGNED wLeft;
+&nbsp;&nbsp;&nbsp; SIGNED wTop;
+&nbsp;&nbsp;&nbsp; SIGNED wRight;
+&nbsp;&nbsp;&nbsp; SIGNED wBottom;
+
+&nbsp;&nbsp;&nbsp; SIGNED Height(void) const { return (wBottom - wTop + 1);}
+&nbsp;&nbsp;&nbsp; SIGNED Width(void) const {return (wRight - wLeft + 1);}
+
+&nbsp;&nbsp;&nbsp; BOOL Contains(PegPoint Test);
+&nbsp;&nbsp;&nbsp; BOOL Contains(SIGNED x, SIGNED y);
+&nbsp;&nbsp;&nbsp; BOOL Contains(const PegRect &amp;Rect);
+&nbsp;&nbsp;&nbsp; void MoveTo(SIGNED x, SIGNED y);
+&nbsp;&nbsp;&nbsp; BOOL Overlap(const PegRect &amp;Rect);
+&nbsp;&nbsp;&nbsp; void Set(SIGNED x1, SIGNED y1, SIGNED x2, SIGNED y2)
+&nbsp;&nbsp;&nbsp; void Set(PegPoint ul, PegPoint br)
+&nbsp;&nbsp;&nbsp; void Shift(SIGNED xShift, SIGNED yShift);
+&nbsp;&nbsp;&nbsp; PegRect operator &amp;=(const PegRect &amp;Other);
+&nbsp;&nbsp;&nbsp; PegRect operator |= (const PegRect &amp;Other);
+&nbsp;&nbsp;&nbsp; PegRect operator &amp;(const PegRect &amp;Rect);
+&nbsp;&nbsp;&nbsp; PegRect operator ^= (const PegRect &amp;Rect);
+&nbsp;&nbsp;&nbsp; PegRect operator +(const PegPoint &amp;Point);
+&nbsp;&nbsp;&nbsp; PegRect operator +(const PegPoint &amp;Point) const;&nbsp;&nbsp; // deal with const additions - dpl
+&nbsp;&nbsp;&nbsp; PegRect operator ++(int);
+&nbsp;&nbsp;&nbsp; PegRect operator += (int x);
+&nbsp;&nbsp;&nbsp; PegRect operator --(int);
+&nbsp;&nbsp;&nbsp; PegRect operator -= (int x);
+&nbsp;&nbsp;&nbsp; BOOL operator != (const PegRect &amp;Rect);
+&nbsp;&nbsp;&nbsp; BOOL operator == (const PegRect &amp;Rect);
+};</FONT></FONT></B></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmc6.htm#PEGRECT">PEG
+Programming Manual</A></FONT></FONT>
+</BODY>
+</HTML>

@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegFiniteBitmapDial</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteBitmapDial 
+behaves exactly the same as <A HREF="pfdial.htm">PegFiniteDial</A>, from 
+which it derives. The differences are the user may specify a
+background bitmap over which the dial needle will be drawn as well as a bitmap
+that will be used to draw the needle anchor at the center of rotation.
+This allows for very custom looking finite dials.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">An added feature of PegFiniteBitmapDial
+is the ability to specify a center of rotation that is not necessarily the center of
+the bounding rectangle for the dial. Typically, the needle of the dial would originate
+at the center of the bounding rectangle. PegFiniteBitmapDial allows for the needle to
+originate from anywhere inside its bounding rectangle. This further adds to the
+custom possibilities when designing your dials.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdial.htm">PegDial</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pfdial.htm">PegFiniteDial</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteBitmapDial supports
+the styles described in <A HREF="pdial.htm#Styles">PegDial</A>. PegFiniteBitmapDial does
+not support any of the frame styles because it uses the background bitmap for
+drawing in the client area of the dial.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteBitmapDial does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteBitmapDial is derived
+from <A HREF="pfdial.htm">PegFiniteDial</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegFiniteBitmapDial(PegRect &amp;Rect, SIGNED iMinAngle, SIGNED iMaxAngle,
+LONG lMinValue, LONG lMaxValue, PegBitmap *pBackground, PegBitmap*
+pAnchorBitmap, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor takes
+a reference to a PegRect to determine its size, a minimum and maximum angle, 
+a minimum and maximum value, a pointer to a bitmap that will be used
+for drawing the background, a pointer to a bitmap that will be used to 
+draw the needle anchor, and a style WORD.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegFiniteBitmapDial(SIGNED iLeft, SIGNED iTop, SIGNED iMinAngle,
+SIGNED iMaxAngle, LONG lMinValue, LONG lMaxValue, PegBitmap* pBackground,
+PegBitmap* pAnchorBitmap, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor takes
+SIGNED values to the left and top positions of the dial. If a background 
+bitmap is specified, the object is sized to the height and width of the
+bitmap. The remaining parameters are the same as the above 
+constructor.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The dial will map the minimum angle to the minimum
+value, and the maximum angle to the maximum value. So, the dial will behave as expected. If you set the 
+minimum angle to be 0 and the maximum angle to be 180, and the minimum value to 0 and the maximum
+value to 100, then setting the value on the dial to 50 will set the needle to 90 degrees, straight
+up.</FONT></FONT>
+
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteBitmapDial
+overrides the Draw() function to draw the background bitmap and needle.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmap* GetAnchorBitmap(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method returns a PegBitmap pointer
+to the anchor bitmap.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmap* GetBkgBitmap(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method returns a PegBitmap pointer
+to the background bitmap.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetCORX(void) const</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetCORY(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These inline functions return the 
+respective values of the x and y center of rotation.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetAnchorBitmap(PegBitmap* pBmp)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method set the
+anchor bitmap to point to pBmp.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetBkgBitmap(PegBitmap* pBmp)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method set the
+background bitmap to point to pBmp.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetCOR(WORD CORX, WORD CORY, BOOL bRedraw = FALSE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This allows for the setting of the x and y
+values of the center of rotation (the origin of the needle) of the dial.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void UseTrueCOR(BOOL bUse)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method is short hand for setting
+the style flags DS_RECTCOR and DS_USERCOR to on or off, depending on the value of bUse.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is an example of three PegFiniteBitmapDials
+on a PegDecoratedWindow. Notice that the third dial, on the right, has a center of rotation that is 
+in the bottom right corner of the bounding rectangle of the dial.</FONT></FONT>
+
+<P>
+<CENTER><IMAGE SRC="pfbdial.gif" BORDER="0"></CENTER>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The above
+PegFiniteBitmapDials were created by the following code snippet:</FONT></FONT>
+
+<PRE>
+extern PegBitmap gbdialbkg3Bitmap;
+extern PegBitmap gbdialbkg2Bitmap;
+extern PegBitmap gbdialbkg4Bitmap;
+extern PegBitmap gbAbFluidBitmap;
+extern PegBitmap gbDialAnchor1Bitmap;
+.
+.
+.
+PegFiniteBitmapDial *mpDial1, *mpDial2, *mpDial3;
+.
+.
+.
+PegRect WinRect;
+
+WinRect.Set(50, 50, 200, 200);
+mpDial1 = new PegFiniteBitmapDial(WinRect, 180, 0, 0, 100, &amp;gbdialbkg2Bitmap);
+
+WinRect.Shift(160, 0);
+mpDial2 = new PegFiniteBitmapDial(WinRect, 225, 315, -25, 125,
+    &amp;gbdialbkg3Bitmap, &amp;gbDialAnchor1Bitmap);
+mpDial2->Style((mpDial2->Style() | DS_THICKNEEDLE) &amp; ~DS_THINNEEDLE); 
+mpDial2->SetNeedleColor(BLUE);
+
+WinRect.Shift(160, 0);
+mpDial3 = new PegFiniteBitmapDial(WinRect, 180, 90, 0, 100, &amp;gbdialbkg4Bitmap);
+mpDial3->Style(DS_THICKNEEDLE | DS_USERCOR);
+mpDial3->SetCOR(123, 123);
+mpDial3->SetNeedleLength(65);
+
+Add(mpDial1);
+Add(mpDial2);
+Add(mpDial3);
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;
+<BR><B><FONT COLOR="#9C0000"><FONT SIZE=+2>
+<CENTER>PEG Style Flags</CENTER></FONT></FONT></B>
+&nbsp;
+
+<P><B><FONT FACE="Arial,Helvetica"><U><FONT SIZE=+1>Overview</FONT></U></FONT></B>
+<P>
+
+<P><FONT COLOR="#000000"><FONT FACE="Arial,Helvetica">
+
+<P>
+The PEG style flags are used to control the default appearance and operation
+of many PEG classes. The style flags can be logically or'ed together to create
+the style parameter passed to an object constructor. The style of an object
+can also be updated using the <A HREF=pthing.htm>PegThing</A> member function Style().
+
+&nbsp;
+<P>
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Frame styles:
+</U></FONT></FONT></B><P>
+
+FF_NONE<BR>
+FF_THIN<BR>
+FF_RAISED<BR>
+FF_RECESSED<BR>
+FF_THICK<BR>
+FF_MASK<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Text Justification Style:
+</U></FONT></FONT></B><P>
+
+TJ_RIGHT<BR>
+TJ_LEFT<BR>
+TJ_CENTER<BR>
+TJ_MASK<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Title Style:
+</U></FONT></FONT></B><P>
+
+TF_SYSBUTTON<BR>
+TF_MINMAXBUTTON<BR>
+TF_CLOSEBUTTON<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Text Thing Style
+</U></FONT></FONT></B><P>
+
+TT_COPY<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Button Style:
+</U></FONT></FONT></B><P>
+
+BF_REPEAT<BR>
+BF_SELECTED<BR>
+BF_DOWNACTION<BR>
+BF_FULLBORDER<BR>
+BF_SEPERATOR<BR>
+BF_CHECKABLE<BR>
+BF_CHECKED<BR>
+BF_DOTABLE<BR>
+BF_DOTTED<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Edit Style:
+</U></FONT></FONT></B><P>
+
+EF_EDIT<BR>
+EF_PARTIALROW<BR>
+EF_WRAP<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Message Window Style:
+</U></FONT></FONT></B><P>
+
+MW_OK<BR>
+MW_YES<BR>
+MW_NO<BR>
+MW_ABORT<BR>
+MW_RETRY<BR>
+MW_CANCEL<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Table and SpreadSheet Style:
+</U></FONT></FONT></B><P>
+
+TS_SOLID_FILL<BR>
+TS_DRAW_GRID<BR>
+TS_PARTIAL_COL<BR>
+TS_PARTIAL_ROW<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Notebook Style:
+</U></FONT></FONT></B><P>
+
+NS_TOPTABS<BR>
+NS_BOTTOMTABS<BR>
+NS_TEXTTABS<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Slider Style:
+</U></FONT></FONT></B><P>
+
+SF_SNAP<BR>
+SF_SCALE<BR>
+SF_VALUE<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Spin Button Style:
+</U></FONT></FONT></B><P>
+
+SB_VERTICAL<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+Miscellaneous Appearance Style:
+</U></FONT></FONT></B><P>
+
+AF_TRANSPARENT<BR>
+AF_ENABLED<BR>
+
+<BR>
+<HR>
+<P>
+If <B>PEG_HMI_GADGETS</B> has been defined, then these styles are available.
+</P>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PegDial styles:
+</U></FONT></FONT></B><P>
+
+DS_CLOCKWISE<BR>
+DS_TICMARKS<BR>
+DS_THINNEEDLE<BR>
+DS_THICKNEEDLE<BR>
+DS_POLYNEEDLE<BR>
+DS_RECTCOR<BR>
+DS_USERCOR<BR>
+<BR>
+DS_STANDARDSTYLE = DS_THINNEEDLE|DS_RECTCOR|DS_TICMARKS|DS_CLOCKWISE|FF_NONE<BR>
+<BR>
+DS_THICKNEEDLEWIDTH<BR>
+DS_ANCHORCOLOR<BR>
+DS_ANCHORWIDTH<BR> 
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PegLight styles:
+</U></FONT></FONT></B><P>
+
+LS_RECTANGLE<BR>
+LS_CIRCLE<BR>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PegScale styles:
+</U></FONT></FONT></B><P>
+
+SS_FACELEFT<BR>
+SS_FACETOP<BR>
+SS_BOTTOMTOTOP<BR>
+SS_LEFTTORIGHT<BR>
+SS_ORIENTVERT<BR>
+SS_TICMARKS<BR>
+SS_USERTRACK<BR>
+SS_USERTRAVEL<BR>
+SS_THINNEEDLE<BR>
+SS_THICKNEEDLE<BR>
+SS_POLYNEEDLE<BR>
+<BR>
+SS_STANDARDSTYLE = SS_FACELEFT|SS_BOTTOMTOTOP|SS_ORIENTVERT|<BR>
+                   SS_TICMARKS|SS_POLYNEEDLE|FF_RECESSED;<BR>
+<BR>
+<HR>
+
+<P>
+if <B>PEG_CHARTING</B> has been defined, then the styles below are available.
+</P>
+
+CS_DRAWXGRID<BR>
+CS_DRAWYGRID<BR>
+CS_DRAWXTICS<BR>
+CS_DRAWYTICS<BR>
+CS_AUTOSIZE<BR>
+CS_SCROLLED<BR>
+CS_PAGED<BR>
+CS_DRAWXAXIS<BR>
+CS_DRAWAGED<BR>
+CS_DRAWLEADER<BR>
+CS_DUALYTICS<BR>
+CS_DUALYLABELS<BR>
+CS_XAXISONZEROY<BR>
+CS_DRAWLINEFILL<BR>
+CS_DRAWXLABELS<BR>
+CS_DRAWYLABELS<BR>
+<HR>
+
+</FONT>
+</BODY>
+</HTML>

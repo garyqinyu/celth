@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="Vim 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 HEIGHT=12 WIDTH=31></A>
+<BR>&nbsp;
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD><A HREF="#Derivation">Derivation</A></TD>
+
+<TD><A HREF="#Members">Members</A></TD>
+
+<TD><A HREF="#Styles">Styles</A></TD>
+
+<TD><A HREF="#Signals">Signals</A></TD>
+
+<TD><A HREF="#Examples">Example</A></TD>
+
+<TD><A HREF="#See Also">See Also</A></TD>
+</TR>
+</TABLE>
+
+<CENTER>
+<P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegStripChart</FONT></FONT></B></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStripChart supports
+the drawing of discrete lines plotted against the Y axis, with new data
+samples added in series along the X axis.</FONT></FONT>
+<BR>&nbsp;
+<P><A NAME="See Also"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><A HREF="pchart.htm">PegChart</A></FONT>
+<P><A NAME="Styles"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStripChart supports
+all of the styles described in <A HREF="pchart.htm#Styles">PegChart</A> 
+as well as the following styles:</FONT></FONT>
+
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>CS_DRAWAGED</TD>
+<TD COLSPAN="2">
+If the chart is in paged mode (CS_PAGED is turned on), then the chart will
+redraw the current line in a secondary color when the data has reached the
+right side of the chart. New data, restarting over at the left side of
+the chart, will then overwrite this line. If this flag is turned off,
+all of the line segments are removed from the chart when the data 
+reaches the right side of the chart.
+</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWLEADER</TD>
+<TD COLSPAN="2">
+This flag causes the chart to draw a vertical line indicating the position of
+the most recently added data and corresponding line segment.
+</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWXAXIS</TD>
+<TD COLSPAN="2">
+This flag draws a single horizontal line across the entire chart region. It 
+is situated at 0 on the Y scale. This line does not draw tic marks or labels.
+If CS_XAXISONZEROY is also turned on, then this flag is ignored.
+
+<TR>
+<TD>CS_PAGED</TD>
+
+<TD COLSPAN="2">This flag is mutually exclusive with CS_SCROLLED. This
+causes the data to be drawn along a leading edge as it is added to the
+line. When the edge reaches the right side of the chart region, the line
+wraps. At this point, the existing data becomes aged, and is drawn in a
+second color specified in the AddLine call. The behavior of the strip chart
+when this flag is on is somewhat akin to a heart beat monitor.</TD>
+</TR>
+
+<TR>
+<TD>CS_SCROLLED</TD>
+
+<TD COLSPAN="2">This flag is mutually exclusive with CS_PAGED. This causes
+the data to be drawn beginning from the left and moving toward the right
+side of the chart region. When there is enough data for the line to extend
+all the way across the chart region, the line scrolls itself. Thus, new
+data points are added on the right, and old data points are subtracted
+from the left. This behavior most closely resembles a seismograph.</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="Signals"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Signals</FONT></FONT></U>
+<BR>PegStripChart does not send any signals.
+
+<P><A NAME="Derivation"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Derivation</FONT></FONT></U>
+<BR>PegStripChart is derived from <A HREF="pchart.htm">PegChart</A>.
+
+<P><A NAME="Members"></A>
+<BR><U><FONT SIZE=+1>Constructor:</FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>PegStripChart(const
+PegRect&amp; Rect, WORD wSamples, LONG lMinY, LONG lMaxY, WORD wMajorXScale
+= 0, WORD wMajorYScale = 0)</B>
+<BR>The constructor is fairly straight forward. Like most PegThing derived
+objects, you pass it the rectangle you wish for it to occupy. If you have
+CS_AUTOSIZE turned on, you may just want to pass it the parent's mClient
+rectangle.
+<P>The wSamples parameter specifies how many samples will fit into the
+chart region. If you would like to see 100 samples of data at one time,
+then you would set this parameter to 100.
+<P>The last two parameters are for setting the major tick mark frequency for
+the X and Y axis, respectively. For instance, if your minimum Y value is
+-100 and your maximum Y value is 900, and you specify a Y scale of 100,
+if the CS_DRAWYTICS bit is set in the extended style flag, you will see
+tick marks on the Y axis starting at -100 and incrementing 100 all the
+way to 900. Therefore, there will be 11 tick marks drawn on the Y axis.
+If you were to also turn on the CS_DRAWYGRID bit, you would see a grid
+line at the same interval as the tick marks. Label scaling, or interval,
+is independant of the tick mark/grid line scaling. Therefore, it is possible
+to specify tick marks to appear at intervals of 100, while specifying labels
+to be drawn every 200. No matter the scaling, all drawing starts at the
+minimum value and works it's way toward the maximum value until it meets
+or exceeds the maximum value. This holds true for both the X and Y axis.
+
+<P><U><FONT SIZE=+1>Public Functions:</FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>LONG AddData(UCHAR ucID, LONG
+lRawData, BOOL bRedraw = TRUE)</B>
+<BR>This method adds a data point to a given line specified by ucID.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>UCHAR AddLine(const PegColor&amp;
+tLineColor, const PegColor&amp; tAgedColor)</B>
+<BR>This adds a new line to the chart. The colors are used to draw the
+line when it's new data, and in the case of the paged chart, the line color
+when it's drawing the aged data. It returns the id of the newly added line.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>virtual void Draw(void)</B>
+<BR>PegStripChart overrides the Draw() function to draw the individual
+lines.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>COLORVAL GetLineAgedColor(UCHAR ucID)</B><BR>
+Returns the COLORVAL used by line identified by ucID to draw it's 
+historical data.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>COLORVAL GetLineColor(UCHAR ucID)</B><BR>
+Returns the COLORVAL used by line identified by ucID to draw it's 
+current data.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>COLORVAL GetLineFillColor(UCHAR ucID)</B><BR>
+Returns the COLORVAL used by line identified by ucID to draw the
+filled polygon from the current line segment to 0 on the Y scale.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B>COLORVAL GetLineLeaderColor()
+</B>
+<BR>This returns the current color of the leader. The leader is the straight
+vertical line drawn at the furthest point on the X axis where data is being
+inserted. The leader is only used when CS_PAGED is turned on. Every line may
+have it's own leader color. By default, if a color is not initially specified
+for the leader, the normal line color is used.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B> SIGNED IndexToPointX(WORD
+wIndex)</B>
+<BR>This method determines the screen location along the X axis given the
+current index. The location is based on the chart region size and the number
+of samples being put into that region. This method is used internally by
+the chart. It returns a screen point on the X axis as a SIGNED value.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>virtual SIGNED Message(const
+PegMessage&amp; Mesg)</B>
+<BR>PegStripChart overrides the Message method in order to provide appropriate
+layout recalculation when it's parent is moved, or optionally, resized.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>virtual void RecalcSize(const
+PegRect&amp; NewRect, BOOL bRedraw = TRUE)</B>
+<BR>This method is overridden in order to ensure that the line data is
+up to date. In other words, if the chart is moved or resized, the screen
+coordinates associated with a given data point will change. In order to
+keep up with these changes, this method calls the RecalcLine method to
+update the screen coordinates of all the data points associated with the
+line.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>virtual void Resize(PegRect NewSize)</B>
+<BR>This method overrides the PegThing::Resize method. Internally, it calls it's own RecalcLayout method with the NewSize PegRectangle. It also calls the PegThing::Resize method to ensure proper layout.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>BOOL RemoveLine(UCHAR
+ucID)</B>
+<BR>This method removes the line with the id of ucID. It returns a boolean
+of success or failure.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetLineAgedColor(UCHAR ucID, COLORVAL tNewColor)</B><BR>
+This method sets the color used by line ucID to draw it's
+historical data.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetLineColor(UCHAR ucID, COLORVAL tNewColor)</B><BR>
+This method sets the color used by line identified by
+ucID to draw it's current data.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetLineFillColor(UCHAR ucID, COLORVAL tNewColor)</B><BR>
+This method sets the color used by line identified by ucID to
+draw a filled polygon from the current line segment to 0 on the
+Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetLineLeaderColor(UCHAR ucID, COLORVAL tNewColor)</B><BR>
+This method sets the color of the leader of the specified line denoted by
+the ucID parameter.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>SIGNED ValToPointY(LONG
+lVal)</B>
+<BR>This method converts a data value to a screen pixel location based
+on the size of the chart region and the minimum and maximum allowable values
+on the Y axis. This method is used internally by the chart to plot data
+points on the screen. It returns the screen point on the Y axis as a SIGNED
+value.
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+<BR><U><FONT SIZE=+1>Examples:</FONT></U>
+<P>The following code snippet produces the PegStripChart pictured below.
+This strip chart is using the CS_PAGED method of drawing.
+<BR>&nbsp;
+<PRE>&nbsp;&nbsp; PegRect Rect;
+&nbsp;&nbsp; Rect.Set(40, 40, 590, 240);
+&nbsp;&nbsp; pChart = new PegStripChart(Rect, 240, -100, 120, 0, 20);
+&nbsp;&nbsp; mucID = pChart->AddLine(LIGHTGREEN, DARKGRAY, 0);
+&nbsp;&nbsp; Add(pChart);
+
+</PRE>
+
+<P>
+<CENTER>
+<BR><IMG SRC="Stchart.gif" ALT="PegStripChart example screen shot" HEIGHT=243 WIDTH=599>
+</CENTER>
+
+
+<BR>
+<HR>
+</BODY>
+</HTML>

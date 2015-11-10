@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegProgressWindow</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressWindow
+is an extension to PegMessageWindow. In this case, a progress bar indicator
+is added to the message and optional buttons displayed on the message window.
+This makes it very easy to create and display a message and progress bar
+to the user during a long operation.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The progress bar
+that is a child of the progress window is directly updated by the application
+software. The progress window member function <B>Bar()</B>, is called to
+retrieve a pointer to the progress bar when the application determines
+that the progress bar should be updated.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The progress bar
+added to a PegProgressWindow always has a scale of 0 to 100. It is up to
+the application software to pre-scale the input value accordingly.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The style of the
+progress bar displayed in the window client area is passed to the PegProgressWindow
+constructor.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprogbar.htm">PegProgressBar</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmesgwin.htm">PegMessageWindow</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressWindow
+accepts both PegMessageWindow and PegProgressBar styles, and these are
+passed directly to each base class.</FONT></FONT>
+
+<P><A NAME="Signals"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Signals</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressWindow
+signals are identical to PegMessageWindow signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressWindow
+is derived from <A HREF="pmesgwin.htm">PegMessageWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegProgressWindow(const PegRect &amp;Rect, const PEGCHAR *Title, const
+PEGCHAR *Message, WORD wMesgStyle, WORD wProgStyle = FF_THIN|PS_SHOW_VAL|PS_PERCENT,
+PegBitmap *pIcon = NULL, PegThing *Owner = NULL)</B></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegProgressWindow(const PEGCHAR *Title, const PEGCHAR
+*Message, WORD wMesgStyle, WORD wProgStyle = FF_THIN|PS_SHOW_VAL|PS_PERCENT,
+PegBitmap *pIcon = NULL, PegThing *Owner = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegProgressWindow
+constructors are identical to the PegMessageWindow constructors, with the
+added style value <B><I>wProgStyle</I></B>. This additional style value
+is applied to the child PegProgressBar object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegProgressBar *Bar(void) {return mpProgBar;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns a pointer to the child progress bar. This allows the application
+software to directly manipulate the child control.&nbsp;</FONT></FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following code
+fragment creates and displays a PegProgressWindow:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWin::DisplayProgress(void)
+{
+&nbsp;&nbsp;&nbsp; PegProgressWindow *pWin = new PegProgressWindow("Working....",
+&nbsp;&nbsp;&nbsp; "Copying Information...", MW_OK|FF_RAISED);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Presentation()->Center(pWin);
+&nbsp;&nbsp;&nbsp; Presentation()->Add(pWin);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

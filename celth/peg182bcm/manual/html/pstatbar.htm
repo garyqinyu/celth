@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegStatusBar</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar is a
+window decoration that automatically sizes and positions itself at the
+bottom of the client area of its parent. PegStatusBar may have any number
+of children. Since the PegPrompt object is the most common type of child object
+added to a status bar, the PegStatusBar class includes functions for easily
+displaying and accessing any number of PegPrompt objects.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The last object added
+to a PegStatusBar is sized to extend to the rightmost edge of the status
+bar.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A pointer to a status
+bar added to a <A HREF="pdecwin.htm">PegDecoratedWindow </A>can be obtained
+at any time by calling the PegDecoratedWindow::StatusBar() function.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdecwin.htm">PegDecoratedWindow</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprompt.htm">PegPrompt</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None:</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar does
+not send signals. However, children of the status bar will send the normal
+signals supported by the child object types. PegStatusBar will pass any
+signal received on to the parent window.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar is
+derived from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegStatusBar(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegStatusBar. The status bar is normally added to a PegDecoratedWindow
+or PegDialog.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegPrompt *AddTextField(SIGNED iWidth, WORD wId, PEGCHAR *Text = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to add a PegPrompt field to the status bar. Parameter iWidth
+indicates the desired field width, in pixels. wId is the ID that will be
+assigned to the PegPrompt, and *Text is the initial prompt value.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt objects added
+to a PegStatusBar can be updated at any time. They are located by calling GetPrompt()
+with the ID of the prompt in question.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar overrides
+the Draw() function to draw the status bar frame.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPrompt
+*GetPrompt(WORD wId)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the PegPrompt child of the status bar with the given ID value.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar catches
+the PM_SHOW and PM_PARENTSIZED messages to size itself and position the
+children of the status bar.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetFont(PegFont *pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar overrides
+the SetFont method so that it can resize all of its children and itself
+based on the size of the new font. It also alerts its parent window that
+it has resized.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetTextField(WORD wId, PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function provides
+a shorthand method for updating a prompt which has been added to the status
+bar. The wId parameter indicates the desired prompt ID, and the Text value
+is the new text value to assign to the prompt.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a PegStatusBar with several text fields, added to a PegDecoratedWindow:</FONT></FONT>
+<BR><IMG SRC="image18.gif" >
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following function
+creates a PegStatusBar with three text fields, and adds the status bar
+to a parent window.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::AddStatusBar(void)
+{
+&nbsp;&nbsp;&nbsp; PegStatusBar *pStat = new PegStatusBar();
+&nbsp;&nbsp;&nbsp; pStat->AddTextField(100, ID_FIELD1, "Fixed Field 1");
+&nbsp;&nbsp;&nbsp; pStat->AddTextField(100, ID_FIELD2, "Fixed Field 2");
+&nbsp;&nbsp;&nbsp; pStat->AddTextField(20,&nbsp; ID_FIELD3, "Variable Field 3");
+
+&nbsp;&nbsp;&nbsp; Add(pStat);
+&nbsp;&nbsp;&nbsp;&nbsp;
+}</FONT></FONT></PRE>
+
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Any field in the
+status bar created above can be updated using the following code sequence:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::UpdateSecondStatusField(PEGCHAR *NewVal)
+{
+&nbsp;&nbsp;&nbsp; StatusBar()->SetTextField(ID_FIELD2, NewVal);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

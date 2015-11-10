@@ -1,0 +1,23 @@
+
+
+enum STRING_IDS {
+    IDS_PEG = 0,
+    IDS_PDD,
+    IDS_CONTINUE,
+    IDS_START,
+    IDS_STOP,
+    IDS_FAULTS,
+    IDS_SETUP,
+    IDS_HISTORY,
+    IDS_MORE,
+    IDS_PLIST,
+    IDS_PSLIDER,
+    IDS_PROGBAR,
+    IDS_EDITWIN,
+    IDS_CLOSE,
+    IDS_DECWIN,
+};
+
+
+PEGCHAR *LookupString(WORD wId);
+

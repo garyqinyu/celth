@@ -1,0 +1,19 @@
+
+/sbin/rmmod p3ddrv
+/sbin/rmmod bcmnetaccel.ko 
+/sbin/rmmod bcmdriver.ko 
+/sbin/rmmod bcm%%CHIP%% 
+/sbin/rmmod bcmkni
+
+# Install the kernel-mode driver
+# This means that the porting interface runs in kernel mode.
+/sbin/insmod bcmkni.ko || exit
+/sbin/insmod bcm%%CHIP%%.ko config="${config}" || exit
+
+# if PLAYBACK_IP_SUPPORT=n, this doesn't exist, so don't fail.
+/sbin/insmod bcmnetaccel.ko 
+
+if [ -f p3ddrv.ko ] ; then
+	/sbin/insmod p3ddrv.ko || exit
+fi
+

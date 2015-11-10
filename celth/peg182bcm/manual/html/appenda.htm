@@ -1,0 +1,254 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Generator" CONTENT="Microsoft Word 97">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>Appendix A: SMX Integration/Demo</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER><B><I><FONT FACE="Bookman Old Style"><FONT SIZE=+2>Appendix A:
+SMX Integration/Demo</FONT></FONT></I></B></CENTER>
+
+
+<P>This section of the manual describes the modifications and enhancements
+made to the PEG library to provide a seamless integration with MicroDigital’s
+SMX operating system. The first section of this appendix covers how to
+build PEG for use with SMX, as command line make files and batch files
+are provided which allow you to easily build this version of PEG. The following
+sections describe how the integration works from a low-level perspective
+so that you will have a complete understanding of the PEG/SMX integration
+environment.
+
+<P>&nbsp;
+
+<P><B><I><FONT FACE="Arial"><FONT SIZE=+2>Building PEG for SMX</FONT></FONT></I></B>
+
+<P>Before you can build PEG for use with SMX, you must first verify a few
+flag settings in various PEG header files. If you received your PEG distribution
+directly from Micro Digital, most of these flags will be pre configured
+for your system. If at any time you update your PEG library files by downloading
+from the Swell Software WWW site, you will need to review the following
+settings to insure they are correct for your system.
+
+<P><B><FONT FACE="Arial">\peg\include\peg.hpp</FONT></B>
+
+<P>This header file contains the global configuration flags for the PEG
+library. The first and most important definitions in this file determine
+the target you are building PEG for. By target, we mean to say whether
+you are building PEG for DOS, Windows, or an integrated RTOS like SMX.
+
+<P>To prepare PEG to run with SMX, open the file peg.hpp and insure that
+the target <B><U>PEGSMX</U></B> is enabled, and insure all other targets
+are disabled by commenting out the other target definitions.
+
+<P>If your integration file is named smxpeg.cpp, you should also find the
+definition <B><U>PEG_MUTLTITHREAD</U></B> and insure that this define is
+commented out. If your integration file is named smxpegmt.cpp, you should
+enable the <B><U>PEG_MULTITHREAD</U></B> definition.
+
+<P>Since the default PEG screen driver for SMX is the standard VGA driver,
+you should also set <B><U>PEG_NUM_COLORS</U></B> to 16.
+
+<P><B><FONT FACE="Arial">D16scrn.hpp</FONT></B>
+
+<P>Disable the definition USE_BIOS, which will allow the standard VGA screen
+driver to run in any of the x86 protected modes. Disabling the USE_BIOS
+definition forces the screen driver to directly configure the video controller,
+without using the PC BIOS.
+
+<P><B><FONT FACE="Arial">Smxpeg(mt).hpp</FONT></B>
+
+<P>This header file is where you define the mouse configuration. You should
+select either <B><U>PS2_MOUSE</U></B> or <B><U>SERIAL_MOUSE</U></B> by
+enabling the corresponding #defines. You should also verify that the correct
+IRQ is being used, which is dependent on your target system. For PS2_MOUSE,
+this is always IRQ 12. For serial mice, this can be either IRQ 3 or IRQ
+4. Select the correct settings for your system by enabling the corresponding
+definitions.
+
+<P><B><I><FONT FACE="Arial"><FONT SIZE=+2>SMX/PEG Make and Batch files</FONT></FONT></I></B>
+
+<P>The integration files smxpeg.cpp or smxpegmt.cpp are included in the
+PEG library as part of the build process. These files are <U>required</U>
+for running PEG with SMX.
+
+<P>Make files are provided for building the PEG library for SMX. These
+make files are designed for you to to compile and link from the command
+line. Once you have verified your configuration flags, go the the directory:
+
+<P><B>\smx\xpeg</B>
+
+<P>and find the subdirectory for your compiler. For example, if you are
+building for Borland 16-bit protected mode, the subdirectory is BC.2. If
+you are building for Microsoft 32-bit, the subdirectory is MC.P3. Switch
+to the correct compiler directory, and type
+
+<P><B>mak l t</B> (for real mode or)
+
+<P><B>mak t</B> (for protected mode)
+
+<P>This will compile all of the required PEG source files, and generate
+<B><U>peg.lib</U></B>. Switch to the output directory and generate that
+the file peg.lib has been created.
+
+<P>There is also a pre configured make file for generating the PEG/SMX
+demo application. This is a convenient starting point for your own project
+development. Switch to the smx proto system directory ( either \smx\xproto
+or \smx\xprotopm, depending on your target), and again find the correct
+subdirectory for your compiler and x86 execution mode.
+
+<P>The application make file can be configured to include a large number
+of demo programs. For PEG/SMX, you should open the protosystem make file
+<B>pro.mak</B> and insure that the PEG demo application build macros are
+enabled. Now again at the command line type
+
+<P><B>mak l t</B> (for real mode or)
+
+<P><B>mak t</B> (for protected mode)
+
+<P>This will compile the PEG demo application module(s), and link the SMX
+core and PEG library, finally creating <B>APP.EXE</B>. If you are building
+for real mode, you can run app.exe. directly from the command line. If
+you are building for protected mode, you must use the SMX pmeasy loader
+to load and execute the demo program. This is described in the SMX user’s
+manual.
+
+<P><B><I><FONT FACE="Arial"><FONT SIZE=+2>Integration Notes</FONT></FONT></I></B>
+
+<P>If you purchased the SMX/PEG integration package, you received additional
+PEG source files which are used to run PEG with the SMX operating system.
+These files provide custom implementations of <B><I>PegTask</I></B> and
+<B><I>PegMessageQueue</I></B>, custom interrupt driven keyboard and mouse
+service routines, and eliminate <B><I>PegIdleFunction.</I></B> Other refinements
+have been incorporated into the standard library source code allowing you
+to build and run PEG in the multitasking SMX environment. If you are not
+familiar with the terms <B><I>PegTask</I></B> and <B><I>PegIdleFunction</I></B>,
+you should review the information provided in this manual in the chapter
+entitled PEG Execution and Internals.
+
+<P>There are two versions of the SMX integration, supporting either the
+<B>GraphicsServer</B> model or the <B>Multithread</B> model. The graphics
+server model is implemented in the file smxpeg.cpp, and the Multithread
+model is implemented in the file smxpegmt.cpp. You should have received
+only one of these integration files, depending on which model you requested.
+In the following descriptions we will refer to smxpeg.cpp, however if you
+have purchased the multi-tasking support your integration file is actually
+named smxpegmt.cpp. The remaining descriptions are common to both integration
+packages.
+
+<P>In order for PEG to run, an SMX task specific to PEG must be created
+and started. This task is called <B><I>PegTask</I></B>. The custom implementation
+of PegTask is contained in the file smxpeg.cpp, found in your \smx\xpeg
+directory. This file must be copied into your \peg\source directory before
+building the PEG library. The task entry point for the PEG task is named
+<B><I>PegTask</I></B>, as you might have expected. The task is created
+with a bound stack of 8Kbytes. A much smaller stack would suffice for the
+demo application, but this leaves room for you to add additional features
+to the demo without worrying about stack size. <B><I>PegTask</I></B> is
+created as a LO priority task, which means that any higher priority tasks
+which have work to do will always receive control of the CPU before PEG
+does. In order for your interface to run smoothly, you must insure that
+your hi-priority tasks complete their operations as quickly as possible.
+Your interface may appear choppy if PEG is prevented from running for extended
+periods (> 50 ms) at a time. If your tasks are running continuously for
+longer periods than this, you may need to examine your task structure and
+determine if the slow task can be broken up into two separate tasks, one
+which contains the truly high priority code, and another which can run
+in the background at lower priority.
+
+<P><B><I>PegTask</I></B> works by first creating two SMX message exchanges.
+The first is the free message exchange, which is where other SMX tasks
+or LSRs obtain free MCB_PTRs (Message Control Block pointers). The second
+exchange is called PegInput, and this is the message exchange used to pass
+messages from SMX LSRs or tasks to <B><I>PegTask</I></B>. Each of these
+message exchanges hold pointers to PegMessage sized messages. Therefore
+all outside message generators are able to directly populate the message
+fields. This eliminates the need to convert between any other message type
+and PegMessage, since the messages are always in the PegMessage format.
+
+<P><B><I>PegTask</I></B> then creates the fundamental PEG objects, calls
+<B>PegAppInitialize()</B> to allow the application level software (contained
+in pegapp.cpp) to construct the initial window(s), and begins GUI execution
+by calling <B><I>PegPresentationManager</I></B>::Execute().
+
+<P>PEG runs until all messages held by <B><I>PegMessageQueue</I></B> have
+been processed, and then directly suspends the calling thread via a call
+to <B>receive()</B>. PegIdleFunction is not used since all input devices
+are interrupt driven and polling is not required. For the demo application,
+the possible sources of input messages are:
+
+<P><U>PegTickLsr</U>- This is the service routine for a periodic SMX timer
+created to provide ticks for the PEG timer functions.
+
+<P><U>Opcon</U>- This is the optional SMX keyboard input LSR, which in
+this case sends all keyboard input to PEG via the PegIn message exchange.
+
+<P><U>IdleMain</U>- This is the SMX background idle task. For the demo
+application, we have configured IdleMain to periodically send a message
+to PEG when a new CPU usage profile has been generated.
+
+<P><U>SMX Error System</U>- The SMX error system has been reconfigured
+to send messages to PEG when SMX detects any type of CPU, memory, stack,
+or other internal system error.
+
+<P><U>Mouse Drivers- </U>Interrupt driven direct-to-hardware mouse drivers
+are provided for use with SMX. This allows the use of PEG/SMX on systems
+which have no BIOS, and more significantly allows PEG to run in both 16
+and 32-bit protected modes. These mouse drivers are configured via #defines
+in the file \peg\peg.hpp. These drivers are designed to support Microsoft
+compatible mouse protocols, using either the COM1, COM2, or PS2 input ports.
+
+<P><U>PegMessageQueue-</U>
+
+<P>A custom implementation of PegMessageQueue is also provided as part
+of the integration package. This custom implementation is contained in
+the file smxpeg.cpp, which is found in your \peg\source directory. This
+version of PegMessageQueue directly uses the SMX message control block
+structures, and therefore no external protection of the PEG message queue
+is required. Further, this allows LSR routines to directly post messages
+to PegMessageQueue without causing queue corruption.
+
+<P><U>PEG_MULTITHREAD-</U>
+
+<P>Finally, a custom version of the PegWindow::Execute function is provided
+when running under the MULTITHREAD model. This custom implementation checks
+the current thread pointer, ct, to determine which thread is calling the
+Execute function. If the caller is PegTask, the function executes as normal.
+If the caller is not PegTask, a task information structure is created and
+appended to a list of such structures. Part of this task information structure
+is a pointer to a new message queue created to receive messages targeted
+for any windows owned by the calling task. The task is then suspended awaiting
+the arrival of messages in the newly created message queue.
+
+<P>The multithreaded integration package includes modified versions of
+the PegMessageQueue functions which understand how to route messages to
+and receive messages from individual message queues for each GUI task.
+There are also additional functions and macros defined for dynamic creation
+and destruction of multiple message queues. These functions are contained
+in the file \peg\source\smxpegmt.cpp, and the macros are defined in the
+file \peg\include\smxpegmt.hpp.
+
+<P><B><FONT FACE="Arial"><FONT SIZE=+2>Demo Notes</FONT></FONT></B>
+
+<P>The PEG demo source files for SMX are contained in the \smx\demo directory.
+This directory contains several files required for the PEG demo, however
+many of the files simply contain bitmaps or fonts. The true source code
+is contained in the file pegapp.cpp.
+
+<P>Portions of pegapp.cpp are conditional upon whether or not PEG_MULTITHREAD
+is defined. That is, the demo program runs differently depending on whether
+or not the MULTITHREAD model is being used. The demo programs are similar
+in appearance, however the underlying operation is dramatically different
+depending on the model in use.
+
+<P>These demo programs, while simple, are designed to provide a good starting
+point for constructing your own applications. At the very least, you will
+want to start with the provided <B>PegAppInitialize(),</B> and add your
+own tasks and windows.
+
+<P>&nbsp;
+
+<P>&nbsp;
+</BODY>
+</HTML>

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegMLTextButton</FONT></FONT></B></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton provides
+a pushbutton object with visual feedback indicating to the user the button
+depress and release operation. PegMLTextButton differs from PegTextButton
+in that the text displayed can span <B><I>multiple lines</I></B> in the
+button client area, hence the class name PegMLTextButton.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Any custom fonts
+or colors may be applied to PegMLTextButton. Users often create custom
+derived versions of PegMLTextButton to draw modified border styles, modified
+border shapes, etc. PegMLTextButton is also commonly used to populate PegHorzList
+and PegVertList objects.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The text strings
+displayed on the button face are vertically centered over the button client
+area, and may be horizontally justified in different ways by using the
+different text justification styles such as TJ_LEFT or TJ_CENTER.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The text breaks for
+a multi-line text button are defined by the caller when the text string
+is passed to the button, either during object construction or with the
+DataSet() function. The character to be used as a break character is passed
+to the class constructor(s), and defaults to the value of the following
+define:</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">#define DEF_ML_MARKER&nbsp;
+0x7c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // the '|' character</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This allows the application
+engineer to easily change the character used as a line delimiter.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Simple formatting
+such as insertion of blank lines is also possible through clever use of
+the break character. If the first or last characters in the string are
+any number of break characters, the vertical centering will be adjusted.
+If the string contains two or more back-to-back break characters, blank
+lines will be inserted into the displayed text.</FONT></FONT>
+<BR>&nbsp;
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbutton.htm">PegButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptxtbutn.htm">PegTextButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbitbutn.htm">PegBitmapButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pradbutn.htm">PegRadioButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pchkbox.htm">PegCheckBox</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>TJ_RIGHT</TD>
+
+<TD COLSPAN="2">Right justified text.</TD>
+</TR>
+
+<TR>
+<TD>TJ_LEFT</TD>
+
+<TD COLSPAN="2">Left justified text.</TD>
+</TR>
+
+<TR>
+<TD>TJ_CENTER</TD>
+
+<TD COLSPAN="2">Centered text.</TD>
+</TR>
+
+<TR>
+<TD>BF_REPEAT</TD>
+
+<TD COLSPAN="2">This flag causes the button to send periodic PSF_CLICKED
+signals when held down by the user.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>BF_DOWNACTION</TD>
+
+<TD COLSPAN="2">This flag causes the button to send the PSF_CLICKED signal
+on the down press of the button, rather than the default action which is
+to signal on the button release.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>AF_ENABLED</TD>
+
+<TD COLSPAN="2">This flag allows the button to be selected.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton sends PSF_CLICKED signals when selected.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton is derived
+from <A HREF="pbutton.htm">PegButton</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMLTextButton(PegRect
+&amp;Rect, const PEGCHAR *text, PEGCHAR cMarker = DEF_ML_MARKER, WORD wId = 0, WORD
+wStyle = TJ_CENTER|AF_ENABLED)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMLTextButton(SIGNED
+iLeft, SIGNED iTop, SIGNED iWidth, const PEGCHAR *text, PEGCHAR cMarker = DEF_ML_MARKER,
+WORD wId = 0, WORD wStyle = AF_ENABLED)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMLTextButton(SIGNED
+iLeft, SIGNED iTop, const PEGCHAR *text, PEGCHAR cMarker = DEF_ML_MARKER, WORD
+wId = 0, WORD wStyle = AF_ENABLED)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton offers three constructors, depending on how you want
+to specify the button size. The first constructor allows you to fully specify
+the button size and position. The second constructor allows you to specify
+the top-left corner of the button and the button width. The last constructor
+allows you to specify the top-left corner position of the button. In this
+case the button calculates its own height and width based on the default textbutton
+font.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void DataSet(const
+PEGCHAR *pText)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton overrides the DataSet() function to invalidate the
+button client area and re-calculate the number of lines to display.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton overrides the Draw() function to draw the text on the
+button face.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegFont *GetFont(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns the current PegFont.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetFont(PegFont
+*pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMLTextButton overrides the SetFont() function to invalidate the
+button client area and re-calculate substring positions.</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a default multi-line text button:</FONT></FONT>
+<BR><IMG SRC="image48.gif" >
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Created using the
+following code fragment:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+&nbsp;&nbsp;&nbsp; Add(new PegMLTextButton(mClient.wLeft + 10, mClient.wTop + 10,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Multi-Line|Text|Button"));
+</FONT></FONT></PRE>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following
+is a multi-line text button with a blank line, modified color,
+and modified font:</FONT></FONT>
+<P><IMG SRC="image49.gif" >
+<BR>&nbsp;
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Created using
+the following code fragment:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+&nbsp;&nbsp;&nbsp; Rect.Set(0, 0, 90, 72);
+&nbsp;&nbsp;&nbsp; Rect.Shift(mClient.wLeft + 10, mClient.wTop + 10);
+&nbsp;&nbsp;&nbsp; PegMLTextButton *pButton = new PegMLTextButton(Rect,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "This Button|Has A||Blank Line");
+&nbsp;&nbsp;&nbsp; pButton->SetColor(PCI_NORMAL, BLUE);
+&nbsp;&nbsp;&nbsp; pButton->SetColor(PCI_NTEXT, WHITE);
+&nbsp;&nbsp;&nbsp; pButton->SetFont(&amp;SysFont);
+&nbsp;&nbsp;&nbsp; Add(pButton);
+</FONT></FONT></PRE>
+
+<HR>
+</BODY>
+</HTML>

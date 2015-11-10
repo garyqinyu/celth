@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;
+<BR><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PEG System Status Flags</FONT></FONT></B>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>PSF_ACCEPTS_FOCUS</TD>
+
+<TD COLSPAN="2">This flag indicates that the object will become the receiver
+of input events when selected. The application level software can modify
+this flag, but normally this is not advised. If this flag is modified for
+a particular object, it is important for correct operation that ‘breaks’
+in the tree of objects accepting focus are avoided. In other words, if
+a parent window cannot accept focus, then neither should any of the window’s
+child objects be allowed to accept focus.</TD>
+</TR>
+
+<TR>
+<TD>PSF_ALWAYS_ON_TOP</TD>
+
+<TD>This flag insures that the object is always on top of its siblings.
+The application level software can modify this flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_CURRENT</TD>
+
+<TD>This flag indicates that the object is in the current branch of the
+display tree. If the object is a leaf object (i.e. it has no children)
+and it is current, then it is the object which will receive keyboard input
+messages.</TD>
+</TR>
+
+<TR>
+<TD>PSF_DRAG_SOURCE</TD>
+
+<TD>This flag, when set, allows the object to be dragged from its current
+parent and dropped on another parent object. This flag has no effect in
+the current library implementation. The application level software can
+modify this flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_DRAG_TARGET</TD>
+
+<TD>This flag, when set, indicates the object accepts objects which have
+been dragged from another source. This flag has no effect in the current
+library implementation. The application level software can modify this
+flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_MOVEABLE</TD>
+
+<TD>This flag determines whether or not an object can be moved. The application
+level software can modify this flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_NONCLIENT</TD>
+
+<TD>This flag , when set, allows a child object to draw outside the client
+area of its parent. The application level software can modify this flag
+after the object is constructed but before the object is displayed.</TD>
+</TR>
+
+<TR>
+<TD>PSF_SELECTABLE</TD>
+
+<TD>This flag is tested by PegPresentationManager to determine if an object
+is enabled and allowed to receive input messages. The application level
+software can modify this flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_SIZEABLE</TD>
+
+<TD>This flag determines whether or not an object can be resized. . The
+application level software can modify this flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_TAB_STOP</TD>
+
+<TD>This flag determines whether or not an object receives input focus
+when the 'tab' key is received. This flag is enabled by default for PegButton
+objects. Also enabled for editable PegString and PegTextBox objects. Enabled
+for PegPrompt objects that can receive focus. The application software
+can modify this flag.</TD>
+</TR>
+
+<TR>
+<TD>PSF_VIEWPORT</TD>
+
+<TD>This flag, when set, instructs PegPresentationManager that the object
+should be given a private screen viewport. Objects that have a viewport
+are drawn differently than objects that do not have a viewport. In general,
+large objects or objects which have a very complex drawing routine should
+be given viewports, while small or simple objects should not. By default
+all PegWindow derived objects receive viewports, and all other objects
+do not. This flag should not be changed except immediately after the object
+is constructed.</TD>
+</TR>
+
+<TR>
+<TD>PSF_VISIBLE</TD>
+
+<TD>The object is visible on the screen. This flag should not be modified
+by the application level software. Clearing or setting this flag will not
+have the effect of removing or displaying the object. The PegThing member
+functions Add and Remove are used for that purpose.</TD>
+</TR>
+</TABLE>
+&nbsp;
+</BODY>
+</HTML>

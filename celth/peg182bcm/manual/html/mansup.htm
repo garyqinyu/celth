@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Generator" CONTENT="Microsoft Word 97">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Programming Manual</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER><B><I><FONT FACE="Bookman Old Style"><FONT SIZE=+2>Manual Supplement</FONT></FONT></I></B></CENTER>
+
+
+<P>This chapter describes PEG programming concepts that we not included
+in the last release of the programming manual.&nbsp;<A NAME="VIEWPORTS"></A>
+
+<P><B><I><U><FONT FACE="Arial"><FONT SIZE=+2>Viewports</FONT></FONT></U></I></B>
+
+<P>PEG uses the concept of viewports to improve drawing efficiency and
+to allow background drawing operations to occur without overwriting foreground
+graphics.
+
+<P>Viewports are rectangular areas of the screen owned by certain objects.
+Each viewport has only one owner, while one object may own several viewports.
+The diagram below should clarify this concept:
+
+<P>&nbsp;
+<BR>
+<HR><IMG SRC="viewport.gif" >&nbsp;
+<HR>
+
+<P>&nbsp;
+<BR>In the diagram above, a typical run-time screen is shown. The black
+area is the screen background, covered by PegPresentationManager. The two
+white areas are PEG windows, named WindowA and WindowB. WindowB is on top
+and partially covering WindowA. In this diagram, the black rectangles with
+solid green outlines depict the viewports owned by PegPresentationManager.
+In this case, PresentationManager owns viewports V1-V6. WindowA is divided
+into two viewports, V7 and V8. Finally, WindowB is on top and has one viewport,
+V9.
+
+<P>PEG maintains the screen viewports, and you do not ordinarily have to
+concern yourself with how they work. There is one exception, however, that
+you may need to be aware of. Normally, only PegWindow derived objects have
+viewport status. That means that other smaller objects like PegButton and
+PegIcon do not own viewports, and simply inherit the viewport(s) of their
+parent window.
+
+<P>The viewport management algorithm employed by PEG does not allow there
+to be breaks in the viewport tree. That is, an object that owns viewports
+(i.e. a PegWindow derived object) should only be added to another object
+that owns viewports. This does not mean that you cannot add PegWindow derived
+objects to objects that are not derived from PegWindow, because you can.
+However, when you do this you should set the PSF_VIEWPORT status flag of
+the parent object, to make it a viewport owner.
+
+<P>An example should clarify this concept. Suppose you want to create a
+simple object container class. This container class will simply serve as
+a parent for a group of lists, windows, and other controls. This is a common
+thing to do, as it allows you to add and remove the entire group of objects
+at any time simply by adding or removing the container. Since the container
+class does not need to actually draw anything, you decide to derive it
+from PegThing, the most basic PEG class. Since at least some of the children
+of the PegThing container are PegWindow derived objects, you will need
+to make the PegThing container class a viewport owner. If you don't do
+this, the PegWindow derived children of the container class won't show
+up on the screen. You can make the PegThing container class a viewport
+owner simply by adding the PSF_VIEWPORT system status in the container
+class constructor:
+
+<P>AddStatus(PSF_VIEWPORT);
+
+<P>Now your container class will work correctly, and both PegWindow derived
+children and simple children will be display when the parent container
+class is displayed.
+
+<P>&nbsp;
+
+<P>&nbsp;
+<BR><A NAME="SCROLLING"></A>
+
+<P><B><I><U><FONT FACE="Arial"><FONT SIZE=+2>How Scrolling Works</FONT></FONT></U></I></B>
+
+<P>PegWindow provides the capability of adding scroll bars, and using those
+scroll bars to pan or move the client area of the window. Scroll bars are
+added by calling the SetScrollMode() PegWindow member function.
+
+<P>The scroll bars added to the window make use of two virtual PegWindow
+functions: GetHScrollInfo and GetVScrollInfo. When a scroll bar needs to
+update itself, it calls these parent window member functions to learn the
+scroll bar limit, current setting, and percentage visible data. GetHScrollInfo()
+and GetVScrollInfo() receive a pointer to a <A HREF="scrinfo.htm">PegScrollInfo
+</A>structure. It is the job of these functions to fill in the PegScrollInfo
+wMin, wMax, wCurrent, wStep, and wVisible values so that the scroll bar
+is correctly positioned.
+
+<P>The PegWindow class provides default implementations of GetHScrollInfo
+and GetVScrollInfo. These implementations examine all client-area children
+of the window to determine the outer limits that the scroll bars should
+allow scrolling to. This default implementation also uses the window client
+area width and height as the scroll bar 'visible' value.
+
+<P>The default implementation works well in most cases, and makes it very
+easy to create scrolling client areas. All you need to do is add a child
+window to a scrolling parent that is much larger than the parent client
+area. The default implementation will adjust the scroll bars such that
+the entire child window can be viewed by moving the horizontal and/or vertical
+scroll bars.
+
+<P>In some cases the default operation does not provide the required function.
+In these cases you can override the GetHScrollInfo and GetVScrollInfo functions
+to return custom scrolling information. For example, suppose you want to
+create a continuous-time plot of data values, and use a horizontal scroll
+bar to move back and forth in the time period displayed. In this case you
+would create a derived PegWindow class in order to draw the chart data
+in the window client area. You would also provide a overridden version
+of the GetHScrollInfo function to make the horizontal scroll bar reflect
+the accumulated time values. In this case, the ScrollInfo minimum value
+might be the starting time of data recording, the maximum value would be
+the current time, and the visible amount would be the time period visible
+in the window client area.
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+</BODY>
+</HTML>

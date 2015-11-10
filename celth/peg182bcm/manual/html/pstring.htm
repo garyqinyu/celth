@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegString</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString is a user-editable
+graphical string object. PegString can be displayed with any font or color
+and several different border styles. Only one line of text can be displayed
+in a PegString.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString supports
+mark, cut, copy, and paste operations via keyboard input when the definition
+#define PEG_KEYBOARD_INPUT is enabled in the file \peg\include\pconfig.hpp.
+The length of the contained string can be limited if desired. PegString
+shifts the string left or right as the string is edited if the string cannot
+be completely displayed in the client area of the PegString object.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprompt.htm">PegPrompt</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptextbox.htm">PegTextBox</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>EF_EDIT</TD>
+
+<TD COLSPAN="2">When this style is applied the user can edit the PegString
+object. If this style is applied the PegString object automatically includes
+the TT_COPY style.</TD>
+</TR>
+
+<TR>
+<TD>TT_COPY</TD>
+
+<TD COLSPAN="2">Instructs the PegString to copy the text string assigned.
+This flag should be used when the text string assigned to the PegString
+is created dynamically using temporary storage.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to the
+common signals defined by PegThing, PegString supports the following signals:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PSF_TEXT_SELECT&nbsp;&nbsp;&nbsp; // sent when the user selects text
+PSF_TEXT_EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // sent each time text is modified
+PSF_TEXT_EDITDONE&nbsp; // sent when a text modification is complete</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPrompt is derived
+from <A HREF="pthing.htm">PegThing</A> and <A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegString(const
+PegRect &amp;Rect, const PEGCHAR *Text = NULL, WORD wId = 0, WORD wStyle
+= FF_RECESSED|AF_ENABLED|EF_EDIT, SIGNED iLen = -1)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegString(SIGNED
+iLeft, SIGNED iTop, SIGNED iWidth, const PEGCHAR *Text = NULL, WORD wId
+= 0, WORD wStyle = FF_RECESSED|AF_ENABLED|EF_EDIT, SIGNED iLen = -1)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegString(SIGNED
+iLeft, SIGNED iTop, const PEGCHAR *Text = NULL, WORD wId = 0, WORD wStyle
+= FF_RECESSED|AF_ENABLED|EF_EDIT, SIGNED iLen = -1)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are three PegString
+constructors. Each constructor allows you to specify different parameters
+about the string position and size. The first constructor allows you to
+fully specify the PegString position and size. The second and third automatically
+determine the PegString height based on the default font. The second constructor
+allows you to specify the overall string width, while using the third constructor
+allows the string to calculate the minimum width required to display the
+specified text.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+CopyToScratchPad(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method copies
+the currently selected text to the scratch pad.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void DataSet(const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString overrides
+the DataSet() function to reset any in-progress string mark or edit operations.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+DeleteMarkedText(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method deletes
+the marked text.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString overrides
+the Draw() function to display the string border and text.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED GetMarkEnd(void) {return miMarkEnd;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the index
+of the last character marked by the user.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED GetMarkStart(void) {return miMarkStart;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the index
+of the first character marked by the user.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString catches
+various mouse and keyboard messages.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B><FONT FACE="Arial,Helvetica">void
+PasteFromScratchPad(void)</FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method pastes
+the text from the scratch pad and inserts it at the current cursor position.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetFont(PegFont *pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString overrides
+the SetFont() function to re-calculate the overall string width, cursor height,
+etc.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetMark(SIGNED iStart, SIGNED iEnd)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to mark all or a portion of the string text under program control.
+The iStart and iEnd values are the character indexes at which to begin
+and end marking, inclusive.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetMark(PEGCHAR *MarkStart, PEGCHAR *MarkEnd)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to mark all or a portion of the string text under program control.
+The MarkStart and MarkEnd values are pointers to the characters at which
+to begin and end marking, inclusive.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Style(WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegString overrides
+the Style function to reset any in progress mark or edit operations if/when
+the EF_EDIT style is removed.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+each different styles of PegString:</FONT></FONT>
+<BR><IMG SRC="image19.gif" >
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following function
+creates a PegString object with a custom font:</FONT></FONT>
+<PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">extern PegFont CustomFont;
+
+void MyWindow::AddCustomString(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ChildRect;
+&nbsp;&nbsp;&nbsp; ChildRect.Set(0, 0, 100, 40);
+&nbsp;&nbsp;&nbsp; PegString *pString = new PegString(ChildRect, "FooBar");
+&nbsp;&nbsp;&nbsp; pString->SetFont(&amp;CustomFont);
+&nbsp;&nbsp;&nbsp; Add(pPrompt);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

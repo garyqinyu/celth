@@ -1,0 +1,1549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+            
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+            
+  <meta name="Author" content="Kenneth G. Maxwell">
+            
+  <meta name="GENERATOR" content="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+  <title>PEG Reference Manual</title>
+</head>
+  <body text="#000000" bgcolor="#fffbf7" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+   &nbsp;   
+<center><b><font color="#9c0000"><font size="+2">Release Notes</font></font></b></center>
+       
+<p>This file contains summary notes documenting changes made by PEG developers 
+ for the last several interim releases of the PEG library.  </p>
+   
+<p><b><i>To Our Valued Customers,</i></b>  </p>
+   
+<p>Swell Software makes every reasonable effort to insure that new releases 
+ are fully compatible with existing applications, as we do not take trivially 
+ the effort and inconvenience caused by forcing changes to your existing software.
+Still, there are occasions when significant feature upgrades are best implemented
+by modifying existing classes. Code size and execution speed are and will
+always be among our top priorities, as we believe this is in the long term
+best interest of all concerned.  </p>
+   
+<p>This file summarizes all significant changes, enhancements, bug fixes, 
+ or other modifications. This file does not replace the programming and reference
+ manual, but is provided for convenience and is intended to minimize the
+time  spent searching for changes that may affect your system software. 
+</p>
+   
+<p>Changes which may affect existing applications are highlighted with the
+ bullet style shown below: <br>
+  <img src="bullet1.jpg" height="11" width="12">
+   This bullet marks a change that may affect your existing software. <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   This bullet marks an enhancement that will not affect existing software. 
+  </p>
+   
+<p>We hope that these notes minimize any difficulty you experience in updating 
+ to a new release of the PEG library. Remember that the majority of our enhancements
+ are driven by customer requests, so feel free to give us your feedback.
+As  always, should you have any problems we encourage you to contact Swell
+Software,  Inc.  </p>
+   
+<p>Sincerely,  </p>
+   
+<p><i>The Development Team</i>  </p>
+   
+<p>Swell Software, Inc.  </p>
+   
+<p>&nbsp; <br>
+   </p>
+   
+<hr>  <br>
+  <b><u><font size="+1">Release 1.82</font></u></b>    
+<p><img src="bullet1.jpg" height="11" width="12">
+   Added horizontal and vertical cell justification in the PegTable class.
+ This enhancement changes the PegTable::SetCellClient method by replacing
+the  BOOL bForceFit parameter to a WORD wStyle parameter. Please see the
+ reference material for the PegTable class for a complete description of
+the new style flags.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Improved the PegStripChart class by allowing each line being displayed 
+to  set it's own leader color. The method PegStripChart::SetLeaderColor has 
+been removed and superseded by PegStripChart::SetLineLeaderColor.</p>
+   
+<p><img src="file:///H:/peg/manual/html/bullet1.jpg" height="11" width="12">
+   Improved the image conversion classes (pimgconv, pjpgconv, pgifconv, pbmpconv,
+ ppngconv) to properly support 16bpp and 24bpp output formats without losing
+ color information. The API for retrieving the resulting PegBitmap(s) has
+been changed to GetBitmapPointer(index), instead of returning an array of
+PegBitmap pointers.</p>
+   
+<p>  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed path parsing problem in the PegImageConvert utility causing strange 
+ output bitmap names.</p>
+ 
+<p></p>
+ 
+<p><img src="file:///H:/peg/manual/html/bullet3.jpg" height="11" width="12">
+  Fixed bug in viewport update routines that was revealed when a new PegWindow 
+was added to an already visible but partially hidden parent window. The new 
+window was allowed to show above the window obscuring the parent window.</p>
+ 
+<p><img src="file:///H:/peg/manual/html/bullet3.jpg" height="11" width="12">
+  Changed the 16 level grayscale palette to a linear grayscale palette, meaning 
+equal steps from black to white. The older palette matched the VGA color palette
+luminance values. The new linear palette provides a nicer looking image and
+more gray levels for bitmapped images.</p>
+   
+<p><img src="file:///H:/peg/manual/html/bullet3.jpg" height="11" width="12">
+   Improved speed of drawing angled lines by moving the clipping test outside
+ of the inner loop for lines that do not need to be clipped..  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added more key handling to PegComoBox, making it possible to open and
+close  a combo-box using the keyboard.</p>
+<p><img src="file:///H:/peg/manual/html/bullet1.jpg" height="11" width="12">
+   Added new messages "PM_GAINED_KEYBOARD" and "PM_LOST_KEYBOARD" to indicate
+when an object gains and loses keyboard input focus. This message is only
+defined when PEG_KEYBOARD_SUPPORT is defined. This message is more specific
+than PM_CURRENT, because it is sent only to the input focus object rather
+than to all objects in the active branch of the current or active display
+tree.<br>
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified directional (i.e. arrow) key handling to ignore groups, making
+ the directional moves more intuitive.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added configuration flag "PEG_ARROW_KEY_SUPPORT" to modify key handling
+ for systems with a keyboard or keypad, but which may or may not include
+arrow  keys.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new Protected Mode Generic SuperVGA screen driver. This screen driver
+ is for x86 systems only, running in 32-bit protected mode. This driver provides 
+ generic support for all PCI video cards in x86 systems at 640x480, 800x600,
+  and 1024x768 resolution at 256 colors.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added FreeType (Internal) True Type font rasterizer support to the FontCapture 
+ utility program.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changed FontCapture utility to preview all font pages before saving the 
+generated font.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changed WindowBuilder Reduced-Font writer to record each font's page height, 
+ instead of using first page height for all pages.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved Polygon filling algorithm to properly handle all known convex 
+and  concave polygons. Tested with polygons having many hundreds of points 
+and  all sorts of strange shared edges, holes, etc..   </p>
+   
+<p>   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added example program named "Bolas", an artificial intelligence marble 
+game.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Many improvements and bug fixes to the PRESS execution model including 
+locally (server side) registering and unregistering of font and bitmap resources.
+ Unicode font resource handling was also added allowing client applications
+ to register large, multi-paged, Unicode fonts on the server.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the PEG utilities (WindowBuilder, FontCapture and  ImageConvert)
+ to run on the X11/Solaris Intel platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for running PEG Remote Screen Client (PRESC) applications 
+on the Solaris Intel platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the Epson S1D13A03/4/5 family of video controllers.
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Corrected bitmap display problem with PegMessageWindow class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added a new PegMLMessageWindow class that allows for multiline messages
+ to be displayed in a message box.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Many improvements to the PegChart class and it's derivatives to more efficiently
+ draw the data lines and optional components of the chart.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox where the width of the textbox is smaller than 
+the width of a single character, causing an infinite loop.<br>
+  </p>
+   
+<p><img src="file:///H:/peg/manual/html/bullet1.jpg" height="11" width="12">
+   Improved tab order definition and maitenance methods. A new function PegThing::SetDefaultTabLinks
+ is now called to establish tab order based on top-to-bottom, left-to-right
+ child control position. The function PegThing::SetTabOrder has also been
+added to allow the application to specify a unique specific tab order.</p>
+   
+<p></p>
+   
+<p><img src="file:///H:/peg/manual/html/bullet1.jpg" height="11" width="12">
+  &nbsp;  Improved methods for keeping track of which child object has input
+ focus when the parent window loses and regains focus. In many cases this
+eliminates the need to use PegPresentationManager::MoveFocusTree() to move
+focus to the desired object. For applications which create multi-level menu
+systems using PegWindow derived objects, this greatly simplifies the code
+required to exit out of nested menus and keep focus on the most recent selection.</p>
+   
+<p><img src="file:///H:/peg/manual/html/bullet3.jpg" height="11" width="12">
+    Fixed bug in PegTextBox where the width of the textbox is smaller than
+ the width of a single character, causing an infinite loop.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.80</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added public functions HidePointer, AddPointerType, and GetPointerPosition
+ to PegScreen class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Moved the file \include\pvecfont.hpp to \source\pvecfont.cpp. This file
+ should be added to the PEG library make file if you are using vector fonts. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Moved the file \include\pal256.hpp to \source\pal256.cpp. This file should
+ be added to the PEG library make if you are using the default 256 color
+palette.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   First release of HP-PCL3 Printer Driver support.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   First release of Anti-aliased line drawing support. Currently only supported 
+ in 16-bit (65K colors) screen driver. Support will be added to other screen 
+ drivers where possible.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changed PegThing::Add and PegThing::AddToEnd functions to insure that
+objects  that are Viewport owners stay in front of objects that are not viewport
+owners.  This will potentially cause subtle changes in working applications.
+This modification was required for correct operation of heavily nested PegWindow/PegButton
+combinations running on top of one another.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   PegThing::Presentation(), PegThing::MessageQueue(), and PegThing::Screen
+ are now static functions (as they always should have been).  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in viewport update routines that in certain cases allowed background 
+ viewport owners to show above forground objects.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed warnings in PNG decoder (ppngcon.cpp) and PegZip (pzip.cpp) modules 
+ for certain compilers.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added integration for Mentor Graphics VRTX operating system.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for Intel "Extensible Firmware Interface" (EFI) port of
+PEG.  There is now a PEG-based kit available for writing graphical BIOS extensions 
+ for Itanium-based computer systems.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed virtual (bitmap) drawing to allow non-visible objects to draw to 
+a bitmap.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in Circle and Arc clipping for virtual (bitmap) drawing.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for changing color of selected tab in PegNotebook class. 
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support Japanese Front End Processor. When editing the WindowBuilder 
+ string table, you can now use the FEP to input Kanji characters and these 
+ are accepted as normal character input by PEG.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified FontCapture to seperate capture and save operations. You can
+now  preview many captured fonts, and save those you want to keep. Simple
+editing  capability is scheduled for the next release. Improved speed of
+capture of  BDF formatted fonts. Improved conversion algorithm and character
+positioning  for BDF formatted fonts. Improved Outline Font generation and
+preview capabilities.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved PegHScroll and PegVScroll to set a minimum scroll button size. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Greatly improved WindowBuilder stability, especially related to String 
+Table editor.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in Merge facility of String Table Editor causing missed strings. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Import facility to StringTable editor. This is similar to Merge, 
+the strings from the merged table are added to the current table instead 
+of looking for duplicate string IDs as the Merge facilty does. Import is used
+ to create a "master string table" from several smaller tables created by
+developers working on different parts of an application.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added sort command to String Table Editor.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed memory leak in PegEditBox::CopyToScratchpad.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added persistence to PatternLine and made the pattern parameter optional. 
+ This improves the appearance if drawing many short pattern lines, because
+  the pattern doesn't reset and start over with every short line.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Removed use of floating point from run-time JPG conversion class (pjpgconv.cpp) 
+ if PEG_FP_GRAPHICS is not defined.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed several minor bugs in WindowBuilder code generator.            
+                                              </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PS/2 mouse support (including MS Intellimouse with wheel messages)
+ to the PEG Linux integration for x86 platforms. This is the new default
+type  (instead of serial mice) for running PEG on Linux. The defines for
+changing  this behavior and selecting the appropriate mouse type are in the
+file /peg/source/linuxpeg.cpp.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PS/2 mouse support for LynxOS on x86 hardware. The MS Intellimouse
+ is supported, but the LynxOS mouse driver does not provide "wheel" information,
+ therefore, the driver treats all PS/2 mice as 2 button MS generic mouse
+devices.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added X11 Development Platform support for LynxOS. This has been tested
+ with the default LynxOS MetroLink X Server and Lynx PosixWorks Desktop environment. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added X11 Development Platform support for x86 Sun Solaris 8 (07/01).
+This  has been tested with the X server and CDE that ships with Solaris.
+ </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Moved the "_REENTRANT" define that is necessary when building with POSIX 
+ compliant operating systems (such as Linux, LynxOS and Solaris) to the gcc
+ command line and out of the PEG header files. This ensures that this define
+ is applied to all PEG library and applications building on these platforms
+ in the  proper fashion. All of the appropriate make files have been updated.
+ For customers building on any of these operating systems with older make
+files, you must add the "_REENTRANT" define to your existing make files.
+For an example of this, see any of the make files for the PEG library specific
+to your operating system.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Updated the PEG Remote Screen Server and PEG Remote Screen Client integrations 
+ from Alpha to Beta status. Most of the run time issues have been resolved
+ and the accompanying documentation is nearly completed. This will be production 
+ ready software by the next release.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the Cirrus Logic EDB7312 development board including 
+support  for the BurrBrown ADS 7846 touch controller and front panel user 
+keys.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.79</font></u></b>   
+<p>In house release  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.78</font></u></b>   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed problem with Win32 utilities that left an automatic testing feature 
+ enabled, causing large files to be place on the system running the utility. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed problem with filled Arc drawing causing strange results.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed problem with Arc and Ellipse clipping.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Updated Lynx integration to support multi-threading.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.76</font></u></b>   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Multi-process support for MMU enabled operating systems via new
+remote  screen server. (ie. INTEGRITY, Linux, LynxOS, Enea-OSE...)  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PEG_ZIP and PEG_UNZIP data compress/restore fucntionality. These 
+classes  are used for PNG graphics file support, but can also be used as general
+purpose data compression for application data.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new flags to turn on/off image conversions. This enables the user
+ to turn on only a specific conversion type, instead of grouping them all
+together.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Grayscale weighting algorithm to ImageConvert utility, improved
+grayscale  support in 4-bit screen drivers.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved speed of color matching for run-time image conversion using 4-bit 
+ (16 color) screen drivers.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added the ability to dump any part of the screen to a Windows bitmap file. 
+ This has commonly been requested for use in product literature. This feature 
+ is enabled by turning on the new PEG_BITMAP_WRITER definition.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Support for Enea-OSE operating system. Current supported targets 
+include  Softkernel and MPC823. Others to follow.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Support for Precise-MQX operating system.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Permedia2, MediaQ MQ200, Epson1386, and StrongARM screen drivers. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for right-justified text in PegTextBox.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Modified large-font support to eliminate the 16-bit offset limitation. 
+PEG can now support a font of any number of characters, of any total size. 
+Very large fonts are now divided into multiple pages. These pages are linked 
+together to form one font. This process happens automatically when you run 
+FontCapture  or WindowBuilder, but it did require a modification to every 
+existing screen driver. If you are using PEG_UNICODE and you have created 
+your own screen driver, you should compare the DrawText routine in your driver 
+with the same function in the driver template.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   The multi-page font modification described above causes an incompatibiliy 
+ between the new and previous WindowBuilder project file. If you have a Unicode-Enabled
+ WindowBuilder project, Open that project with the previous version of Window
+ Builder. Delete the sub-fonts from any Composite fonts and then remove the
+ composite fonts from the project. Save the project. You can now open the
+project with the new WindowBuilder and re-add your composite fonts. NOTE:
+Your string tables will NOT be corrupted, you will NOT lose any existing
+string translations.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for "Paste From Clipboard" command in WindowBuilder string
+ table editor. This enabled users inputting Asian or other complex characters
+ to use the Front End Processor provided with Windows to input characters
+into the  WindowBuilder string table. Use the right mouse button over the
+string table to invoke the new "Paste From Clipboard" command.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in ALWAYS_ON_TOP status flag handling that allowed these ALWAYS_ON_TOP
+ objects to be covered..  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified keyboard-driven menu handling to allow wrap-around of menus when 
+ using the keyboard.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in Viewport Management that allowed Viewport and Non-Viewport 
+siblings to be drawn in the wrong Z-order. Only occured if a Viewport owner 
+overlapped a non-viewport sibling object.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegString that allowed a string to exceed the maximum length
+ if assigned using DataSet().  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added user-defined palette management to ImageConvert utility.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PNG file support to ImageConvert utility and to run-time image conversion
+ classes.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added character filter file capability to FontCapture utility program. 
+Modified internal operation to eliminate screen dependencies.   </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.75</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added the following HMI gadgets to the core library: </p>
+   
+<ul>
+       <li>PegLinearScale     </li>
+    <li>PegLinearBitmapScale     </li>
+    <li>PegFiniteDial     </li>
+    <li>PegFiniteBitmapDial     </li>
+    <li>PegColorLight     </li>
+    <li>PegColorBitmapLight </li>
+   
+</ul>
+      
+<p><img src="bullet1.jpg" height="11" width="12">
+   Due to name clashes with the X11 libraries, some of the public PegTreeNode 
+ method names were changed. Below is a list of the member methods that changed: 
+ </p>
+   
+<ul>
+       <li>PegTreeNode* Above() to PegTreeNode* NodeAbove()     </li>
+    <li>PegTreeNode* Below() to PegTreeNode* NodeBelow()     </li>
+    <li>PegTreeNode* Bottom() to PegTreeNode* NodeBottom() </li>
+   
+</ul>
+      
+<p><img src="bullet1.jpg" height="11" width="12">
+   Updated the charting classes to allow for dual Y axis labels, major and
+  minor tick marks and discrentionary positioning of the X axis tics and
+ labels along the Y axis.  </p>
+   
+<p> These changes affect some of the inline member methods of the base PegChart
+ class. Specifically the Get and Set methods for the tic marks. The general
+ methods have been replaced by methods specific to the  major and minor tic
+ marks. See the new pegchart.hpp file for details.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added the PegToolBar and PegToolBarPanel objects.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the PowerPC823 Motorla FADS reference platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the Embedded Planet PowerPC823 Ice Box reference platform, 
+ including video driver and touch screen support.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for ARM Tools Version 2.51.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the Samsung KS32C41000 ARM reference platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added SPI bus interface touch screen driver.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for Kadak's AMX RTOS.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for multi-threading under Linux.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the X Window System development platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changes to the WindowBuilder utility: </p>
+   
+<ul>
+       <li>Addition of the String Table Editor.     </li>
+    <li>Support for the new HMI and charting controls.     </li>
+    <li>Addition of the Composite Font feature.     </li>
+    <li>Improved multi-language support. </li>
+   
+</ul>
+      
+<p><img src="bullet3.jpg" height="11" width="12">
+   Miscellaneous improvements to the ImageConvert and FontCapture utilities. 
+  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.74</font></u></b>   
+<p>In house only release.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.73</font></u></b>   
+<p>In house only release.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.72</font></u></b>   
+<p>In house only release.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.71</font></u></b>    
+<p><img src="bullet1.jpg" height="11" width="12">
+   <b>Important: </b>Modified<b> <i><u>ALL</u></i></b> RTOS integrations
+such  that the new types PEG_TASK_TYPE and PEG_QUEUE_TYPE are required. This
+improves  the readability and eliminates the type-casting that was required
+when generic  "void *" data types were used. This change requires that anyone
+updating to this release who is using a supported RTOS must obtain new integration
+files. Please email support@swellsoftware.com if you need an updated version
+of your RTOS integration files. For privacy reasons they are NOT included
+in our core library release.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified directory structure. The \peg\build directory now contains all
+ supported DOS and Win32 make files for all supported compilers. Due to the
+ very large number of compilers and CPUs now supported, the remaining compiler/target/RTOS
+ specific make files are NOT included in the core library release. If you
+need assistance configuring your project for a particular compiler/target/RTOS,
+ please email support@swellsoftware.com. We will be happy to send you a library 
+ makefile and example program makefile for any supported compiler or hardware 
+ reference platform. As always new users of PEG receive the make files and 
+ examples for the specific compiler/RTOS/target specified at time of purchase. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for the Red Hat Linux 6.0  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for LynxOS Operating System  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for ThreadX Win32 development environment.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Cirrus Logic ARM 7211 reference platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed several problems in PegEditBox class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved drawing performance of charting classes. <br>
+  &nbsp;  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.70</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Moved all library configuration flags to a new header file named pconfig.hpp.
+ Users no longer should modify the peg.hpp header file, as all available
+configuration  flags are in the this new header file.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified the format in which new releases are posted. The core library,
+ ImageConvert, FontCapture, and WindowBuilder are now each posted as individual
+ components available for download. This change simplifies our internal testing
+ and release procedures, and enables us to post enhancements more quickly.
+ Seperate release notes are now provided for each component, further simplifying
+ the release, download, and update process.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Created new sub-directories for PegScreen derived screen drivers. These
+ drivers are once again included in each PEG release.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   First release of the PegChart classes. These classes include PegChart, 
+PegLineChart, PegStripChart, and PegMultiLineChart.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Profile-Mode screen driver templates. These templates allow PEG
+do  be used with a screen that has been mounted in a rotated or profile orientation. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added SED1356 screeen driver.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added ELO touch screen driver.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved performance of Cirrus Logic screen driver and Chips&amp;Technologies
+ 65545 screen driver.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Video Memory Manager. This feature is automatically turned on when
+ using a hardware-accelerated screen driver. This allows bitmaps created
+with  CreateBitmap() to be placed in unused video memory, and displayed using
+hardware  BitBlt capability. This is used for very fast animations or Sprite
+display.   </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   <b>Important: </b>Added DestroyBitmap() function to all screen drivers.
+ This is the opposite of the CreateBitmap() function. Any PegBitmap created
+ by calling the CreateBitmap() function must now be deleted using the DestroyBitmap()
+ function. This is required to allow consistent operation with systems running
+ with our without the Video Memory Manager.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added CreatePegScreen() function to all screen drivers. This simplifies
+ ALL of the OS integration and standalone PegTask implementations. The PegTask
+ startup code no longer needs to know which screen driver is being used,
+but  simply calls CreatePegScreen(), the implementation of which is determined
+ by which screen driver has been linked into your system.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added SDS CrossCode compiler to our verification list.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for US Software SuperTask! and TronTask! operating systems. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added several new example programs.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for run-time image scaling. Images can now be resized at 
+run time to any&nbsp; x-y resolution.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added a new configuration flag, PEG_AWT_SUPPORT, that turns on several 
+features required for supporting the Java AWT specification. Also modifies 
+the operation of certain internal clipping functions.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fix bug in DRAW_FOCUS operation that allowed multiple objects to be drawn
+ as if they owned input focus.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   PegSpreadSheet: Added new member functions and improved overall operation. 
+  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   PegTextBox: Removed editing capability from PegTextBox class. Restructured
+ and added many new run-time modification functions. The editing capability
+ has been moved to the new PegEditBox class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new PegEditBox class. This class derives from PegTextBox and adds
+ user editing capability via mouse and keyboard. This is how the class structure
+ should have been all along.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added GetBitmapPixel() and PutBitmapPixel() functions, used to modify
+individual  pixels in off-screen bitmaps. <br>
+  &nbsp; <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Improved support for 3:3:2 packed pixel mode. This is an alternate 256 
+color drawing mode. This required enhancements to ImageConvert along with 
+new configuration flags in pconfig.hpp  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.68</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Removed chip-specific PegScreen classes from the core distribution. <i>
+ This was done only to reduce the number of files included in the core distribution</i>
+  . Since the number of video controllers supported is steadily increasing,
+ including every PegScreen class in the core distribution adds unnecessary
+ complexity for new users. All PegScreen classes developed by Swell Software
+ are still available to all users of PEG. If you need a PegScreen class for
+ a specific video controller, contact us to see if we have a version available
+ for your system. We are re-working the online support page to provide a
+seperate  listing and download area for chip-specific PegScreen classes.
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Much work on improved operation with keyboard input only, eliminating
+much  of the application level coding required in previous versions. PEG_KEYBOARD_SUPPORT,
+ when turned on, now includes support for operating menus, switching between
+ windows and child controls, closing windows, etc.. The &lt;TAB&gt; and &lt;Shift+TAB&gt;
+ keys can now be used to move in forward and reverse directions through the
+ child controls. The &lt;CTRL+TAB&gt; key will cycle top-level windows, and
+ the &lt;F1&gt; key will activate a PegDecoratedWindow menu bar. Default
+arrow  key and enter key handling are also provided.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Greatly simplified the \peg\examples\keyboard example program to take
+advantage  of the new keyboard input handling methods.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Modified default operation when an object is added to the current window.
+ In previous releases, adding an object to the current window (i.e. the window
+ with input focus) did not by default move focus to the new object. This
+has  been changed such that if an object is added to a visible window, and
+that  window has input focus, the new object gains input focus. This eliminates
+ the need (in most cases) to call the PresentationManager::MoveFocusTree()
+ function.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PEG_DRAW_FOCUS configuration flag, which forces all controls to
+draw  themselves differently when they have input focus. This is an independent
+ configuration flag, but would normally be turned on when PEG_KEYBOARD_SUPPORT
+ is turned on and turned off otherwise.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added 256 color palette to WindowBuilder.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder Image file generation related to color reduction
+ of images for monochrome LCD panels.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegSlider with SF_SNAP style to force the slider handle to
+ snap to discreet positions.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder code generation for PegDialog titles. The title
+ buttons (system button, close button, etc..) were not set correctly for
+PegTitle  objects added to PegDialog windows.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified PegWindow and PegPresentationManager to insure that the first 
+control on a Window receives input focus when a window receives focus.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added additional checking to PegGifConvert class to prevent hang-up when
+ the source image contains one or more bad images.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added the ability to change the font used in PegTreeView and PegTreeNode
+ objects.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added the ability to change the font used in PegComboBox objects.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed problems with compiling PegJpgConvert class with SMX operating system. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegScreen class for use with the SED8106 video controller, 320x240
+ resolution monochrome LCD.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegScreen class for use with the SED8106 video controller, 320x240
+ resolution monochrome LCD turned 90 degrees (profile mode).  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added font preview to FontCapture utility when converting BDF input files. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new functions to PegNotebook to allow the client object associated
+ with each notebook page to be changed at any time without flickering and
+without requiring a manual notebook re-draw.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified FontCapture BDF file conversion algorithm to center characters
+ within bounding box.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.67</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified PegList classes such that PSF_LIST_SELECT signals are no longer
+ sent just because the list receives input focus.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Released 16-bit screen driver template.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed stack problem when running SMX WinBase under Windows 95/98.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Wrap Mode to list classes. This allows the keyboard selection to 
+wrap bottom-to-top or top-to-bottom.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added automatic text selection to PegTextBox created with the following
+ style: </p>
+   
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EF_EDIT is off<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AF_ENABLED is ON</pre>
+   This allows PegTextBox to be used to populate PegVertList or PegHorzList, 
+ and user selection is indicated by the entire text being highlighted.  
+ 
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.66</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Manuals revised and updated.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PharLap TNT DOS extender support.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Changed PegPrompt to vertically center text.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   New optimized Chips&amp;Technology 65545 screen driver (32-bit linear
+mode  support only).  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.65</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed double-draw occurring in PegNotebook class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved speed and efficiency of the algorithm for changing window Z-order. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new "MoveToFront()" function, which moves a child to the head of 
+the child list without changing the tab order.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegStatusBar causing prompts to be made invisible when parent
+ window is sized very small.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added limits to window resize function, thus preventing a window from
+being  resized "too small".  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added wrapper functions for new PegScreen drawing primitives.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changed radio button and checkbox classes to activate on LBUTTONUP instead
+ of LBUTTONDOWN.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new bitmaps to improve appearance of disabled radio button and disabled
+ checkbox.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.64</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for PegX using Green Hills for PowerPC.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added check of PegSpinButton AF_ENABLED style flag, allowing PegSpinButton
+ to be rendered inoperable via the setting or clearing of this flag.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed broken child spin control in PegNotebook class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed PegDemo application spin control example.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed Delayed reaction of PegString PM_CUT message processing.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.63</font></u></b>    
+<p><img src="bullet1.jpg" height="11" width="12">
+   Modified internal focus handling so that previous window gets focus when
+ top level window is closed.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Tuning of several drawing functions to improve appearance.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added several new optimized screen interface classes for specific chipsets
+ including SED1353 and C&amp;T 65545. The more general purpose cases are
+now  included in the core library distribution, and the rest are provided
+on request  to anyone who needs them.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new Arc function. Requires PEG_FP_GRAPHICS (floating point support). 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved support for animated GIF conversion with transparency.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed problem with system menu not closing and not moving with parent. 
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changed scroll bar tracking to eliminate rubber-banding operation.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegWindow causing maximize-minimize-restore sequence to leave
+ window maximized.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified default button click-drag off- drag back on operation.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for keyboard based and application based tab selection for
+ PegNotebook.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegVPrompt class, a vertical prompt class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegMLTextButton class, a multi-line text button.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved support for !PEG_MOUSE_SUPPORT and !PEG_KEYBOARD_SUPPORT  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Support for Green Hills compiler on ARM platform.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox causing crash when number of lines &gt;= total 
+lines and auto-scrolling enabled..  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder losing code between constructor and Message 
+function.  <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder merging of member pointers in header files. 
+<br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Added project file pre-verification to WindowBuilder Save Project command.
+ Also added project file backup. <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder causing corrupt project on Module Delete. <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder Codegen for PegList classes. <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder Codegen for disabled PegTextButton. <br>
+  <img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder Codegen for child windows.  </p>
+   
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.62</font></u></b> (Internal) <br>
+  &nbsp;    
+<p> </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.61</font></u></b>    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added Watcom real-mode compiler support.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added CAD/UL compiler support.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in DrawText() and in TextWidth() routines causing failure when
+ using fonts with greater than 127 characters without PEG_UNICODE defined. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox shift-arrow text selection.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in keyboard operation of radio button and check box classes. 
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in MULTITHREAD models causing bad mouse operation when PegTask
+ is not the lowest priority GUI task. Requires an update for RTOS integration
+ packages.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug that occurred when the PresentationManager was re-sized at run
+ time.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox CheckAutoScrollDown function. This bug showed
+up  when a text box was not filled, and more lines were Append()'ed.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox that did not allow Append() to an empty PegTextBox. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Changed tab-key handling for PegList classes. Tabing now moves to the
+list  sibling, rather than to the list child sibling.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added return-to-text-mode capability to VGA screen driver. This allows 
+32-bit x86 applications to exit to the command line. This new feature is not
+yet verified for all chipsets.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegList classes that allowed mutiple objects to be selected
+ with the right sequence of mouse and keyboard operations.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed MetaWare compiler warnings.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added clipping to PlotPoint() function. Also re-worked PlotPoint() to
+be  a macro instead of a function, since many compilers were not inlining
+the  function. <br>
+   </p>
+   
+<hr size="4" width="100%"> <br>
+  <b><u><font size="+1">Release 1.60</font></u></b>    
+<p><img src="bullet1.jpg" height="11" width="12">
+   Reversed direction of PegSpinButton messages. "Up" or "Right" buttons
+now  send PSF_SPIN_MORE signals, and "Down" and "Left" buttons send PSF_SPIN_LESS
+ signals. Most users felt that this was the natural direction of operation.
+ If you are catching PSF_SPIN_MORE or PSF_SPIN_LESS signals in your application
+ code, you will need to reverse the logic for these signals.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Completed changes to keyboard drivers. Now driver level software only
+sends  scan codes and flags to the higher level keyboard handler. PEG determines
+ the scan code to key value mapping using a keytable found in the file \peg\include\pegkeys.hpp. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Continued integration of UNICODE support. The core PEG library now fully
+ supports 16-bit character encoding. FontCapture has also been upgraded to
+ support UNICODE. WindowBuilder enhancements related to UNICODE are in progress.
+ These changes have no effect unless you turn on the definition PEG_UNICODE
+ in the header file \peg\include\peg.hpp.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified FontCapture to automatically save a list of capture ranges to 
+a file. FontCapture now starts up with the character range definition used
+ during the previous session.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added UNICODE to Absolute mapping table to header of generated font files. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Merging and testing of internal version of standard string library functions
+ for UNICODE. This enables PEG to run in UNICODE mode even with toolsets
+that  do not support UNICODE. Also allows PEG to run standalone in environments
+ where the compiler-provided run-time library is not useful for embedded
+targets.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Re-definition of all internal strings for either ASCII or UNICODE mode 
+of operation. All strings used internally by the library are now defined in
+the file \peg\source\pliteral.cpp.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new "relative positioning" construction methods to WindowBuilder.
+ The old method DID allow an object to be re-positioned prior to display
+using  the Resize() function, however this was inconvenient and confusing.
+The new  method allows the caller to specify the top-left corner for positioning
+the  window or dialog. Relative positioning is now enabled by default. Absolute
+ postioning can still be used on a module by module basis by selecting the
+ "Absolute Positioning" checkbox in the WindowBuilder module properties dialog. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added language configuration dialog to WindowBuilder.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Further improvements in PegList classes, providing better support for
+modifications  made a run time while the list is visible.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved internal ltoa function prototype definition and placement.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegNotebook spin button control (bad ID value).  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WB code generation for PegTextButton with TT_COPY style.
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WB code generation for dialog window with no title.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug that allowed WB to be closed with the MS Windows frame window
+ close button without saving changes.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WB import of multi-image GIF-89a files.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Updated winpeg.cpp to compile correctly with MSVC 6.0 and Borland 5.0. 
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Upgraded PEG/SMX WinBase integration.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added CAD-UL (x86 protected) and WATCOM (real and 32-bit modes) compilers
+ to our test suite.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added clipping to public PlotPoint screen driver function.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added "no invalid checking" mode to screen driver(s) required for JAVA 
+AWT support. <br>
+  &nbsp; <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.59</font></u></b>  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+  Added sending messages for SHIFT, CTRL, ALT, SCROLL, NUMLOCK, etc... This
+ is required for Java AWT support. This can be disabled by turning off SEND_ALL_KEYS
+ in the header file \peg\include\pegkeys.hpp. Moved PEG extended key definitions
+ to new header file \peg\include\pegkeys.hpp.  </p>
+   
+<p>&nbsp; <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.58</font></u></b>  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Modified PegBitmap structure. The structure now contains a 32-bit transparency
+ value, used only when running with &gt; 256 colors. Also renamed&nbsp; the
+ uType field to uFlags, which now contains an ORing of different bitmap flags.
+ All bitmaps must be re-generated with ImageConvert to update to this version. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new off-screen drawing capability. This allows all normal drawing
+ functions to be used to draw into a private PegBitmap, which can then be
+transferred to the screen. Added related documentation to chapter 8 of programming
+manual, along with new example program \peg\examples\guage.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new functions to PegMenuButton that ease programming effort required
+ to dynamically construct PegMenu and PegMenuDescription.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Change the name of the generic VGA screen driver module from d16scrn.cpp
+ (.hpp) to vgascrn.cpp (.hpp). Also removed screen driver header from the
+list of includes in \peg\include\peg.hpp. The driver in use only needs to
+be know by the startup module, and we have moved the driver header to this
+module.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Modified internal LOCK_PEG and UNLOCK_PEG structure so that the application
+ software no longer has to invoke LOCK or UNLOCK directly. If you are running
+ with an integrated RTOS, you will need to request an update to your integration
+ package to use this new feature.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new linear screen driver templates for all common resolutions/color
+ depths.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new linear screen driver for Cirrus Logic 5430 PCI video card. 
+</p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PSF_TAB_STOP system status flag.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PM_KEY_RELEASE message, also added 'ctrl', 'alt', and 'shift' flags
+ to both PM_KEY and PM_KEY_RELEASE messages. Users running with an integrated
+ RTOS package must request an integration package update to use this new
+feature.   </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Defined new PEGCHAR data type, required for UNICODE support. Defined as
+ type 'char' by default; defined as type 'SIGNED' for UNICODE.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Defined new COLORVAL data type. This data type is defined as 8-bits for
+ most systems, but can be defined as 16 or 32 bits for hi-color systems.
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for run-time color depth determination. Disabled by default. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added improved keyboard handling to PegList classes.  </p>
+   
+<p>&nbsp; <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.57</font></u></b>  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added third constructor to PegIcon class. Modified WindowBuilder source
+ generator to use this new constructor.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added check to PegString to insure that user cannot attempt to edit a
+PegString  that does not have the EF_EDIT style.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder source generator related to constructing PegDialog
+ with no title.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added "Allow Edit" property to WindowBuilder string properties dialog. 
+ </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in keyboard example program that allowed backspace past the
+start  of the edit string.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in WindowBuilder header file merge that allowed duplicate ID 
+values to be generated.  </p>
+   
+<p>&nbsp; <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.56</font></u></b>  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new graphical keyboard example program. This example should prove
+ useful for touch-screen or <b><i>"input-challenged"</i></b> applications.
+ This is a full qwerty keyboard that can operate with a mouse or with only
+ 5 input keys (left,right,up,down,enter).  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added WSM_CONTINUOUS scrolliing mode.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved internal viewport maintenance methods. This improves drawing
+speed,  and also improves the MULTITHREAD execution model. The screen locking
+semaphore  is now only invoked when drawing actually occurs, and the user-level
+code  is no longer required to call LOCK_PEG and UNLOCK_PEG under the MULTITHREAD
+ model.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added outline font generation capability to FontCapture. This is a 2-bpp
+ format font that has a single pixel wide outline around each character.
+This  was requested by users who desired to display PEG text over real video,
+similar  to the "MTV" or "VH1" logo. Using this new font format requires
+that your  screen interface class recognize and support 2-bpp fonts. We have
+added this  support to PegWinScreen for reference.  </p>
+   
+<p>Note: Outline fonts can only be generated from TrueType fonts.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Modified PegScreen base class to include all common functionality. This
+ will require that anyone who has created a custom screen driver will have
+ to remove any functions that have been relocated to PegScreen.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Improved operation, API, and speed of PegList derived classes (PegVertList,
+ PegHorzList, and PegComboBox). May require slight modificaton to existing
+ applications.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added diagram of MULTIHREAD exection model to programming manual.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   WindowBuilder Enhancements: </p>
+   
+<dir>-Better support for image drag-and-drop. <br>
+  -Improved code merging operation. Added documentation of DOs and DONTs
+to  insure that code merging works correctly.</dir>
+   <img src="bullet3.jpg" height="11" width="12">
+   WindowBuilder Fixes:   
+<dir>-Fixed crash when an empty menu is defined. <br>
+  -Fixed header file merging problems. <br>
+  -Fixed duplication of object ID values in header file. <br>
+  -Fixed default size of new dialog or window, even when view is maximized. 
+ <br>
+  -Fixed code generation for PegNotebook objects. <br>
+  -Several minor code generation fixes.</dir>
+   <img src="bullet3.jpg" height="11" width="12">
+   Improved programming manual documentation of SMX integration package build
+ procedures.    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added default system menu for system button on title bar. Completed AssignMenu()
+ function to allow the system menu to be re-defined as required.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved programming manual documentation of double-buffered video output
+ techniques.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added new accessor functions to PegTable for retrieving cell client object
+ pointers, table size, etc.. Also modified internals such that cell clients
+ are truly children of the table, allowing user-interaction with table cell
+ client objects.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added 3 YAFs for mouse, keyboard, and touch screen support. Touch screen
+ users should no longer be required to make ANY mods to core library. Also
+ removed keyboard message processing when PEG_KEYBOARD_SUPPORT is not defined. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added accessor function PegPresentationManager::GetCurrentThing() to obtain
+ a pointer to the leaf object having input focus. Added more documentation 
+ of input focus methods to programming manual.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added support for keyboard-based text selection, copy, and paste. Added
+ PegPresentationManager "clipboard" functionality. Supports string and PegThing
+ cut/copy/paste operation.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved PegNotebook class to support tab-scrolling. Also added the ability
+ to change the number of tabs on the notebook at run-time.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox related to newline handling when in auto-wrap
+mode.  Also modified internals to improve speed and save memory. Added new
+accessor  functions.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Integration with SMX WinBase development environment completed.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Integration with QNX operating system completed.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added ltoa.c, for compilers that do not provide the ltoa() function in 
+their run-time library. ltoa() is used by PegSpinButton and by the example 
+applications. Using the PEG version of is enabled or disabled by YAF <i>(yet 
+another flag)</i>  in \peg\include\peg.hpp.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegTerminalWin class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegProgressWindow class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegProgressBar class.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Addition of run-time GIF and BMP image decoding and display example program. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Addition of run-time JPG image decoding and display class. Not required
+ unless run-time decoding is desired.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Addition of PegQuant run-time color quantizing class and documentation.
+ This class was pulled from the PegImageConvert source code, allowing those
+ few users who need to construct optimal 256 color palettes at run time to
+ do so.  </p>
+   
+<p>&nbsp; <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.55</font></u></b>  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Addition of pquant.hpp header file.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Completed run-time image conversion class documentation.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed compiler errors when image conversion classes were built in !PIC_FILE_MODE. 
+  </p>
+   
+<p>&nbsp; <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.54</font></u></b>  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Significant rework (and, we feel, improvement!) of programming and reference
+ manual. Moved class reference section of manual to new HTML online format.
+ Also expanded class reference to include many more examples, and quick derivation
+ reference.  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Promoted PegCapture from structure to class, adding new functions to provide
+ improved encapsulation. Modified parameters to PegScreen::Capture function,
+ and added PegScreen::Restore function.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Defined new ROMDATA storage qualifier, which is defined as 'const' by
+default  in the header file pegtypes.hpp. All PegBitmap structures generated
+with PegImageConvert now use the ROMDATA qualifier. The ROMDATA qualifier
+can be re-defined as needed for your toolset, with the intention being to
+keep PegBitmap data in ROM, rather than in the initialized data area.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   PegImageConvert binary output re-work and related documentation update. 
+  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Improved out-of-the-box support for monochrome and 4 color display systems.
+ Added modified drawing functions for many objects in monochrome mode, and
+ added new versions of system bitmaps for 2 and 4 color systems. Added #define
+ PEG_NUM_COLORS definition in file peg.hpp.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Window Builder updates including support for custom bitmaps, custom fonts,
+ and code merging operation.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added PegGifConvert, PegBmpConvert, and PegImageConvert classes. These 
+classes support run-time reading, decompression, dithering, and display of 
+BMP and GIF files.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Added .bdf file conversion support to PegFontCapture.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Moved all x86 specific configuration settings to related header files, 
+and removed them from peg.hpp.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Manually re-encoded SysFont and MenuFont from scratch to insure no copyright
+ violations and to improve appearance. As a result many characters differ
+slightly in appearance when compared with previous versions.  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Fixed bug in PegTextBox causing crash when iMaxLines parameter was &lt;=
+ actual lines used. <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.53</font></u></b>  </p>
+   
+<p><img src="bullet3.jpg" height="11" width="12">
+   Window Builder updates. <br>
+   </p>
+   
+<hr>    
+<p><b><u><font size="+1">Release 1.52</font></u></b>  </p>
+   
+<p><img src="bullet1.jpg" height="11" width="12">
+   Modified PegTextThing <b>IMPORTANT</b> PegTextThing derived classes (PegPrompt,
+ PegString, PegTextBox, etc..) no longer copy the assigned string constant.
+ For most controls this has no effect other than reducing run-time memory
+requirements. However<b><i>, if you have ANY controls for which you are calling
+DataSet()</i></b> , and passing the address of a string that is in volatile
+memory (i.e. the string was built on the stack, or in any memory area that
+may change after the call to DataSet(), <b><i>you MUST use the TT_COPY style
+flag</i></b> when that control is constructed. The TT_COPY style flag forces
+the PegTextThing to work exactly as before, and copy the string data to a
+private area. The TT_COPY flag should only be used when you are using functions
+like <b>sprintf</b>  or <b>itoa </b>build strings that are passed to DataSet().
+ If you only pass string literals, such as </p>
+   
+<pre>pPrompt-&gt;DataSet("Hello");</pre>
+   you do not need the TT_COPY flag.    
+<p><img src="bullet3.jpg" height="11" width="12">
+   Window Builder updates.  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp;  </p>
+   
+<p>&nbsp; </p>
+   
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegScale</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegScale is the base class for
+<A HREF="plscale.htm">PegLinearScale</A> and <A HREF="plbscale.htm">PegLinearBitmapScale</A>.
+PegScale facilitates a graphical representation of any given value in relation to a minimum and 
+maximum value.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plscale.htm">PegLinearScale</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plbscale.htm">PegLinearBitmapScale</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegScale supports the standard PegThing styles
+for borders: FF_NONE, FF_THIN, FF_RECESSED and FF_RAISED. PegScale also supports the following
+additional styles:</FONT></FONT>
+
+<BR>&nbsp;
+
+<CENTER>
+<TABLE BORDER WIDTH="100%">
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_FACELEFT</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">If the scale is vertical, this will cause the needle to
+face (point) to the left. If this flag is cleared and the scale is vertical, then the needle will
+face to the right.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_FACETOP</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">If the scale is horizontal, this will cause the needle to
+face (point) to the top. If this flag is cleared and the scale is horizontal, then the needle will
+face the bottom.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_BOTTOMTOTOP</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">If the scale is vertical, this will map the minimum value
+to the bottom of the scale. If this flag is cleared, and the scale is vertical, the minimum
+value will map to the top, making larger values drive the needle toward the bottom.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_LEFTTORIGHT</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">If the scale is horizontal, this will map the minimum value
+to the left side of the scale. If this flag is cleared, and the scale is horizontal, the minimum
+value will map to the right, making larger values drive the needle toward the left.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_ORIENTVERT</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">This flag forces the scale to orient itself vertically, with
+no regard to its bounding rectangle. Clearing this flag will force the scale to orient itself
+horizontally.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_TICMARKS</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">If supported by the derived class, the scale will draw tick
+marks at user defined intervals when this flag is set. The tick marks are always drawn on 
+the opposite side of the scale as the needle. Therefore, if the scale is oriented vertically, 
+and the needle is facing the left, the tick marks will be drawn on the left side of the 
+scale.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_USERTRAVEL</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">If this flag is set, the user may specify the start and end points
+that the scale will use when mapping values on the scale. By default, the scale uses its entire
+length, minus a few pixels, for its track. Setting this flag allows the user to restrict the
+travel of the needle to a specific region.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_THINNEEDLE</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">This flag causes the needle to be drawn with a single thin line.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_THICKNEEDLE</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">This flag causes the needle to be drawn with a single thick line.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_POLYNEEDLE</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">This flag causes the needle to be drawn using a filled polygon.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">SS_STANDARDSTYLE</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">This flag ORs the SS_FACELEFT, SS_BOTTOMTOTOP, SS_ORIENTVERT,
+SS_TICMARKS and SS_POLYNEEDLE flags together.</FONT></TD>
+</TR>
+
+<TR>
+<TD WIDTH="35%"><FONT FACE="Arial,Helvetica">AF_TRANSPARENT</FONT></TD>
+<TD><FONT FACE="Arial,Helvetica">This flag causes the background of the scale to be drawn
+using the same color as its parent. This flag does not apply to PegLinearBitmapScale.</FONT></TD>
+</TR>
+
+</TABLE>
+</CENTER>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegScale does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegScale is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegScale(PegRect &amp;Rect, LONG lMinValue, LONG lMaxValue, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes a reference to a PegRect
+to determine its size, a minimum value and a maximum value, and a style WORD.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegScale(SIGNED iLeft, SIGNED iTop, LONG lMinValue, LONG lMaxValue, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes SIGNED values for the left and top of the object. By
+default, this will create a scale with a width of 100 pixels and a height of 150
+pixels. It also takes LONG's for the minimum and maximum values of the
+scale, and a WORD for the style.
+</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetCurrentValue(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the
+current value of the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>COLORVAL GetNeedleColor(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the current
+color of the needle as a COLORVAL.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetMaxValue(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the current
+maximum value for the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetMinValue(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the current
+minimum value for the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual LONG IncrementValue(LONG lValue, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method increments the
+current value of the scale by lValue. If the new value is less than the minimum value, then
+the current value is set to the minimum. If the new value is greater than the maximum value,
+then the new value is set to the maximum value. The method returns the current value.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetMaxValue(LONG lVal, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method sets the current maximum
+value of the scale, and optionally redraws the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetMinValue(LONG lVal, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method sets the minimum value
+of the scale and optionally redraws it.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetNeedleColor(COLORVAL tColor)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method sets the current
+color of the needle.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetValue(LONG lValue, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method sets the current
+value of the scale, and will optionally redraw the scale. If lValue is less than
+the minimum value or greater than the maximum value, then the internal value is
+left unchanged.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">See <A HREF="plscale.htm#Examples">PegLinearScale</A>
+or <A HREF="plbscale.htm#Examples">PegLinearBitmapScale</A> for examples of PegScale derived objects.
+</FONT></FONT>
+
+<HR>
+</BODY>
+</HTML>

@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegList</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegList is a container
+class that serves as a base class for PegVertList, PegHorzList, and PegComboBox.
+PegList positions child objects so that they are stacked left to right
+or top to bottom. You would not normally create an instance of PegList
+in your system software. However several of the member functions are important
+when working with derived PegHorzList, PegVertList, and PegComboBox classes.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The LAST child added
+to the list will be displayed at the leftmost or topmost position in the
+list if the Add() function is used to add children. The order of display
+can be reversed by using the function AddToEnd() to add children to the
+list.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Child objects are
+positioned when the list receives the PM_SHOW message, which is a system
+message sent automatically when the list is first displayed. The position
+of children added to a list object may be any value, including 0,0, as
+the list object will reposition objects to fit within the list client area.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For vertical lists,
+child object's widths are also forced to match the list client width. A child object's
+height is not modified, so this value is meaningful when child objects
+are constructed.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Likewise for horizontal
+lists, child object's heights are forced to fit within the list client
+area. Child object widths are not modified, and so this value should be
+set as desired when list children are constructed.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pvlist.htm">PegVertList</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="phlist.htm">PegHorzList</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegList supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>LS_WRAP_SELECT</TD>
+
+<TD COLSPAN="2">Wrap selection at top or bottom.</TD>
+</TR>
+</TABLE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The styles for PegList
+are identical to the PegWindow styles. In addition, scrolling is enabled
+in PegList in the same way as in PegWindow, by using the SetScrollMode()
+function.</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegList sends PSF_LIST_SELECT
+signals to the parent object. This message contains:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.pSource = Pointer to selected object in list.
+Message.iData&nbsp;&nbsp; = ID of selected list item.
+Message.pTarget = Pointer to list parent object.</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegList derives
+from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegList(const
+PegRect &amp;Rect, WORD wId = 0, WORD wStyle = FF_THIN)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegList object. The Rect parameter determines the position
+and size of the list. The list children are automatically positioned by
+the list object.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Add(PegThing *What, BOOL bDraw)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function adds What to the head of the list.  If bDraw is set to TRUE, the object will be drawn after being added.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void AddToEnd(PegThing *What, BOOL bDraw)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function adds What to the end of the list.  If bDraw is set to TRUE, the object will be drawn after being added.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B> virtual SIGNED Clear()</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This method removes and destroys all of the child objects in the list, so use
+it with care. The return value is the number of child items that were removed
+from the list, excluding scrollbars, if present.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED GetIndex(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the index of the list item pointed to by Who. If Who is not a child of
+the list, this function returns NULL.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetNumItems(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This method returns the total number of child items in the list. The return
+value is the total number of items, excluding scrollbars or other non-client
+objects, if present.
+</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegThing *GetSelected(void) {return mpLastSelected;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the address of the list child that was last selected.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED GetSelectedIndex(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the list index of the list child that was last selected.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Insert(PegThing* What, SIGNED Where, BOOL bSelect=TRUE, BOOL bDraw=TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This function inserts an object into the specified location in the list.  If the bSelect flag is turned on, the inserted item will be selected and scrolled into view.  If the bDraw flag is turned on, the list will be redrawn.
+</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegList catches
+the PM_SHOW message.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *PageDown(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This function scrolls the PegList child items by one full page, meaning that the first
+non-visible item at the bottom or right of the list client area is scrolled into view
+and selected. This function returns a pointer to the newly selected item. This function
+is called by the PegList::Message function in response to the PK_PGDN key message.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *PageUp(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This function scrolls the PegList child items by one full page, meaning that the first
+non-visible item at the top or left of the list client area is scrolled into view
+and selected. This function returns a pointer to the newly selected item. This function
+is called by the PegList::Message function in response to the PK_PGUP key message.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegThing *Remove(PegThing *What, BOOL bDraw)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function removes What from the list.  If it is not in the list, the function doesn't do anything.  If bDraw is set to TRUE, the parent will be drawn after the removal.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *SelectNext(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to force the list to advance to the next child item. The list
+will automatically scroll the newly selected child into view. If LS_WRAP_SELECT
+is enabled, the list will wrap to the top item if SelectNext() is called
+when the bottom item is selected.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *SelectPrevious(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to force the list to back up to the previous child item. The
+list will automatically scroll the newly selected child into view. If LS_WRAP_SELECT
+is enabled, the list will wrap to the bottom item if SelectPrevious() is
+called when the top item is selected.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetSelected(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to force the 'last selected' member to a certain child under
+program control. The desired child object is pointed to by Who.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+PegThing *SetSelected(SIGNED iIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to force the 'last selected' member to the child item referred
+to by iIndex.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetSeparation(SIGNED iVal)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets
+the separation amount, in pixels, between child items. The PegList derived
+class will always position child items such that they are adjacent to each
+other, and by default there will be no separation between child items.
+This function can be called after the list is constructed but BEFORE the
+list is displayed to place any amount of space between child items.</FONT></FONT>
+
+</BODY>
+</HTML>

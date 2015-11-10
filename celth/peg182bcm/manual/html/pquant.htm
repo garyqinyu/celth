@@ -1,0 +1,152 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegQuant</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegQuant is a run-time
+histogram and optimal palette producer. PegQuant implements a form of Heckbert's
+Median Cut color reduction algorithm. This class is only required for applications
+that must determine dynamic optimal palettes. Most applications run with
+fixed palettes. PegQuant is passed to PegImageConvert derived classes to
+create a histogram of color usage. After all included images have been
+added, the PeqQuant function ReduceColors is called to create an optimal
+palette for use with the scanned images.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pimgconv.htm">PegImageConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbmpconv.htm">PegBmpConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pgifconv.htm">PegGifConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="notdone.htm">PegJpgConvert</A></FONT></FONT>
+
+<P><A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegQuant is a PEG
+base class.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegQuant(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Creates a PegQuant
+object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void AddColor(WORD wRed, WORD wGreen, WORD wBlue)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function adds
+the specified color to the histogram being created.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR *GetPalette(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns a pointer
+to the optimal color palette produced from the image color sums.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD PalSize(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the current number of colors in the palette.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD ReduceColors(SIGNED iLimit = 254)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called after all colors for all images have been counted. This function
+actually does the work of creating the optimal palette for use with the
+images counted.</FONT></FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+reads several graphic files and creates an optimal palette for use in displaying
+the files. The palette is then installed as the new system palette. This
+example runs in PIC_FILE_MODE.</FONT></FONT>
+<PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">#define GIF1 "c:\\graphics\\tree.gif"
+#define GIF2 "c:\\graphics\\house.gif"
+#define BMP1 "c:\\graphics\\garage.bmp"
+
+
+void MyWindow::CreatePalette(void)
+{
+&nbsp;&nbsp;&nbsp; PeqQuant *pQuant = new PegQuant();
+
+&nbsp;&nbsp;&nbsp; CountColors(GIF1, PIC_TYPE_GIF, pQuant);
+&nbsp;&nbsp;&nbsp; CountColors(GIF2, PIC_TYPE_GIF, pQuant);
+&nbsp;&nbsp;&nbsp; CountColors(BMP1, PIC_TYPE_BMP, pQuant);
+
+&nbsp;&nbsp;&nbsp; WORD wPalSize =&nbsp; pQuant->ReduceColors();
+&nbsp;&nbsp;&nbsp; Screen()->SetupPalette(pQuant->GetPalette(), wPalSize);
+
+&nbsp;&nbsp;&nbsp; delete pQuant;
+}
+
+
+void MyWindow::CountColors(char *cPathName, WORD wType, PegQuant *pQuant)
+{
+&nbsp;&nbsp;&nbsp; FILE *fSrc = fopen(cPathName, "r");
+&nbsp;&nbsp;&nbsp; PegImageConvert *pConvert;
+
+&nbsp;&nbsp;&nbsp; if (wType == PIC_TYPE_GIF)
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pConvert = new PegGifConvert(0);
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; else
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pConvert = new PegBmpConvert(0);
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; pConvert->ReadImage(fSrc);
+&nbsp;&nbsp;&nbsp; pConvert->CountColors(pQuant);
+&nbsp;&nbsp;&nbsp; pConvert->DestroyImages();
+&nbsp;&nbsp;&nbsp; delete pConvert;
+
+&nbsp;&nbsp;&nbsp; fclose(fSrc);
+}</FONT></FONT></PRE>
+
+<HR>
+
+</BODY>
+</HTML>

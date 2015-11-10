@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegLinearScale</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearScale is an output HMI gadget that
+facilitates a graphical representation of any given value in relation to a minimum and 
+maximum value. This particular scale is the output equivalent of <A HREF="pslider.htm">
+PegSlider</A>.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pscale.htm">PegScale</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plbscale.htm">PegLinearBitmapScale</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearScale supports the standard PegThing styles
+for borders: FF_NONE, FF_THIN, FF_RECESSED and FF_RAISED. See the <A HREF="pscale.htm#Styles">
+PegScale Styles</A> section for a detailed list of additional styles.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearScale does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearScale is derived
+from <A HREF="pscale.htm">PegScale</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegLinearScale(PegRect &amp;Rect, LONG lMinValue, LONG lMaxValue, LONG lTicFreq = 0, WORD wStyle = SS_STANDARDSTYLE | FF_RAISED)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+The constructor takes a reference to a PegRect to determine its size, a typical
+wStyle WORD, a minimum value and a maximum value. The last parameter, lTicFreq,
+determines the frequency at which tick marks are drawn on the scale. For
+instance, if this is set to 100, and the minimum value is set to 0 and the
+maximum value is set to 1000, then PegLinearScale will draw a tick mark at
+every 100 data value increments starting with 0 and continuing up to 1000,
+making a total of 11 tick marks. It is important to remember that this value
+is in the context of the data value, not in screen pixels.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegLinearScale(SIGNED iLeft, SIGNED iTop, LONG lMinValue, LONG lMaxValue, LONG lTicFreq = 0, WORD wStyle = SS_STANDARDSTYLE | FF_RAISED)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes SIGNED values for the left and top pixel designations
+of the object. By default, this will construct a PegLinearScale object with
+a widht of 100 pixels and a height of 150 pixels. The remaining parameters
+are the same as the constructor above.
+</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearScale overrides
+the Draw() function to draw the scale and the tick marks, if any.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetTicFreq(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the
+current tick mark frequency.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTicFreq(LONG lFreq)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method allows for the setting of
+the interval at which the tick marks will be drawn.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Below is an example of several PegLinearScale 
+objects on a PegDecoratedWindow.
+The code snippet which follows builds the first PegLinearScale in the top left corner of the 
+example window.</FONT></FONT>
+
+<BR>&nbsp;
+
+<CENTER>
+<IMAGE SRC="plscale.gif">
+</CENTER>
+
+<BR>&nbsp;
+
+<PRE>
+PegLinearScale *mpScale1;
+.
+.
+.
+PegRect WinRect;    
+WinRect.Set(50, 50, 100, 200);
+mpScale1 = new PegLinearScale(WinRect, AF_TRANSPARENT | SS_STANDARDSTYLE, 0, 100, 10);
+Add(mpScale1);
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

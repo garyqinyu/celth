@@ -1,0 +1,722 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Kenneth G. Maxwell">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (WinNT; U) [Netscape]">
+   <title>PEG Class Reference</title>
+</head>
+<body text="#000000" bgcolor="#FFFBF7" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<center><img SRC="html\tmpeg.jpg" BORDER=0 height=69 width=198>
+<br><b><font color="#990000"><font size=+3>Reference Manual</font></font></b>
+<br>PEG Library Release 1.82</center>
+
+<p>
+<hr>
+<table BORDER=0 COLS=2 WIDTH="100%" FGCOLOR="#808080" >
+<tr>
+<td>
+<table COLS=1 WIDTH="100%" >
+<tr>
+<td><b><u><font size=+1>Base Classes</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/pmessage.htm">PegMessageQueue</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ppresen.htm">PegPresentationManager</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pscreen.htm">PegScreen</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptxtthng.htm">PegTextThing</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pthing.htm">PegThing</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1>Control Classes</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/pbitbutn.htm">PegBitmapButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pbutton.htm">PegButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pchkbox.htm">PegCheckBox</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pdecbtn.htm">PegDecoratedButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pgroup.htm">PegGroup</a></td>
+</tr>
+
+<tr>
+<td><a href="html/phscroll.htm">PegHScroll</a></td>
+</tr>
+
+<tr>
+<td><a href="html/picon.htm">PegIcon</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmenu.htm">PegMenu</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmenubar.htm">PegMenuBar</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmenbutn.htm">PegMenuButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmltbtn.htm">PegMLTextButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pprogbar.htm">PegProgressBar</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pprompt.htm">PegPrompt</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pradbutn.htm">PegRadioButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pslider.htm">PegSlider</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pspin.htm">PegSpinButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pstatbar.htm">PegStatusBar</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pstring.htm">PegString</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptxtbutn.htm">PegTextButton</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptitle.htm">PegTitle</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptoolbar.htm">PegToolBar</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptbpanel.htm">PegToolBarPanel</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pvscroll.htm">PegVScroll</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pvprompt.htm">PegVPrompt</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1>Image Conversions</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/pbmpconv.htm">PegBmpConvert</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pgifconv.htm">PegGifConvert</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pimgconv.htm">PegImageConvert</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pjpgconv.htm">PegJpgConvert</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ppngconv.htm">PegPngConvert</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pquant.htm">PegQuant</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1>Miscellaneous</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/p2dpoly.htm">Peg2DPolygon</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pbitmap.htm">PegBitmap</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pcapture.htm">PegCapture</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pcolor.htm">PegColor</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pfont.htm">PegFont</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmendesc.htm">PegMenuDescription</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ppoint.htm">PegPoint</a></td>
+</tr>
+
+<tr>
+<td><a href="html/prect.htm">PegRect</a></td>
+</tr>
+
+<tr>
+<td><a href="html/scrinfo.htm">PegScrollInfo</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptimer.htm">PegTimer</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1><a href="html/styles.htm">Style Flags</a></font></u></b></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1><a href="html/pegman.htm">PEG Programming Manual</a></font></u></b></td>
+</tr>
+</table>
+</td>
+
+<td VALIGN=TOP>
+<table COLS=1 >
+<tr>
+<td><b><u><font size=+1>Window Classes</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/panimwin.htm">PegAnimationWindow</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pcombo.htm">PegComboBox</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pdecwin.htm">PegDecoratedWindow</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pdialog.htm">PegDialog</a></td>
+</tr>
+
+<tr>
+<td><a href="html/peditbox.htm">PegEditBox</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pfdialog.htm">PegFileDialog</a></td>
+</tr>
+
+<tr>
+<td><a href="html/phlist.htm">PegHorzList</a></td>
+</tr>
+
+<tr>
+<td><a href="html/plist.htm">PegList</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmesgwin.htm">PegMessageWindow</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmlmsgwn.htm">PegMLMessageWindow</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pnotebk.htm">PegNotebook</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pprogwin.htm">PegProgressWindow</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pspread.htm">PegSpreadSheet</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptable.htm">PegTable</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptextbox.htm">PegTextBox</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pnode.htm">PegTreeNode</a></td>
+</tr>
+
+<tr>
+<td><a href="html/ptree.htm">PegTreeView</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pvlist.htm">PegVertList</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pwindow.htm">PegWindow</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1>Charting Classes</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/pchart.htm">PegChart</a></td>
+</tr>
+
+<tr>
+<td><a href="html/plnchart.htm">PegLineChart</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pmlchart.htm">PegMultiLineChart</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pstchart.htm">PegStripChart</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1>HMI Classes</font></u></b></td>
+</tr>
+
+<tr>
+<td><a href="html/pdial.htm">PegDial</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pfdial.htm">PegFiniteDial</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pfbdial.htm">PegFiniteBitmapDial</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pcdial.htm">PegCircularDial</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pcbdial.htm">PegCircularBitmapDial</a></td>
+</tr>
+
+<tr>
+<td><a href="html/plight.htm">PegLight</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pclight.htm">PegColorLight</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pblight.htm">PegBitmapLight</a></td>
+</tr>
+
+<tr>
+<td><a href="html/pscale.htm">PegScale</a></td>
+</tr>
+
+<tr>
+<td><a href="html/plscale.htm">PegLinearScale</a></td>
+</tr>
+
+<tr>
+<td><a href="html/plbscale.htm">PegLinearBitmapScale</a></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1><a href="html/signals.htm">Signals</a></font></u></b></td>
+</tr>
+
+<tr>
+<td></td>
+</tr>
+
+<tr>
+<td><b><u><font size=+1><a href="html/hierchy.gif">Hierarchy</a></font></u></b></td>
+</tr>
+
+
+</table>
+</td>
+</tr>
+</table>
+
+<p>
+<hr>
+<br>&nbsp;
+<br>&nbsp;
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<center>
+<p>Copyright 1998-2002
+<br>Swell Software, Inc.
+<br>2321 Water Street, Suite E
+<br>Port Huron, MI 48060
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>PEG is a trademark of Swell Software, Inc.</center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+</html>

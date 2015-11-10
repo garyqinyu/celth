@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="pwindow.htm#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegPresentationManager</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager
+is a transparent background window that can be thought of as the desktop
+window for all PEG applications. PegPresentationManager keeps track of
+all of the windows and sub-objects present on the display device. In addition,
+PegPresentationManager keeps track of which object has the input focus
+(i.e. which object should receive user input such as keyboard input), and
+which objects are on top of other objects.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There is no limit
+to the number of windows and/or controls that may be present on the screen
+at one time.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager::Execute()
+is the main execution loop for your GUI interface. In many embedded systems,
+Execute() never returns to the caller, since the graphical interface is
+intended to run forever. Of course, in a multitasking system you do not
+really want PEG to execute continuously, but instead only when there is
+real work to do, and even then only when no higher priority tasks are ready
+to run. PegPresentationManager accomplishes this by calling PegIdleFunction()
+when there is nothing left for PEG to do.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmc3.htm#PRESENTATIONMANAGER">PEG
+Programming Manual</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="mansup.htm#VIEWPORTS">Viewports</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager
+derives from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPresentationManager(PegRect
+&amp;Size)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+determines the size in pixels of the PresentationManager window. This determines
+the outer limits of all of your child windows and controls. PegPresentationManager
+is normally sized to equal the pixel dimensions of the display device.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Add(PegThing *What, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager
+overrides the Add() function to set focus to newly added top-level windows.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+CapturePointer(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to capture all mouse pointer input. This is done by modal windows,
+during re-size and move operations, and can also be done by the application
+level software at any time. The application software should call ReleasePointer()
+to end the CapturePointer() operation.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+ClearScratchPad(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function resets the PresentationManager
+scratchpad buffer, and frees the associated memory.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED DispatchMessage(PegThing *From, PegMessage *pSend)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function routes
+a message to the correct object. The routing follows a pre-determined precedence
+order:</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">1) If the message
+has a non-NULL pTarget, route to pTarget.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">2) If the message
+is a mouse pointer message, route to lowest level object that contains
+pointer position.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">3) If the message
+is any other system message, route to object which has focus.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">4) If the message
+is a User defined message, and the iData member is not 0, Find() the object
+with ID matching iData and route to that object.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager
+overrides the Draw() function to provide a simplified and faster drawing
+routine, and also to draw the wallpaper bitmap, if any. Custom implementation
+often override PegPresentationManager::Draw() to implement hardware Alpha
+Blending and other custom operations.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+Execute(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager
+overrides the PegWindow::Execute() function to provide the main PEG message
+looping operation.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*FindLowestThingContaining(PegThing *Start, PegPoint Where)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function determines
+the lowest child object that contains the point Where. The object must
+be enabled and selectable. A pointer to the child object is returned.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*GetCurrentThing(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the leaf object which has input focus. This function will
+return NULL if no object has received focus.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR
+*GetPointerOwner(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+		a pointer to the object that has currently captured the pointer.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR
+*GetScratchPad(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the text string which has been copied to the scratchpad, or
+NULL if no string is available. The PresentationManager scratchpad is used
+to cut, copy, and paste strings between PegString, PegTextBox, and PegTerminalWin
+classes.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+IsPointerCaptured(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns TRUE if
+the mouse pointer is captured, else FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*LastPointerOver(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns a pointer to the object the mouse pointer was last over.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+LastPointerOver(PegThing* pOver)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Sets the pointer to the object that the mouse pointer was last over.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPresentationManager
+overrides the Message() function to provide additional input focus adjustment
+and shutdown services.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+MoveFocusTree(PegThing *Current)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Makes Current the
+input object, and forces the branch of the display tree containing Current
+to get focus. This function may be called at any time to move the input
+focus to any visible object.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+NullInput(PegThing *Current)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Resets the PresentationManager
+input focus status if Current is the object which has input focus. Also
+resets input focus if a child of Current object has input focus.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+ReleasePointer(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Releases a captured
+mouse pointer. This function should always be called after the CapturePointer()
+function to return to normal operation.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*Remove(PegThing *What, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PresentationManager
+overrides the Remove function to check for the last object being removed,
+which signals PresentationManager to return from the Execute() function.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">As stated, PresentationManager
+will terminate by sending a PM_EXIT message to itself if the last window
+or control is removed from the screen. When PresentationManager receives
+the PM_EXIT message it verifies that no top-level windows exist, and if
+not terminates the message loop. This operation can also be nullified by
+surrounding the call to PegPresentationManager::Execute() with a while(1)
+loop:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void PegTask(void)
+{
+&nbsp;&nbsp; ...
+&nbsp;&nbsp; ...
+
+&nbsp;&nbsp; while(1)
+&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Presentation->Execute();
+&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; ...
+&nbsp;&nbsp; ...
+}</FONT></FONT></PRE>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetScratchPad(PEGCHAR *pText)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function copies the indicated text
+string into the PresentationManager scratchpad buffer. This is used by
+user-editable text objects to support cut, copy, and paste operations.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetWallpaper(PegBitmap *pBm)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function assigns
+a PegBitmap that PresentationManager will tile over the entire screen background.
+The wallpaper bitmap defaults to NULL.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A solid color background
+can also be specified by setting the PresentationManager PCI_NORMAL color:
+Presentation()->SetColor(PCI_NORMAL, <I>ANYCOLOR</I>);</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Protected
+Members:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+ChangeInputThing(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function insures
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+InsureBranchHasFocus(PegThing *Current)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function insures
+that Current has input focus, and sends PM_CURRENT messages to the new
+input object if required.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+KillFocus(PegThing *Start)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Removes input focus
+from the specified object. Also sends PM_NONCURRENT messages if required.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetFocus(PegThing *Start)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Assigns input focus
+to the specified object. Also sends PM_CURRENT messages if required.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*mpInputThing</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to the object
+which has input focus, or NULL.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*mpLastPointerOver</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to the object
+the mouse pointer was last over, or NULL.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR
+*mpScratchPad</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to the current
+contents of the scratchpad buffer, or NULL.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmap
+*mpWallpaper</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pointer to wallpaper
+bitmap, or NULL.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR
+muPointerCaptures</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Indicates the current pointer
+capture nesting level. If there are no outstanding pointer captures, muPointerCaptures
+is 0.</FONT></FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegComboBox</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox is similar
+to (and derived from) PegVList. PegComboBox is a container that can have
+any type of other objects added to it. PegComboBox adds the concept of
+"Opening and Closing", which can conserve space when a large number of
+items are added to the combo box. A drop-down arrow is provided to open
+the combo box. The box closes when an item it selected or the combo
+box loses focus.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox will
+send signal notifications to the parent window if the PegComboBox has a non-zero
+ID value and the selected child also has a non-zero ID value.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The LAST child added
+to the combo box will be displayed at the TOP of the combo box if the Add()
+function is used to add children. The order of display can be reversed
+by using the function AddToEnd() to add children to the combo box.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If PegPrompt objects
+are added to a PegComboBox, the style flags for the PegPrompt objects should
+include&nbsp; FF_NONE|AF_ENABLED|TJ_LEFT for correct display. Normally
+PegPrompt objects are not selectable (i.e. the AF_ENABLED style is not
+used). However, when PegPrompt objects are added to a PegComboBox, you
+should set the style as shown above so that the prompt objects can be selected.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pvlist.htm">PegVertList</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="phlist.htm">PegHorzList</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+</TABLE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The styles for PegComboBox
+are identical to the PegWindow styles. In addition, scrolling is enabled
+in PegComboBox in the same way as in PegWindow, by using the SetScrollMode()
+function.</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox sends
+PSF_LIST_SELECT signals to the parent object. This message contains:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.pSource = Pointer to combo box object.
+Message.iData&nbsp;&nbsp; = ID of selected list item.
+Message.pTarget = Pointer to combo box parent object.</FONT></FONT></PRE>
+<FONT FACE="Arial,Helvetica">In order to receive PSF_LIST_SELECT signals
+from a PegComboBox, you must insure that the PegComboBox AND the list children
+have non-zero ID values.</FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox derives
+from <A HREF="pvlist.htm">PegVertList</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegComboBox(const
+PegRect &amp;Rect, WORD wId = 0, WORD wStyle = FF_THIN)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegComboBox object. The Rect parameter determines the height
+of the combo box when open. The closed height is determined by the height
+of the individual combo box children.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox overrides
+the Draw() function to display the combo box border.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GetOpenHeight(void) {return miOpenHeight;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the height of the combo box when open.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+IsOpen(void) {return mbOpen;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns TRUE if the combo box is currently open, otherwise FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox overrides
+the Message function to catch the drop down arrow selection message, and
+the PM_KILLFOCUS system message.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Resize(PegRect NewSize)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegComboBox overrides
+the Resize() function to keep the drop down arrow button positioned at
+the upper right hand corner of the combo box.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Protected
+Members:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+mbOpen</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Boolean value to
+track the state of the combo box, open or closed.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+miOpenHeight</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The height of the
+combo box when open.</FONT></FONT>
+<P><IMG SRC="bullet2.jpg" HEIGHT=10 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+miCloseHeight</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The height of the
+combo box when closed.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+examples of PegComboBox:</FONT></FONT>
+<P><IMG SRC="image23.gif" >
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates a PegComboBox and adds several PegPrompt objects to the combo box.
+The combo box will be 140 pixels tall when opened. The combo box is configured
+to include a vertical scroll bar, and the initial item selected will be
+item index 5 within the combo box.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::AddComboBox(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ListRect;
+&nbsp;&nbsp;&nbsp; ListRect.Set(10, 10, 90, 150);
+&nbsp;&nbsp;&nbsp; PEGCHAR cTemp[20];
+&nbsp;&nbsp;&nbsp; pList = new PegComboBox(ListRect);
+
+&nbsp;&nbsp;&nbsp; strcpy(cTemp, "Select");
+&nbsp;&nbsp;&nbsp; for (iLoop = 10; iLoop &gt; 0; iLoop--)
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; itoa(iLoop, cTemp + 6, 10);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pList->Add(new PegPrompt(0, 0, cTemp, iLoop,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FF_NONE|TJ_LEFT|AF_ENABLED|TT_COPY));
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; pList->SetScrollMode(WSM_VSCROLL);
+&nbsp;&nbsp;&nbsp; pList->SetSelected(5);
+&nbsp;&nbsp;&nbsp; Add(pList);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

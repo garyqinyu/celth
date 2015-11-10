@@ -1,0 +1,234 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PegEditBox</TITLE>
+</HEAD>
+<BODY>
+<A HREF="../../../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegEditBox</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegEditBox is a multi-line
+text display control that allows full user editing via mouse and keyboard.
+PegEditBox is derived from PegTextBox and therefore supports all of the
+functionality of this base class.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegEditBox is more
+complex, and therefore requires a larger code size, than PegTextBox. If
+you do not need user-editing capability you should use PegTextBox to display
+multi-line text rather than PegEditBox.</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprompt.htm">PegPrompt</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pstring.htm">PegString</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptxtthng.htm">PegTextThing</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptextbox.htm">PegTextBox</A></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegEditBox supports
+the following styles:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>EF_EDIT</TD>
+
+<TD COLSPAN="2">When this style is applied the user can edit the PegTextBox
+object. If this style is applied the PegTextBox object automatically includes
+the TT_COPY style.</TD>
+</TR>
+
+<TR>
+<TD>EF_WRAP</TD>
+
+<TD COLSPAN="2">When this style is applied the textbox will wrap long lines
+to prevent them from being clipped.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>TT_COPY</TD>
+
+<TD COLSPAN="2">Instructs the PegString to copy the text string assigned.
+This flag should be used when the text string assigned to the PegString
+is created dynamically using temporary storage.</TD>
+</TR>
+</TABLE>
+
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to the
+common signals defined by PegThing, PegEditBox supports the following signals:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PSF_TEXT_SELECT&nbsp;&nbsp;&nbsp; // sent when the user selects text
+PSF_TEXT_EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // sent each time text is modified
+PSF_TEXT_EDITDONE&nbsp; // sent when a text modification is complete</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegEditBox is derived
+from <A HREF="ptextbox.htm">PegTextBox</A>.</FONT></FONT>
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegEditBox(const PegRect &amp;Rect, WORD wId = 0, WORD wStyle = FF_RECESSED|EF_EDIT|EF_WRAP,
+PEGCHAR *Text = NULL, WORD wMaxChars = 1000)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegEditBox. wMaxChars is the maximum number of characters that
+the textbox will be required to support.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Append(PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function appends
+the indicated text to the current textbox string value. The edit cursor
+is automatically postioned at the end of the appended text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void CopyToScratchPad(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Copies the currently
+selected text to the scratch pad.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void DataSet(const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegEditBox overrides
+the DataSet function to reset any in-progress string mark or edit operations.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void DeleteMarkedText(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Deletes the currently
+selected text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegEditBox overrides
+the Draw() function to display the textbox border and text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void HomeCursor(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function moves
+the edit cursor to the column 0 position on the current line.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><B>BOOL inEditMode(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns TRUE if the PegEditBox is in edit mode.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void InsertCharAtCursor(WORD iKey)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function inserts a single character at the cursor position, unless the maximum character limit is reached.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void PasteFromScratchPad(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pastes the scratch
+pad text at the current cursor position.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetCursorRowCol(WORD wIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function positions
+the edit cursor at the character indicated by wIndex, which is the desired
+character offset from the start of the overall text string. The desired
+character offset can be determined by using the member functions of PegTextBox.
+The textbox automatically scrolls such that the indicated cursor position
+is visible within the EditBox window client area.</FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>&nbsp;
+<BR>&nbsp;
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+each different styles of PegEditBox:</FONT></FONT>
+<BR>&nbsp;
+
+<P><IMG SRC="image31.gif" >
+<BR>&nbsp;
+
+<P><IMG SRC="image32.gif" >
+<BR>&nbsp;
+
+<P><IMG SRC="image33.gif" >
+<BR>&nbsp;
+
+<P><IMG SRC="image34.gif" >
+<BR>
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The complete source
+for the last example shown above can be found in the example program \peg\examples\vecfont
+distributed with your PEG release.</FONT></FONT>
+<BR>&nbsp;
+</BODY>
+</HTML>

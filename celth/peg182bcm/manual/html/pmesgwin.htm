@@ -1,0 +1,226 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegMessageWindow</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMessageWindow
+is a popup window class for display warning, error, or other status information
+to the user.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegMessageWindow class
+provides a quick way to display information messages. PegMessageWindow may contain
+a title bar, message line, bitmap and miscellaneous buttons.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMessageWindow
+supports both modal and non-modal execution. In addition, the signal generated
+when the MessageWindow is closed by the user may be directed to any top-level
+window.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Modal execution is
+achieved by calling the MessageWindow Execute() function. Execute() will
+add the MessageWindow to <B><I>PegPresentationManager</I></B> if the window
+has no parent at the time Execute() is called. Execute() will not return
+until the user selects one of the MessageWindow option buttons. Execute()
+will return the ID of the option button selected to close the MessageWindow.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Several button ID
+values are reserved by PEG for use with PegMessageWindow (and PegDialog).
+These ID values correlate to the common options presented on a message
+window. Additional options may be presented by deriving from and extending
+the PegMessageWindow class. The buttons included on the message window
+are specified by the message window style flags. There is one style flag
+for each of the pre-defined message window buttons.</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdialog.htm">PegDialog</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMessageWindow
+supports the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>MW_OK</TD>
+
+<TD COLSPAN="2">This option displays an OK button on the message window.</TD>
+</TR>
+
+<TR>
+<TD>MW_YES</TD>
+
+<TD COLSPAN="2">This option displays a YES button on the message window.</TD>
+</TR>
+
+<TR>
+<TD>MW_NO</TD>
+
+<TD COLSPAN="2">This option displays a NO button on the message window.</TD>
+</TR>
+
+<TR>
+<TD>MW_ABORT</TD>
+
+<TD COLSPAN="2">This option displays an ABORT button on the message window.</TD>
+</TR>
+
+<TR>
+<TD>MW_RETRY</TD>
+
+<TD COLSPAN="2">This option displays a RETRY button on the message window.</TD>
+</TR>
+
+<TR>
+<TD>MW_CANCEL</TD>
+
+<TD COLSPAN="2">This option displays a CANCEL button on the message window.</TD>
+</TR>
+</TABLE>
+<A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMessageWindow
+derives from <A HREF="pwindow.htm">PegWindow</A> and <A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMessageWindow(const PegRect &amp;Rect, const PEGCHAR *Title, const
+PEGCHAR *Message = NULL, WORD wStyle = MW_OK|FF_RAISED, PegBitmap *pIcon
+= NULL, PegThing *Owner = NULL)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMessageWindow(const PEGCHAR *Title, const PEGCHAR *Message = NULL,
+WORD wStyle = MW_OK|FF_RAISED, PegBitmap *pIcon = NULL, PegThing *Owner
+= NULL)</B></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are two constructors
+available for PegMessageWindow. The first constructor allows you to specify
+the overall message window size. This constructor is used in cases where
+you would like to add additional decorations to the message window.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When the second constructor
+is used, the message window calculates the required height and width of
+the window in order to fit the message text and all specified option buttons.
+The second constructor is most commonly used.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The pIcon parameter
+allows you to specify a bitmap that will be displayed to the left of the
+text message.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The Owner pointer
+allows you to specify a window that should receive a PM_MWCOMPLETE message.
+This is only useful when the message window is not executed modally. When
+the window is executed modally, the Execute() function returns the ID of
+the button used to close the message window.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMessageWindow
+overrides the Draw() function to display the message text and the bitmap, if
+specified, in the window client area.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMessageWindow
+catches option button signals to close the message window.</FONT></FONT>
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a PegMessageWindow with OK, CANCEL, and RETRY buttons.</FONT></FONT>
+
+<P><IMG SRC="image27.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+
+<P>
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following function
+creates and modally executes the above message window:</FONT></FONT>
+<PRE>
+
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::ModalMessage(void)
+{
+&nbsp;&nbsp;&nbsp; PegMessageWindow *pWin = new PegMessageWindow("Example Message Window",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "This is a message window with a raised frame.",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MW_OK|MW_CANCEL|MW_RETRY|FF_RAISED);
+
+&nbsp;&nbsp;&nbsp; Presentation()->Center(pWin);
+&nbsp;&nbsp;&nbsp; Presentation()->Add(pWin);
+&nbsp;&nbsp;&nbsp; pWin->Execute();
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

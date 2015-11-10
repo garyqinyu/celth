@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegFileDialog</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONTSIZE=+1>
+Overview
+</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+PegFileDialog is a utility class that supports the standard notion of browsing a directory structure for a file name in the "File Open" and "File Save As" types of scenarios. Currently, the file system routines uses a mix of ANSI file calls (which gives it a degree of portability), as well as a few calls that are specific to the Linux API (out of neccessity).
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+The PegFileDialog was created out of a need for the PEG utility programs (ie., Window Builder, et al) to run on the X Window System on top of Linux. Since it has proven very useful to us, we have included it in the PEG library to meet the needs of application developers who are creating applications that require such functionality.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+The class has all of the basics that make it useful, but it does not, at the present time, have all of the luxuries that make it comparable to most desktop implementations of the same types of dialogs.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+It is important to note that the PegFileDialog does not actually change the current working directory when the user is navigating the file system. The file routines simple keep track of the current directory and uses this for finding the files and directories within that directory. Therefore, you don't need to worry about the dialog changing your application's present working directory.
+</FONT>
+
+<P><A NAME="See Also"></A>
+<U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>
+See Also
+</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdialog.htm">PegDialog</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+PegFileDialog supports the standard frame styles implemented in the PegDailog class.
+</FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+See <A HREF="pdialog.htm">PegDialog</A> for a description of what signals are sent.
+</FONT>
+
+<P><A NAME="Derivation"></A><U>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+PegFileDialog is derived from <A HREF="pdialog.htm">PegDialog</A>.
+</FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>PegFileDialog(const PEGCHAR* pTitle, SIGNED iLeft = -1, SIGNED iTop = -1)
+</B></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+The constructor takes a constant PEGCHAR pointer that will be used in the title of the dialog. It is usually a good idea to give the dialog box a title that corresponds to the action that the user is performing: ie. "File Open".
+<P>
+The iLeft and iRight parameters are if you would like to place the dialog at a specific location on the screen. If you allow these parameters to retain their default values, the dialog box will be centered on the screen. Currently, it is not a good idea to assign the dialog box a size, since the placement of the controls on the dialog expects the dialog to be a specific size.
+</FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>SIGNED Execute()</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+PegFileDialog overrides the Execute method in order to ensure that the file name buffer has been setup properly.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>SIGNED GetOperation(void)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">This function returns the type of operation being performed. This method will return PFD_FILEOPEN or PFD_FILESAVEAS.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>SIGNED Message(const PegMessage&amp Mesg)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+The Message method is overridden so that the dialog can catch the signals send by the buttons on the toolbar as well as the buttons that control directory and file name sort order.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void SetDefNewExt(char* pExt)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">This function sets the default filename extension for the dialog.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void SetFilter(const char* pFilter)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">This function sets a filter so that only files matching the filter will be displayed in the dialog.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>BOOL SetMode(SIGNED iOperation, const PEGCHAR* pStartNode, PEGCHAR* pBuffer, WORD wBuffSize)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Generally, this is the method that you would call after you have constructed the object. The iOperation parameter can be one of the following:
+<P>
+<PRE>
+PFD_FILEOPEN
+PFD_FILESAVEAS
+</PRE>
+<P>
+At the present time, the dialog does not behave differently based on this setting. But, for forward compatibility, it is best to specify the action you are intending.
+<P>
+The second parameter is the node in the directory structure where you would like the dialog to start. In other words, the dialog will take this as it's present working directory. If running on Linux, you may want to start the user out in their home directory. This can be accomplished like this:
+<PRE>
+passwd* pPasswd = getpwuid(getuid());
+</PRE>
+Then passing the <PRE>pPasswd->pw_dir</PRE> over as the pStartNode parameter.
+<P>
+The remaining parameters refer to a preallocated PEGCHAR buffer into which you would like to have the selected file name returned. If the user cancels the dialog box, the value of pBuffer upon return is undefined.
+<P>
+Once you have set these parameters, you would then call the Execute method and inspect the return value. If you receive a return value of IDB_OK, then the full qualified name of the file (assuming the buffer did not overrun) would be in pBuffer. If you receive a return value of IDB_CANCEL, then the user canceled their selection and pBuffer is undefined.
+</FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica" COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+The following code snippet expemplifies how to create and use a PegFileDialog object. Usage is very simple, all you need to do is create a new instance of the dialog, allocate a buffer of sufficient size, set it's options, execute the dialog and inspect the return value.
+</FONT>
+
+<PRE>
+/*--------------------------------------------------------------------------*/
+PEGCHAR cBuffer[256];
+WORD wBufSize = 256;
+
+SIGNED nRetVal;
+
+PegFileDialog* pFD = new PegFileDialog("Open File...");
+
+// Get the current user's home directory, and
+// set this as the top node for passing to the 
+// file dialog
+passwd* pPasswd = getpwuid(getuid());
+
+if(pFD)
+{
+    if(pPasswd)
+    {
+        pFD->SetOptions(PFD_FILEOPEN, pPasswd->pw_dir, cBuffer, wBufSize);
+    }
+    else
+    {
+        pFD->SetOptions(PFD_FILEOPEN, "/work", cBuffer, wBufSize);
+    }
+
+    nRetVal = pFD->Execute();
+
+    // Check the return value from executing the dialog.
+    if(nRetVal == IDB_OK)
+    {
+        // The user selected a valid file name, so cBuffer will
+        // have the full qualified path of the file the user 
+        // selected.
+    }
+    else if(nRetVal == IDB_CANCEL)
+    {
+        // The user canceled their selection
+    }
+    else if(nRetVal == PFD_ERROR)
+    {
+        // The buffer size was too small to hold the file name
+    }
+}
+</PRE>
+
+<HR>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Below is a screen shot of the PegFileDialog in action. You'll notice the various controls on the dialog that assist the user in selecting a file name. We'll briefly discuss these controls so that you can better understand the capabilities of the PegFileDialog class.
+</FONT>
+
+<P>
+<CENTER><IMAGE SRC="pfdialog.gif" BORDER="0"></CENTER>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Starting with the toolbar, the button labeled "Up" shifts the present working directory up, if possible. The "Home" button changes the present working directory to the current user's home directory. The "Refresh" button causes the Directory and Files lists to be updated. And the "View" button toggles the directories and files displayed in the lists. If the view is on full, then all of the hidden files and directories (ie. the "dot" files) are displayed, otherwise, they are not shown. When the dialog starts up, the view defaults to not displaying these hidden directories.
+<P>
+The Directories and Files lists are fairly straight forward. The lists can be independently sorted in ascending or descending order by the user clicking on the Directories or Files label. You'll note the small triangles in the far right of either label. These denote the sort order.
+<P>
+The "Selection" label displays the current working directory. And, once a file name has been selected from the Files list, the file name is entered in the string box at the bottom. If the current working directory is changed, this file name is cleared from the string control. It is important to note that the PegFileDialog verifies that the file exists before it allows a file to be entered here.
+<P>
+The OK button closes the dialog box with a return value of IDB_OK. The file name is verified and put into the buffer that the application designer provieded in the SetOptions method. If the buffer is not large enough to hold the entire file name, then PFD_ERROR is returned instead of IDB_OK. If the Cancel button is pushed, then the dialog simple exits.
+
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegNotebook</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegNotebook is a
+PegWindow derived class for displaying and using a tabbed-notebook style
+control. The notebook can have any number of tabs, and each notebook tab
+is associated with a different notebook page. Each notebook page displays
+any user defined group of objects.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Each notebook tab
+can either contain simple text, or any user defined object type. Text tabs
+use slightly less memory, while user defined tab decorations can give the
+notebook control a very custom appearance.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Regardless of tab
+type, the tabs can be displayed at the top or bottom of the notebook window.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Constructing and
+displaying PegNotebook requires the following steps:</FONT></FONT>
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Construct the PegNotebook
+control, passing the number of notebook tabs and the style of the notebook
+tabs. For text-only tabs, include the NS_TEXTTABS style. For custom tabs,
+do not include the NS_TEXTTABS style.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Populate each notebook
+tab with either text or custom objects. This determines what is displayed
+on each notebook tab.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Populate each page of
+the notebook with a user defined window or group. This determines what
+will be displayed on each notebook page as the tabs are selected. There
+can be only one child object on each notebook page. To display a group
+of objects, a container such as a borderless PegWindow must be created
+to hold the sub-objects of the page. This window is then populated with
+the desired group of child objects, and set as the notebook client object.</FONT></FONT></LI>
+</UL>
+<A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegNotebook supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>NS_TOPTABS</TD>
+
+<TD>The notebook tabs appear above the notebook pages.</TD>
+</TR>
+
+<TR>
+<TD>NS_BOTTOMTABS</TD>
+
+<TD>The notebook tabs appear below the notebook pages.</TD>
+</TR>
+
+<TR>
+<TD>NS_TEXTTABS</TD>
+
+<TD>The notebook tabs are simple text, not custom objects.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to the
+common signals defined by PegThing, PegNotebook sends the PSF_PAGE_SELECT
+signal when a new notebook page is selected. The message contains the following
+data:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.pSource = Pointer to notebook window.
+Message.iData&nbsp;&nbsp; = ID of notebook window.
+Message.lData&nbsp;&nbsp; = Page index of selected page.</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegNotebook derives
+from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegNotebook(const PegRect &amp;Rect, WORD wStyle, UCHAR uNumTabs)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegNotebook
+constructor accepts a PegRect defining the notebook position and size, a
+style value, and the number of tabs that the notebook will initially display.
+The number of tabs can be modified at run time.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegNotebook overrides
+the Draw() function to display the notebook background, border, and tabs.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR GetCurrentPage(void) {return muSelectedTab;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the active (displayed) page of the notebook.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *GetPageClient(UCHAR uIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the top-level client object of the current page.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *GetTabClient(UCHAR uIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the client object used to decorate the indicated notebook tab. This function
+returns NULL if the notebook is operating in NS_TEXTTABS mode, or if no
+decoration has been defined for the requested tab.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegNotebook catches
+mouse click messages to test for notebook tab selection. PegNotebook also
+catches PM_KEY messages to allow navigation via a keyboard.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing *RemovePageClient(UCHAR uIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to remove the client object from any notebook page. This is sometimes
+useful when the application desires to switch the client object displayed
+on a notebook page during program run time.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void ResetNumTabs(UCHAR uNum)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to reset the number of tabs available on the notebook window after
+the notebook object has been constructed. If uNum is greater than
+the current number of pages, the user should populate the new tabs and
+notebook client pages after this call. If uNum is less than the
+current number of notebook pages, the notebook will delete any page clients
+for pages that are no longer required.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void ResetTabStyle(WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to move the notebook tabs, or toggle between text tabs and custom
+decorated tabs.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SelectTab(UCHAR uTab)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+can be used to change the
+current tab selection under program control. The current tab is usually
+selected by the user via mouse, touch screen, or keyboard. If the indicated
+tab is not visible, the notebook will automatically scroll the selected
+tab into view.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetFont(PegFont *pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+can be used to change
+the font used to draw the text on the notebook tabs. Since the tabs are
+sized based on the string width of each text string in the selected font,
+the font can only be changed BEFORE the notebook is displayed.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetPageClient(UCHAR uIndex, PegThing *PageClient)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called to associate an object with each notebook page. There can be only
+one top-level client for each notebook page. For this reason, if multiple
+child objects are to be associated with one or more notebook pages, a borderless
+container window should be constructed as the notebook page client. The
+child objects for the notebook page should then be added to this borderless
+container window.
+<P>This function should
+be called once for each notebook page, setting the page clients for page
+indexes 0 through (nTabs - 1).
+<P>
+If the SetPageClient function is called to link an object with a notebook
+page that already has a client object, the existing client object is destroyed
+and replaced with the new child object.
+</P>
+</FONT></FONT>
+
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTabClient(UCHAR uIndex, PegThing *TabClient)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called to assign the custom decoration which will be displayed on each
+notebook tab. This function only works if the notebook is NOT configured
+for NS_TEXTTABS mode.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Custom tab decorations
+can be created by deriving a new custom class from PegThing or from any
+other PEG base class. An example of this is shown in the PegNotebook example
+application.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTabString(UCHAR uIndex, const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets
+the text string displayed on each notebook tab. This function only operates
+when the notebook window is configured for NS_TEXTTABS mode.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function should
+be called once for each notebook tab, setting the text value for tab indexes
+0 through (nTabs - 1).</FONT></FONT>
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+an example of a PegNotebook window with text tabs, a raised frame, and
+tabs on top:</FONT></FONT>
+
+<P><IMG SRC="image28.gif" >
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+an example of a PegNotebook window with custom tabs, a thick frame, and
+tabs on bottom:</FONT></FONT>
+
+<P><IMG SRC="image29.gif" >
+
+<P>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">An example application
+program using PegNotebook is found in the directory \peg\examples\notebook.</FONT></FONT>
+</BODY>
+</HTML>

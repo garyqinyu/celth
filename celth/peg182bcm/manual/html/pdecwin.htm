@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegDecoratedWindow</FONT></FONT></B></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+is a PegWindow derived class that supports the addition of common window
+decorations such as PegTitle, PegMenuBar and PegStatusBar. PegDecoratedWindow
+provides functions to facilitate easy access to the decorations added to
+the window. PegDecoratedWindow also maintains the actual client area available
+after the addition or removal of any of these decorations.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Like all PEG objects,
+PegDecoratedWindow can also have any other types of child objects added.
+You can even nest PegDecoratedWindow objects with themselves, creating
+complex and interesting window types.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdialog.htm">PegDialog</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmesgwin.htm">PegMessageWindow</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+supports the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+</TABLE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+derives from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow(const
+PegRect &amp;Rect, WORD wStyle = FF_THICK)</FONT></FONT></B>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow(WORD
+wStyle = FF_THICK)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are two constructors
+available for PegDecoratedWindow. The first defines the window size and
+position at the time the window is created. The second requires that the
+window size and position be determined after the window is constructed,
+but before the window is displayed.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">virtual
+void Add(PegThing *What, BOOL bDraw = TRUE)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+overrides the Add() function to catch the addition of non-client decorations.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">virtual
+void InitClient(void)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+overrides the InitClient method in order to resize the client area based
+on the presence, or absence, of a title bar, menu bar and status bar.</FONT></FONT><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenuBar
+*MenuBar(void)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the PegMenuBar added to the window, or NULL if no menu bar
+is present.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">virtual
+SIGNED Message(const PegMessage &amp;Mesg)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+catches the PM_CURRENT and PM_NONCURRENT messages.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">virtual
+PegThing *Remove(PegThing *Who, BOOL bDraw = TRUE)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDecoratedWindow
+overrides the Remove() function to catch the removal of non-client decorations</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void
+SetTitle(PEGCHAR *Text)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to modify the window title.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegStatusBar
+*StatusBar(void)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the decorated window status bar, or NULL if no status bar
+is present.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">const
+PEGCHAR *Title(void)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the text of the decorated window title, or NULL if no title is present.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle *TitleObject(void)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the decorated window title, or NULL if no title is present.</FONT></FONT>
+<P>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegToolBar* ToolBar(void)</FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns a pointer to the PegToolBar added to the window, or NULL if no toolbar is present.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a decorated window with a title bar, status bar, and menu bar. The decorated
+window also contains a PegWindow child in the decorated window client area.
+The full source code for this window can be found in the file \peg\examples\pegdemo\pegdemo.cpp.</FONT></FONT>
+<P><IMG SRC="image24.gif" >
+</BODY>
+</HTML>

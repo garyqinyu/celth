@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegBitmapLight</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBitmapLight is a state driven
+object that allows for graphically displaying data states using a bitmap.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plight.htm">PegLight</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pclight.htm">PegColorLight</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBitmapLight does not support any styles.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBitmapLight does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBitmapLight is derived
+from <A HREF="plight.htm">PegLight</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmapLight(PegRect &amp;Rect, WORD wNumStates)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes a reference to a PegRect to determine its size, and a
+WORD value for the number of states it supports. It is important
+to remember that the light states are 0 based. Therefore, the first state 
+is 0 and the last state is wNumStates - 1.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmapLight(SIGNED iLeft, SIGNED iTop, WORD wNumStates)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes designations for left and top where the object will
+be located. By default, the newly created PegBitmapLight object will size
+itself to the height and width of the first bitmap added with the
+SetStateBitmap method.
+</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBitmapLight overrides
+the Draw() function to draw the correct bitmap for the current state of the
+light.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual WORD SetNumStates(WORD wNumStates)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This method allows resetting the number of states supported by the object at
+runtime. It will copy over the bitmaps that were already assigned to it, if
+there are any. If the new number of states is less than the previous number
+of states, it will only copy over as many as are newly assigned. If the 
+new number of states is greater, then it will copy all of the previous
+bitmaps, and NULL out the remainder. It will also set the current state to a
+valid state if the current state is beyond the range of the number of states.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL SetStateBitmap(WORD wState, PegBitmap *pBmp)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method allows a
+bitmap to be associated with a state. It returns a boolean for success or 
+failure. It will fail if wState is less than 0 or greater than maximum 
+states - 1.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is an example of a PegBitmapLight
+object on a PegDecoratedWindow. This particular light has 3 states. It is coincidental that this
+happens to be a bitmap of a traffic light. The bitmap associated with a state can be whatever
+is most useful in conveying the state of the object based on what the real world object is
+portraying.</FONT></FONT>
+
+<P>
+<CENTER><IMAGE SRC="pblight.gif" BORDER="0"></CENTER>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The above PegBitmapLight object was created by the
+following code snippet:</FONT></FONT>
+
+<PRE>
+extern PegBitmap gbgreenltBitmap;
+extern PegBitmap gbredltBitmap;
+extern PegBitmap gbyellowltBitmap;
+.
+.
+.
+PegBitmapLight *mpLight1;
+.
+.
+.
+PegRect LightRect = mClient;
+LightRect.wTop += 20;
+LightRect.wLeft += 20;
+LightRect.wRight = LightRect.wLeft + 150;
+LightRect.wBottom = LightRect.wTop + 150;
+
+mpLight1 = new PegBitmapLight(LightRect, 3);
+mpLight1->SetStateBitmap(2, &amp;gbredltBitmap);
+mpLight1->SetStateBitmap(1, &amp;gbyellowltBitmap);
+mpLight1->SetStateBitmap(0, &amp;gbgreenltBitmap);
+Add(mpLight1); 
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER>
+<P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegToolBarPanel</FONT></FONT></B></CENTER>
+
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegToolBarPanel is
+a container object that is used on conjunction with <A HREF="ptoolbar.htm">PegToolBar</A>.
+Any PegThing derived object may be placed on a PegToolBarPanel. As the
+objects are added, the panel positions the objects from left to right.
+The panel also resizes itself to the tallest child that is added to the
+panel. Objects that are smaller in height to the tallest object are placed
+at the top of the panel's client area.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptoolbar.htm">PegToolBar</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegToolBarPanel
+is derived from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegToolBarPanel(WORD wID = 0)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegToolBarPanel
+constructor creates a PegToolBarPanel object. The size of the panel is
+determined by it's child objects. It's position on the PegToolBar is determined
+when it is added to the PegToolBar.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegToolBarPanel overrides
+the Draw() function to draw the panel background and it's children.
+</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Add(PegThing* pWho, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This is an overridden
+version of the PegThing::Add method. Once the PegThing object is added,
+we may have to resize the pWho object (height, only). We will have to resize
+ourselve based on the width of the pWho object. We also send a message
+to our parent object (PegToolBar) to reposition any sibling panels based
+on our new size. If bDraw is set to true, the panel and it's children are
+redrawn.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void AddToEnd(PegThing* pWho, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method is identical
+to Add, but the object is added to the end of the child list.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Remove(PegThing* pWho, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method is an
+override of the PegThing::Remove method. After passing the parameters to
+PegThing, we resize ourselves accordingly.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+an example of two PegDecoratedWindows with PegToolBars and PegToolBarPanels.
+Note that there are three PegToolBarPanels on the top window and that there
+are two PegToolBarPanels on the second window. Note also that the PegThing
+derived objects are added to the PegToolBarPanels, not to the PegToolBar
+itself.:</FONT></FONT>
+<P><IMG SRC="toolbar.gif" ALT="PegToolBar example image" HEIGHT=505 WIDTH=648>
+<BR>
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates a PegToolBar and adds three PegToolBarPanels to the PegToolBar.
+This is the PegToolBar in the above top level window. Usually you would
+do this in the constructor of you PegDecoratedWindow derived window.</FONT></FONT>
+<BR>&nbsp;
+<PRE><FONT COLOR="#000000"><FONT FACE="Arial,Helvetica">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT FACE="Courier New,Courier">&nbsp; extern PegBitmap gbBullsEyeBitmap;
+&nbsp;&nbsp;&nbsp; extern PegBitmap gbBlueDotBitmap;
+&nbsp;&nbsp;&nbsp; extern PegBitmap gbGreyDotBitmap;
+&nbsp;&nbsp;&nbsp; extern PegBitmap gbGreenDotBitmap;
+&nbsp;&nbsp;&nbsp; extern PegBitmap gbRedDotBitmap;</FONT></FONT></PRE>
+
+<PRE>&nbsp;&nbsp;&nbsp; ... some code deleted ...&nbsp;&nbsp;&nbsp;&nbsp;
+
+<FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;&nbsp;&nbsp; PegToolBar* pToolBar = new PegToolBar();
+
+&nbsp;&nbsp;&nbsp; PegRect Rect;
+&nbsp;&nbsp;&nbsp; PegToolBarPanel* pPanel = new PegToolBarPanel();
+&nbsp;&nbsp;&nbsp; Rect.Set(0, 0, 70, 20);
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegTextButton(Rect, "Remove It ->", IDB_ALPHA_BUTTON));
+&nbsp;&nbsp;&nbsp; Rect.Set(0, 0, 20, 20);
+&nbsp;&nbsp;&nbsp; pPanel->AddToEnd(new PegTextButton(Rect, "B"));
+&nbsp;&nbsp;&nbsp; pToolBar->AddPanel(pPanel);
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Rect.Set(0, 0, 200, 20);
+&nbsp;&nbsp;&nbsp; pPanel = new PegToolBarPanel(IDC_STRING_PANEL);
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegString(Rect, "String on a ToolBarPanel"));
+&nbsp;&nbsp;&nbsp; pToolBar->AddPanel(pPanel);
+
+&nbsp;&nbsp;&nbsp; Rect.Set(0, 0, 19, 18);
+&nbsp;&nbsp;&nbsp; pPanel = new PegToolBarPanel();
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegBitmapButton(Rect, &amp;gbBullsEyeBitmap, IDB_BULL_BUTTON), FALSE);
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegBitmapButton(Rect, &amp;gbBlueDotBitmap, IDB_BLUE_BUTTON), FALSE);
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegBitmapButton(Rect, &amp;gbGreyDotBitmap, IDB_GREY_BUTTON), FALSE);
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegBitmapButton(Rect, &amp;gbGreenDotBitmap, IDB_GREEN_BUTTON), FALSE);
+&nbsp;&nbsp;&nbsp; pPanel->Add(new PegBitmapButton(Rect, &amp;gbRedDotBitmap, IDB_RED_BUTTON), FALSE);
+&nbsp;&nbsp;&nbsp; pToolBar->AddPanel(pPanel);
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Add(pToolBar);&nbsp;</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

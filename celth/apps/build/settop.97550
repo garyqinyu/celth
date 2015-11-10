@@ -1,0 +1,17 @@
+# Start up usb (bluetooth dongle support requires this)
+hciconfig hci0 up
+
+# Remove all possible drivers
+/sbin/rmmod bcmnetaccel 
+/sbin/rmmod bcmnetaccel_lite 
+/sbin/rmmod bcm%%CHIP%%
+/sbin/rmmod bcmkni
+/sbin/rmmod bcmdriver 
+/sbin/rmmod nexus
+
+/sbin/insmod %%DRIVER%% || exit
+
+# if PLAYBACK_IP_SUPPORT=n, this driver won't exist. don't fail.
+if [ -f bcmnetaccel.ko ] ; then
+	/sbin/insmod bcmnetaccel.ko
+fi

@@ -1,0 +1,424 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegTable</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTable is a container
+object for displaying a matrix of PegThing derived objects.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The number of table
+rows and columns must be passed to the PegTable constructor. The row heights
+and columns widths are determined dynamically as objects are added to the
+table.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTable will display
+a cell grid if the table gridline width is non-zero. The default gridline
+width is PEG_FRAME_WIDTH. This can be modified by calling the member function
+SetGridWidth().</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Each cell can add
+padding space around each child object if desired. The default padding
+amount is zero pixels. This can be modified by calling the table member
+function SetCellPadding(). Cell padding applies to all cells in the table.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Child objects are
+added to the table using the table SetCellClient() member function. Any
+PegThing derived class may become a table cell client. As objects are added
+to the table, they can be set to span multiple rows and/or columns. This
+allows much flexibility in the final appearance of the table. When objects
+that span multiple rows or columns are added to the table and the bForceFit
+parameter to the SetCellClient() function is TRUE, the spanned rows and/or
+columns may be expanded to insure that the object is fully displayed in
+the indicated table cells.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When constructing
+child objects to display in the table, it is not necessary for the application
+software to calculate each child object’s position. This is determined
+by the table window. It <B>IS</B> necessary, however, to properly set the
+overall size of each child object before adding that object to the table.
+The table determines the row heights and columns widths by examining the
+size of each child object in conjunction with the rowspan and columnspan
+attributes of each child.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">After the table has
+been fully initialized, the Layout() member function should be called before
+the table is displayed. The Layout function calculates the correct overall
+table size, and positions each child object to fit correctly within the
+desired table cells.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The Layout() function
+re-sizes row heights and column widths if required to accommodate all 'bForceFit'
+children. The layout algorithm works by checking the following rules in
+the following order:</FONT></FONT>
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For each single-cell
+child object with a 'bForceFit' style, insure that the height and width
+of the cell occupied by the object are &gt;= the object height and width.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For each multi-cell
+child object with a 'bForceFit' style, add the total height and width of
+the spanned cells.</FONT></FONT></LI>
+
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If the total width of
+spanned cells is &gt;= the object width, continue to height check.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Otherwise, search for
+a zero-width column spanned by the object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If a zero-width column
+is found, increase the column width the necessary amount to display the
+child object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If no zero width columns
+are found, increase all spanned cell widths by an equal amount to fully
+display the child object.</FONT></FONT></LI>
+</UL>
+
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If the total height
+of spanned cells is &gt;= the object height, continue.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Otherwise, search for
+a zero-height row spanned by the object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If a zero-height row
+is found, increase the row height the necessary amount to display the child
+object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If no zero height rows
+are found, increase all spanned cell heights by an equal amount to fully
+display the child object.</FONT></FONT></LI>
+</UL>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Position each child
+object to the center of the each cell.</FONT></FONT></LI>
+</UL>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The general order of
+constructing a PegTable is:</FONT></FONT>
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Construct the table,
+passing in max rows and columns.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Set column widths and
+row heights for any columns or rows with manual size settings.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call SetCellClient for
+each cell in the table which should contain a child object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the table member
+function Layout().</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Add the table to the
+parent window or PegPresentationManager.</FONT></FONT></LI>
+</UL>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Each table column has
+a fixed width. Initially each column has a default width of zero. The true
+width of each column can either be set manually by calling the SetColWidth()
+function, or can be determined automatically by the table. When adding
+objects to the table, the table will automatically re-size columns (and
+rows) to match the size of the child object if the bForceFit parameter
+is set to TRUE on a call to SetCellClient(). In all cases, the column width
+for each column is set to the maximum width of either all children for
+that column or the manually assigned column width value.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Each table row also
+has a fixed height, which can be set using the SetRowHeight() function
+or can be determined automatically by the table.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTable will automatically
+size itself to display all children when the Layout() function is called.
+For displaying very large tables, PegTable may be added to the client area
+of a parent window which has scrolling enabled This will allow the table
+to be panned up-down and left-right.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Notifications sent
+from table cell clients are passed unchanged to the table parent. This
+allows any window containing a PegTable to receive events from the table
+cell client objects as if the objects were direct children of the parent
+window.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pspread.htm">PegSpreadSheet</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTable supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>TS_SOLID_FILL</TD>
+
+<TD COLSPAN="2">Fills the table mReal rectangle with the table PCI_NORMAL
+color.</TD>
+</TR>
+
+<TR>
+<TD>TS_DRAW_HORZ_GRID</TD>
+<TD COLSPAN="2">Draws only the horizontal grid lines between rows of cells.</TD>
+</TR>
+
+<TR>
+<TD>TS_DRAW_VERT_GRID</TD>
+<TD COLSPAN="2">Draws only the vertical grid lines between columns.</TD>
+</TR>
+
+<TR>
+<TD>TS_DRAW_GRID</TD>
+
+<TD COLSPAN="2">Draws all gridlines between all cells.</TD>
+</TR>
+
+<TR>
+<TD>TS_PARTIAL_COL</TD>
+
+<TD COLSPAN="2">Draw the last visible column, even if partially clipped.</TD>
+</TR>
+
+<TR>
+<TD>TS_PARTIAL_ROW</TD>
+
+<TD COLSPAN="2">Draw the last visible row, even if partially clipped.</TD>
+</TR>
+</TABLE>
+
+<A NAME="TCFTable">
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">PegTable also supports
+the following styles with regard to the cell clients. These flags are
+only applicable when calling the <A HREF="#SetCellClient">
+SetCellClient</A> method.</FONT>
+
+<TABLE BORDER=2 COLS=2 WIDTH="100%">
+<TR>
+<TD>TCF_FORCEFIT</TD>
+<TD COLSPAN="2">This style bit will force the parent table to automatically
+adjust the row heights and column widths of the cells that are
+occupied by this object to insure that the object is fully contained
+and displayed by the cells that the object occupies.</TD>
+</TR>
+
+<TR>
+<TD>TCF_HCENTER</TD>
+<TD COLSPAN="2">Horizontally centers the cell object within the bounding cell.
+</TD>
+</TR>
+
+<TR>
+<TD>TCF_HLEFT</TD>
+<TD COLSPAN="2">Left justifies the cell object within the bouding cell.</TD>
+</TR>
+
+<TR>
+<TD>TCF_HRIGHT</TD>
+<TD COLSPAN="2">Right justifies the cell object within the bounding cell.</TD>
+</TR>
+
+<TR>
+<TD>TCF_VCENTER</TD>
+<TD COLSPAN="2">Vertically centers the cell object within the bounding cell.
+</TD>
+</TR>
+
+<TR>
+<TD>TCF_VTOP</TD>
+<TD COLSPAN="2">Top justifies the cell object within the bounding cell.</TD>
+</TR>
+
+<TR>
+<TD>TCF_VBOTTOM</TD>
+<TD COLSPAN="2">Bottom justifies the cell object within the bounding cell.</TD>
+</TR>
+
+</TABLE>
+
+<P>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTable derives
+from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTable(SIGNED
+iLeft, SIGNED iTop, SIGNED iRows, SIGNED iCols)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegTable constructor
+requires the top-left table corner position, and the number of table rows
+and columns.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTable overrides
+the Draw() function and breaks the procedure into two stages. First the table
+itself draws the table gridlines. Then the table mClip variable is set
+to the "client area" of each cell, and individual cell clients are drawn.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void DrawChildren(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function modifies
+the base class function of the same name to prevent child objects from
+drawing outside the cell area allocated to each cell client.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void DrawGrid(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function draws
+the table gridlines.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*GetCellClient(SIGNED iRow, SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns a pointer
+to the object displayed at the indicated cell position.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GetCellPadding(void) {return miCellPad;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns the cell padding of the table.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GetColumns(void) {return miCols;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns the
+number of columns in the table.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GetGridWidth(void) {return miGridWidth;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns the table's grid width.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL
+GetRowCol(PegThing *pChild, SIGNED *pRow, SIGNED *pCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+returns the row and column position of the child object indicated by pChild.
+If pChild is found in the table, pRow and pCol are written by this function
+to contain the row and column of the indicated child object. If the object
+spans multiple rows or columns, the returned row and column value will
+be the first, or upper left, cell position. This function returns TRUE
+if the object pChild is found in the table, else FALSE.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GetRows(void) {return miRows;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns the number
+of rows in the table.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Layout(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function should
+be called whenever the list of table child objects is modified. This is
+normally done after the table is fully initialized but before the table
+is displayed. Note that child objects can be modified after the table has
+been displayed. The layout function should be called after any modifications
+are made to a visible table. Note that table row heights and column widths
+are never decreased, but may be increased if new child objects are added
+which are larger than the objects previously contained in a given cell
+or group of cells.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Reconfigure(SIGNED iRows, SIGNED iCols, SIGNED iGridWidth, SIGNED iCellPadding)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function recalculates row/column widths based on current entries.  This should be called after changing the cell clients.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegThing
+*RemoveCellClient(SIGNED iRow, SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function removes the
+child object at the indicated cell position, and returns a pointer to that
+object. The object is not destroyed.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<A NAME="SetCellClient">
+<B>virtual
+void SetCellClient(SIGNED iRow, SIGNED iCol, PegThing *Child, SIGNED iRowSpan
+= 1, SIGNED iColSpan = 1, WORD wStyle = TCF_HCENTER | TCF_VCENTER)</B></FONT></FONT>
+</A>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+used to populate the children displayed in each table cell. The child objects
+can be any type of PegThing derived objects, which includes all buttons,
+strings, prompts, textboxes, etc. The default row and column span for
+an object is 1, indicating that the object occupies one table cell. If
+the ColSpan or RowSpan values are set to a value larger than 1, this object
+will occupy multiple table cells.
+<P>The default wStyle flag will center the object vertically and horizontally
+within the bounding cell. To enable force fitting the cell on the table, 
+specify the TCF_FORCEFIT style.
+<P>See <A HREF="#TCFTable">this table</A> for a list of supported style
+flags for the cell objects. It is important to note that the justification
+styles operate only on the placement of the object within it's bounding
+cell or cells. The style flags do not operate on the object itself. For
+example, a PegPrompt object has a series of styles that allow for left,
+center and right justification of it's text. These text justification style
+flags are completely independant of the cell style flags. Therefore, it would
+be acceptable to right justify the text within the PegPrompt object while
+specifying that the PegPrompt object be positioned horizontally to the left
+within the cell.
+</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetCellPadding(SIGNED iPad) {miCellPad = iPad;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+used to modify the default cell padding value, which is zero. The padding
+amount is in pixels.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetColWidth(SIGNED iCol, SIGNED iWidth)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to manually set the column width for any number of columns in the
+table. The column width cannot be decreased, but can only be set to a
+value larger than the current value. The initial width of all table columns
+is zero pixels.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetGridWidth(SIGNED iWidth = PEG_FRAME_WIDTH)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+used to set the grid line width for the grid drawn by the table. Setting
+the gridline width to zero disables the table grid, however all other positioning
+works as normal.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void SetRowHeight(SIGNED iRow, SIGNED iHeight)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to manually set the row height for each table row. The row height
+cannot be decreased, but can only be set to a value larger than the current
+value. The initial height of all table rows is zero.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a PegTable populated with different types of cell client objects.</FONT></FONT>
+<P><IMG SRC="table.gif" ALT="PegTable example image" HEIGHT=300 WIDTH=401>
+</BODY>
+</HTML>

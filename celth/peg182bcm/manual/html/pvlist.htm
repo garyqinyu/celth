@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegVertList</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVertList is a
+container class for displaying a scrolling list of child objects. PegVertList
+automatically positions and sizes child objects. It is therefore not
+necessary to manually position objects before adding them to PegVertList.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The LAST child added
+to the list will be displayed at the topmost position in the list if the
+Add() function is used to add children. The order of display can be reversed
+by using the function AddToEnd() to add children to the list.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Child objects are
+positioned when the list receives the PM_SHOW message, which is a system
+message sent automatically when the list is first displayed. PegVertList
+forces the width of child objects to match the width of the list client area.
+The height of each child object is not modified, and therefore you should
+use the correct object height when constructing child objects.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="phlist.htm">PegHorzList</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plist.htm">PegList</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVertList supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+</TABLE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The styles for PegVertList
+are identical to the PegWindow styles. In addition, scrolling is enabled
+in PegList in the same way as in PegWindow, by using the SetScrollMode()
+function.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVertList sends
+PSF_LIST_SELECT signals to the parent object. This message contains:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.pSource = Pointer to selected object.
+Message.iData&nbsp;&nbsp; = ID of selected list item.
+Message.pTarget = Pointer to list parent object.</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVertList derives
+from <A HREF="plist.htm">PegList</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegVertList(const PegRect &amp;Rect, WORD wId = 0, WORD wStyle = FF_THIN)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegVertList object. The Rect parameter determines the position
+and size of the list. The list children are automatically positioned by
+the list object.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a PegVertList with PegPrompt children:</FONT></FONT>
+
+<P><IMG SRC="image36.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>&nbsp;
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates a PegVertList and adds several PegBitmapButton children. The bitmaps
+for the bitmaps buttons can be generated using PegImageConvert.</FONT></FONT>
+<PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">extern PegBitmap gbThunderBitmap;
+extern PegBitmap gbLightBitmap;
+extern PegBitmap gbSateliteBitmap;
+extern PegBitmap gbDynamiteBitmap;
+extern PegBitmap gbAppleBitmap;
+
+void MyWindow::AddHList(void)
+{
+&nbsp;&nbsp;&nbsp; PegRect ListRect;
+&nbsp;&nbsp;&nbsp; ListRect.Set(10, 10, 80, 180);
+
+&nbsp;&nbsp;&nbsp; PegVertList *pList = new PegVertList(ListRect);
+
+&nbsp;&nbsp;&nbsp; pList->Add(new PegBitmapButton(0, 0, &amp;gbThunderBitmap));
+&nbsp;&nbsp;&nbsp; pList->Add(new PegBitmapButton(0, 0, &amp;gbLightBitmap));
+&nbsp;&nbsp;&nbsp; pList->Add(new PegBitmapButton(0, 0, &amp;gbSateliteBitmap));
+&nbsp;&nbsp;&nbsp; pList->Add(new PegBitmapButton(0, 0, &amp;gbDynamiteBitmap));
+&nbsp;&nbsp;&nbsp; pList->Add(new PegBitmapButton(0, 0, &amp;gbAppleBitmap));
+
+&nbsp;&nbsp;&nbsp; pList->SetScrollMode(WSM_VSCROLL);
+&nbsp;&nbsp;&nbsp; Add(pList);
+
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

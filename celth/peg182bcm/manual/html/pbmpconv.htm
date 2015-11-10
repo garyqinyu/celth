@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegBmpConvert</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBmpConvert is
+a PegImageConvert derived class for reading and de-compressing MS Windows
+or OS/2 BMP graphics files. Before using PegBmpConvert, be sure to read fully
+the PegImageConvert base class documentation.
+
+<P>The PegBmpConvert class is only included in the PEG library if
+ PEG_BMP_CONVERT is defined in header file pconfig.hpp.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pgifconv.htm">PegGifConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pimgconv.htm">PegImageConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pjpgconv.htm">PegJpgConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ppngconv.htm">PegPngConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pquant.htm">PegQuant</A></FONT></FONT>
+
+<P><A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegBmpConvert is
+derived from PegImageConvert.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBmpConvert(WORD wId = 0)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a bitmap conversion object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BmpHeader *GetBmpHeader(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the bitmap header information. This can be used to determine
+additional information about the decoded bitmap file. The BmpHeader structure
+is defined as:</FONT></FONT>
+<PRE>
+
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">typedef struct&nbsp;
+{
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; id;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; file_size;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; reserved[2];
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; image_offset;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; header_size;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; not_used;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; xres;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; yres;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; numplanes;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; bits_per_pix;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; compression;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; bit_map_size;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; hor_res;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; vert_res;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; number_of_colors;
+&nbsp;&nbsp;&nbsp; DWORD&nbsp;&nbsp; num_sig_colors;
+} BmpHeader;</FONT></FONT>
+</PRE>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual PegPixel GetULCColor(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the upper-left hand corner color of the first bitmap.  This is used by image conversion to add transparency to bitmap images.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A complete working
+example program using the run-time image conversion classes is provided
+in your PEG distribution in the directory \peg\examples\imgbrows.&nbsp;</FONT></FONT>
+<HR>
+
+</BODY>
+</HTML>

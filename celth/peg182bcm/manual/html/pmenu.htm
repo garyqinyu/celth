@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegMenu</FONT></FONT></B></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu is that background
+object used to display a list of menu items. PegMenu may contain any number
+of <A HREF="pmenbutn.htm">PegMenuButton</A> objects.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu accepts a
+<A HREF="pmendesc.htm">PegMenuDescription</A>
+parameter. This description defines the PegMenuButton objects that will
+initially be created and displayed on the menu. The PegMenuDescription
+is most often defined statically, or defined by PegWindowBuilder, but the
+PegMenuDescription can also be created dynamically during program execution.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When dynamically
+created PegMenuDescriptions are used to create instances of PegMenu, it
+is important to include the TT_COPY flag in each PegMenuDescription style.
+By default, the menu descriptions are not copied.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu also provides
+functions for finding, adding, and removing PegMenuButton objects at any
+time. This allows PegMenu objects to be altered at run time under program
+control.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu objects are
+automatically created by <A HREF="pmenubar.htm">PegMenuBar</A> when top-level
+menu bar options are selected. PegMenu sizes itself to the size required
+to display all children. The position of the PegMenu is defined when the
+menu is displayed.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenubar.htm">PegMenuBar</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmenbutn.htm">PegMenuButton</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmendesc.htm">PegMenuDescription</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">None.</FONT></FONT>
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMenu(PegMenuDescription
+*pDesc, BOOL bPopup = FALSE)</B></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegMenu constructor
+creates a PegMenu object with PegMenuButton children. The children are
+defined by the <A HREF="pmendesc.htm">PegMenuDescription</A> parameter.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+CloseSiblings(PegMenuButton *pNotMe)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method closes
+all of the menu items that are siblings of pNotMe.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu overrides
+the Draw() function to draw the menu border and background.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegMenuButton
+*FindButton(const PEGCHAR *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function searches
+for a PegMenuButton child with a matching command string. This function
+is in addition to the normal Find(WORD wId) which may also be used to find
+specific PegMenu command buttons.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The pointer returned
+can be used to Enable/Disable/Remove the PegMenuButton.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegRect
+GetMinSize(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function examines
+all child objects of the PegMenu to determine the minimum size required
+to display all children. The resulting rectangle is returned. This result
+can be used to intelligently position the PegMenu.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void MenuKeyHandler(SIGNED iKey)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This is the default keyboard handler for the PegMenu.  This function is only provided when #define PEG_KEYBOARD_SUPPORT is enabled in the configuration file pconfig.hpp.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegMenu catches
+the PM_SHOW message. When this message is received, the menu positions child
+PegMenuButtons for proper display.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetOwner(PegThing *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function assigns
+the owner of the menu. Menu command signals are routed to the PegMenu owner
+if this value is not NULL. This is often required as PegMenu objects are
+usually added directly to PegPresentationManager. This is done since the
+PegMenu may extend beyond the borders of the owner window and it is not
+intended that the PegMenu be clipped to the borders of the owner window.
+Assigning the PegMenu an owner routes menu commands to the owner window,
+rather than to the PegMenu parent, which in the case described would be
+PegPresentationManager.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+examples of PegMenuBar, PegMenu, and PegMenuButton:</FONT></FONT>
+<P><IMG SRC="image12.gif" >
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+creates a PegMenu from a PegMenuDescription. The menu is positioned at the
+top left corner of the window client area, and the menu owner is assigned.
+The menu is then added to PegPresentationManager:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">static PegMenuDescription FileMenu[] = {
+{"Exit", IDB_DEMO_EXIT, AF_ENABLED, NULL},
+{"Close", IDB_CLOSE, AF_ENABLED, NULL},
+{"Save", 0, 0, NULL},
+{"", 0, BF_SEPARATOR, NULL},
+{"Restore", IDB_RESTORE, AF_ENABLED, NULL},
+{"Minimize", IDB_MINIMIZE, AF_ENABLED, NULL},
+{"Maximize", IDB_MAXIMIZE, AF_ENABLED, NULL},
+{"", 0, 0, NULL}
+};
+
+void MyWindow::PopUpFileMenu(void)
+{
+&nbsp;&nbsp;&nbsp; PegMenu *pMenu = new PegMenu(FileMenu);
+&nbsp;&nbsp;&nbsp; PegRect SizeRect = pMenu->GetMinSize();
+&nbsp;&nbsp;&nbsp; SizeRect.MoveTo(mClient.wLeft, mClient.wTop);
+&nbsp;&nbsp;&nbsp; pMenu->Resize(SizeRect);
+&nbsp;&nbsp;&nbsp; pMenu->SetOwner(this);
+&nbsp;&nbsp;&nbsp; Presentation()->Add(pMenu);
+}</FONT></FONT></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Note: In the above example,
+the PegMenu should be removed when a menu command is received or the owner
+window loses input focus.</FONT></FONT>
+</BODY>
+</HTML>

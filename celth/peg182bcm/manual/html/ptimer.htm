@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegTimer</FONT></FONT></B></CENTER>
+&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegTimer structure
+contains information about an active PegTimer. The PegTimer structure is
+private to <A HREF="pmessage.htm">PegMessageQueue</A> and never directly
+referenced by external software, however we document this structure here
+for completeness.&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegTimer structure
+is defined as:</FONT></FONT>
+<PRE>
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">struct PegTimer
+{
+&nbsp;&nbsp;&nbsp; PegTimer() {pNext = NULL; pTarget = NULL;}
+&nbsp;&nbsp;&nbsp; PegTimer(LONG lCnt, LONG lRes)
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pNext = NULL;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pTarget = NULL;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lCount = lCnt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lReset = lReset;
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; PegTimer(PegTimer *Next, PegThing *Who, WORD wId, LONG lCnt, LONG lRes)
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pNext = Next;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pTarget = Who;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lCount = lCnt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lReset = lRes;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wTimerId = wId;
+&nbsp;&nbsp;&nbsp; }
+
+&nbsp;&nbsp;&nbsp; PegTimer *pNext;
+&nbsp;&nbsp;&nbsp; PegThing *pTarget;
+&nbsp;&nbsp;&nbsp; LONG&nbsp;&nbsp;&nbsp; lCount;
+&nbsp;&nbsp;&nbsp; LONG&nbsp;&nbsp;&nbsp; lReset;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp; wTimerId;
+};</FONT></FONT></B></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmc6.htm#PEGTIMER">PEG
+Programming Manual</A></FONT></FONT>
+</BODY>
+</HTML>

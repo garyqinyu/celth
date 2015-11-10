@@ -1,0 +1,179 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegTitle</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle is a window
+decoration that automatically sizes and positions itself at the top of
+the client area of its parent. PegTitle automatically adds various common
+control buttons to itself depending on the title style flags.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle also adds
+the functionality of dragging the parent window. PegTitle checks the parent
+window PSF_MOVEABLE system flag in order to provide this capability.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A pointer to the
+title added to a <A HREF="pdecwin.htm">PegDecoratedWindow </A>can be obtained
+at any time by calling the PegDecoratedWindow::Title() function.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdecwin.htm">PegDecoratedWindow</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdialog.htm">PegDialog</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>TT_COPY</TD>
+
+<TD COLSPAN="2">Instructs the title to copy the string assigned. This flag
+should be used when the string assigned to the title is created dynamically
+using temporary storage.</TD>
+</TR>
+
+<TR>
+<TD>TF_SYSBUTTON</TD>
+
+<TD COLSPAN="2">This flag instructs the title to include a system button,
+located in the upper-left corner of the title bar. The system button activates
+the system menu associated with the title bar.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>TF_MINMAXBUTTON</TD>
+
+<TD COLSPAN="2">This flag instructs the title to include minimize and maximize
+buttons on the title bar.</TD>
+</TR>
+
+<TR>
+<TD>TF_CLOSEBUTTON</TD>
+
+<TD COLSPAN="2">This flag instructs the title to include a window close
+button on the title bar.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle does not
+send signals. However the system menu associated
+with the title bar will send signals to the parent window.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle is derived
+from <A HREF="pthing.htm">PegThing</A> and
+<A HREF="ptxtthng.htm">PegTextThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTitle(const PEGCHAR
+*Title, WORD wStyle = TF_SYSBUTTON|TF_MINMAXBUTTON|TF_CLOSEBUTTON)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegTitle. The default style is to include
+all available title buttons, and not to copy the title bar text string.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void AssignMenu(PegMenuDescription
+*pDesc)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can be
+used to assign an alternate system menu to the
+PegTitle system button. The default system menu includes the commands Close
+(PM_CLOSE), Maximize (PM_MAXIMIZE), and Minimize (PM_MINIMIZE).</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle overrides
+the Draw() function to draw the title background
+and title text.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const
+PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTitle catches
+various mouse message, the title button messages,
+and focus alteration messages.</FONT></FONT>
+
+<P>&nbsp;
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is a
+PegTitle added to a PegDialog window:</FONT></FONT>
+<BR><IMG SRC="image21.gif" >&nbsp;
+<HR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following
+function creates a PegTitle, assigns an alternate system
+menu to the title, and adds the title to the parent window.
+<PRE>
+
+static PegMenuDescription SystemMenu[] = {
+{"Exit", IDB_DEMO_EXIT, AF_ENABLED, NULL},
+{"Close", IDB_CLOSE, AF_ENABLED, NULL},
+{"Save", 0, 0, NULL},
+{"", 0, BF_SEPERATOR, NULL},
+{"Restore", IDB_RESTORE, AF_ENABLED, NULL},
+{"Minimize", IDB_MINIMIZE, AF_ENABLED, NULL},
+{"Maximize", IDB_MAXIMIZE, AF_ENABLED, NULL},
+{"", 0, 0, NULL}
+};
+
+void MyWindow::AddTitle(void)
+{
+&nbsp;&nbsp;&nbsp; PegTitle *pTitle = new PegTitle("Hello World", TF_SYSBUTTON|TF_CLOSEBUTTON);
+&nbsp;&nbsp;&nbsp; pTitle->AssignMenu(SystemMenu);
+&nbsp;&nbsp;&nbsp; Add(pTitle);
+}</PRE></FONT></FONT>
+
+</BODY>
+</HTML>

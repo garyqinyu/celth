@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegProgressBar</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressBar is
+a simple progress bar control used to indicate to an end user the completion
+status of a slow activity. PegProgressBar can assume any scale value within
+the range of the SIGNED data type, however it is most common to display
+a value that is a percentage of the completion status.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressBar can
+assume any colors, controlled by calling the SetColor() function. For this
+control, PCI_NORMAL is the color index of the progress bar background,
+and PCI_SELECTED is the color index of the progress bar foreground. PCI_NTEXT
+is the color index of the optional text value displayed in the center of
+the progress bar.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The style, range,
+and initial value of a PegProgressBar object are passed to the object constructor.
+As the operation being monitored progresses, the application software calls
+the Update() member function to change the displayed completion value.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The progress bar
+control has two main styles. The most common style is a solid indicator,
+in which case the progress bar internally draws a PegButton within the
+specified frame style. The PS_LED, on the other hand, style does not use
+a client area button to indicate progress, but instead invokes a custom
+drawing style meant to appear as a series of LEDs, with the lighted LEDs
+indicating the current relative progress.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">While you can create
+any number of PegProgessBar instances directly, it is more common to use
+the PegProgressWindow class, as this is a simpler method of creating and
+displaying a progress indicator to the end user.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprogwin.htm">PegProgressWindow</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressBar supports
+the following styles: const WORD PS_SHOW_VAL = 0x0100; const WORD PS_RECESSED
+= 0x0200; const WORD PS_LED = 0x0400; const WORD PS_VERTICAL = 0x0800;
+const WORD PS_PERCENT = 0x1000;</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>PS_SHOW_VAL</TD>
+
+<TD COLSPAN="2">This style instructs the progress bar to display the current
+progress value in text form, in addition to the graphical presentation.</TD>
+</TR>
+
+<TR>
+<TD>PS_RECESSED</TD>
+
+<TD COLSPAN="2">This style draws a solid, recessed progress indicator.
+The default appearance is a solid raised indicator.</TD>
+</TR>
+
+<TR>
+<TD>PS_LED</TD>
+
+<TD COLSPAN="2">This style draws a segmented LED indicator. The default
+appearance is a solid raised indicator.</TD>
+</TR>
+
+<TR>
+<TD>PS_VERTICAL</TD>
+
+<TD COLSPAN="2">This style orients the progress control graphical indicator
+vertically. The default is horizontal orientation.</TD>
+</TR>
+
+<TR>
+<TD>PS_PERCENT</TD>
+
+<TD COLSPAN="2">This style instructs the progress bar to add the "%" indicator
+to the displayed text value. This flag has no effect if the PS_SHOW_VAL
+style is not active.</TD>
+</TR>
+</TABLE>
+<A NAME="Signals"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Signals</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressBar is
+a passive object, is not user selectable, and sends no signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressBar is
+derived from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegProgressBar(const PegRect &amp;Rect, WORD wStyle = FF_THIN|PS_SHOW_VAL|PS_PERCENT,
+SIGNED iMin = 0, SIGNED iMax = 100, SIGNED iCurrent = 0)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates a PegProgressBar. The default values construct a progress bar that
+displays both text and a graphical value. The graphical indicator has a
+raised border. The progress bar has a range of 0 to 100, and displays a
+"%" sign after the output value.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegProgressBar overrides
+the Draw() function to check for and draw the LED bar style.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetFont(PegFont *pFont) {mpFont = pFont;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to modify the font used to display the progress bar value.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Update(SIGNED iVal, BOOL bDraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called to update the progress bar completion value. The progress bar will
+automatically redraw to reflect the new value if the bDraw value is TRUE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED Value(void) {return miCurrent;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the current progress bar value.&nbsp;</FONT></FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a PegWindow containing several styles of PegProgressBar:</FONT></FONT>
+<BR><IMG SRC="image57.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;
+<HR>The source code used to create the above example can be found in the
+file \peg\examples\pegdemo\pegdemo.cpp. The window class is named ProgBarWindow.</FONT></FONT>
+
+</BODY>
+</HTML>

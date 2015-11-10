@@ -1,0 +1,678 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegSpreadSheet</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet is
+a row,column matrix for displaying text or alphanumeric values. PegSpreadSheet
+is a higher level construct than the basic PEG window and control types,
+and therefore there are a large number of functions available for controlling
+PegSpreadSheet appearance and operation.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet allows
+selection of individual cells, entire rows and columns, or any combination
+in between. PegSpreadSheet may have any number of column headings, row
+headings, and column footers. In addition, PegSpreadSheet supports vertical
+and horizontal scrolling. Specific groups of rows and/or columns may be
+specified as "fixed", in that they do not move when the spreadsheet is scrolled.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet columns
+automatically size themselves based on the width of the objects contained
+in each cell. The justification of text within each column can also be
+individually configured.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet cells
+may be configured to be selected individually or in complete rows or columns.
+Whenever an individual cell is selected by the user, the PegSpreadSheet will
+send a PSF_CELL_SELECT signal to the parent window assuming that notification
+has been enabled. The message pSource pointer will point to the PegSpreadSheet
+and the message Point member will contain the row and column of the selected
+cell, allowing the application to fully determine which cell has been selected.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When a spreadsheet
+column is selected, the spreadsheet will send a PSF_COL_SELECT signal to
+the parent window. The message iData member will contain the first column
+number selected, and the message lData member will contain the last column
+number selected. These will be the same value when only one column is selected.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When a spreadsheet
+row is selected, the spreadsheet will send a PSF_ROW_SELECT signal to the
+parent window. The message iData member will contain the first row number
+selected, and the message lData member will contain the last row number
+selected.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Each column of the
+spreadsheet has its own set of style flags. These flags control the appearance
+of each column of cells. These flags are modified through the <B>SetColStyle()</B>
+member function. Likewise, each row of the spreadsheet has unique style
+flags, which are set with the <B>SetRowStyle()</B> member function.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet can
+be drawn with a flat, raised, or recessed appearance to each cell.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Optional column headers,
+row headers, and column footers are drawn if desired.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet automatically
+provides horizontal and vertical scrolling capability if the client area
+is not sufficient to display all cells. If the spreadsheet is resized such
+that the scroll bars are no longer required, they are automatically removed.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ptable.htm">PegTable</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet supports
+the standard frame styles. In addition the following style flags affect
+the overall spreadsheet appearance. Style flags for individual rows and columns
+are described in the <A HREF="#SETROWSTYLE">SetRowStyle</A> and <A HREF="#SETCOLUMNSTYLE">SetColumnStyle</A>
+function descriptions below.</FONT></FONT>
+<BR>&nbsp;
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>SS_PARTIAL_COL</TD>
+
+<TD COLSPAN="2">Draw the last visible column, even if partially clipped.</TD>
+</TR>
+
+<TR>
+<TD>SS_MULTI_COL_SELECT</TD>
+
+<TD>Allow simultaneous selection of multiple columns.</TD>
+</TR>
+
+<TR>
+<TD>SS_MULTI_ROW_SELECT</TD>
+
+<TD>Allow simultaneous selection of multiple rows.</TD>
+</TR>
+
+<TR>
+<TD>SS_CELL_SELECT</TD>
+
+<TD>Allow individual cells to be selected.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to the
+common signals defined by PegThing, PegSpreadSheet supports the following
+signals:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>PSF_COL_SELECT</TD>
+
+<TD COLSPAN="2">Sent when PegSpreadSheet column(s) are selected.</TD>
+</TR>
+
+<TR>
+<TD>PSF_ROW_SELECT</TD>
+
+<TD COLSPAN="2">Sent when PegSpreadSheet row(s) are selected.</TD>
+</TR>
+
+<TR>
+<TD>PSF_CELL_SELECT</TD>
+
+<TD COLSPAN="2">Sent when PegSpreadSheet cell(s) are selected.</TD>
+</TR>
+
+<TR>
+<TD>PSF_COL_DESELECT</TD>
+
+<TD COLSPAN="2">Sent when a PegSpreadSheet column is unselected.</TD>
+</TR>
+
+<TR>
+<TD>PSF_ROW_DESELECT</TD>
+
+<TD COLSPAN="2">Sent when a PegSpreadSheet row is unselected.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet derives
+from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegSpreadSheet(const PegRect &amp;Rect, SIGNED iRows, SIGNED iCols,
+WORD wId = 0, WORD wStyle = FF_RAISED|SS_CELL_SELECT|SS_PARTIAL_COL,
+PegThing *pOwner = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegSpreadSheet
+constructor accepts a PegRect defining the spreadsheet position and size.
+The total number of spreadsheet rows is specified by iRows, and the total
+number of columns is specified in iCols. The spreadsheet must have a non-zero
+ID to send signals, and the ID can be specified in wId. wStyle indicates
+the global spreadsheet style, as each row and column style must be set
+individually.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The pOwner parameter
+specifies which window, if any, should receive the spreadsheet selection
+signals. This is required since PegSpreadSheet is often added to PegPresentationManager,
+rather than to the owner window.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED AddColumn(SIGNED iWidth, PEGCHAR *pHeader = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to add a new column to the right of the spreadsheet after the spreadsheet
+has been defined and displayed. The iWidth parameter defines the new column
+width (column widths for the initial columns are calculated automatically
+based on column data). The pHeader parameter, if used, defines the new
+column header. Only single-row column headers are supported with this parameter.
+If your column headers use multiple rows, you should pass NULL to this
+function and then assign your column headers individually for the new column.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED AddRow(PEGCHAR *pHeader = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to add a new row at the end of the spreadsheet after the spreadsheet
+has been defined and displayed. This is not the same as defining the initial
+spreadsheet rows, normally done before the spreadsheet is displayed, because
+the new row's header width will not be factored into the left margin width
+for spreadsheet layout. Therefore, if you anticipate adding rows to a spreadsheet
+that will have wider row headers than the initially defined rows, you should
+pad the initial row headers to leave room for the dynamically added row
+headers.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL CellSelected(const SIGNED iRow, const SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to determine at any time if a spreadsheet cell is selected.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL ColSelected(const SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to determine at any time if a spreadsheet column is selected.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED DeleteColumn(SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to delete any column in the spreadsheet. All data other than the deleted
+column is retained. This function returns the number of columns remaining
+in the spreadsheet after the delete operation, or -1 on error.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED DeleteRow(SIGNED iRow)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to delete any row in the spreadsheet. All data other than the deleted
+row is retained. This function returns the number of rows in the spreadsheet
+after the delete operation, or -1 on error.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void DrawAllCells(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function draws all visible cells in the spreadsheet.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void DrawFooters(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function draws all visible row headers in the spreadsheet.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void DrawHeaders(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function draws all visible headers in the spreadsheet.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void DrawRowHeaders(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function draws all visible footers in the spreadsheet.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void ForceColWidth(SIGNED iCol, SIGNED iWidth)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to override the default width assigned to a spreadsheet column.
+The default width is determined by finding the widest data string associated
+with a column of cells. This width is determined from cell data populated
+before the spreadsheet is displayed. The application may override this
+default width by calling the ForceColWidth function immediately before
+displaying the spreadsheet.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR *GetCellData(const SIGNED iRow, const SIGNED iCol) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+used to retrieve the data contained in a spreadsheet cell.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegRect GetCellRect(const SIGNED iRow, const SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the PegRect coordinates defining one cell's position. This rectangle may
+NOT be within the client area of the spreadsheet if the spreadsheet has
+been scrolled.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR *GetColHeader(const SIGNED iCol) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the text string used for the indicated column header.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetCols(void) const { return miCols; }</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns
+the number of columns in the spreadsheet.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetColumnStyle(const SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+used to get the style flags associated with a particular spreadsheet column.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetDispCols(void) {return miVisibleCols;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the number of columns that are actually visible in the spreadsheet
+client area.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetDispRows(void) {return miVisibleRows;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns
+the number of rows that are actually visible in the spreadsheet client
+area.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetOptimumHeight(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the best height for the spreadsheet after all cells have been initialized.
+This height will allow display of the entire spreadsheet without scrolling.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetOptimumWidth(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the best
+width for the spreadsheet after all cells have been initialized. This width will
+allow display of the entire spreadsheet without scrolling.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR *GetRowHeader(const SIGNED iRow) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the character string used as the row header for the indicated row.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetRows(void) const { return miRows; }</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function returns
+the number of rows in the spreadsheet.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetRowStyle(const SIGNED iRow)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the style flags associated with each row in the spreadsheet.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetSelectedColumn(SIGNED iIndex = 0)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called at any time to inquire which column(s), if any, are selected.
+If the SS_MULTI_COL_SELECT style is not enabled, there can only be at most
+one selected column. If multiple-selection mode is enabled, however, there
+may be any number of selected&nbsp; columns. In this case, the caller uses
+the index value to step through the selected columns and retrieve all selected
+column numbers.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetSelectedRow(SIGNED iIndex = 0)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called at any time to inquire which rows(s), if any, are selected. If
+the SS_MULTI_ROW_SELECT style is not enabled, there can only be at most
+one selected row. If multiple-selection mode is enabled, however, there
+may be any number of selected&nbsp; rows. In this case, the caller uses
+the index value to step through the selected rows and retrieve all selected
+row numbers.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED InsertColumn(SIGNED iCol, SIGNED iWidth, PEGCHAR *pHeader)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function adds
+a new column to the spreadsheet, to the left of the column specified by
+iCol. The initial column width will be iWidth. The column header may be
+assigned by passing pHeader or by passing NULL and using the normal SetColumnHeader
+functions after the column has been inserted. The return value is -1 for
+error or the number of columns in the spreadsheet after insertion.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED InsertRow(SIGNED iRow,&nbsp; PEGCHAR *pHeader = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Similar to InsertColumn
+(above), this functions inserts a new row in the spreadsheet immediately
+above the indicated row. The return value is -1 for error or the number
+of rows in the spreadsheet after insertion.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void RedrawOneCell(const SIGNED iRow, const SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function invalidates and draws an individual cell.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Resize(PegRect Rect)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet overrides
+the Resize function to update the client area spreadsheet scrollbars.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL RowSelected(const SIGNED iRow)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns TRUE if
+the indicated row of cells is selected, else FALSE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SelectCell(SIGNED iRow, SIGNED iCol, BOOL bSet = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to manually select or deselect cells independent of user interaction.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SelectColumn(const SIGNED iCol, BOOL bSet = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to manually select or deselect spreadsheet columns independent
+of user interaction.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SelectRow(const SIGNED iRow, BOOL bSet = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to manually select or deselect spreadsheet rows independent of
+user interaction.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetCellData(const SIGNED iRow, const SIGNED iCol, const PEGCHAR
+*Text, BOOL bRedraw = FALSE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">SetCellData is used
+to populate individual spreadsheet cells with program defined data values.
+If the bRedraw parameter is TRUE and the PegSpreadSheet is visible,
+the cell will immediately redraw itself to display the new data.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetCellFont(PegFont *pFont) {mpCellFont = pFont;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+used to select the font used to display cell data. There is only one font
+used to display all cells.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetColor(const UCHAR index, const COLORVAL Color)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegSpreadSheet overrides
+the SetColor() function to provide additional color indices. These indices
+include:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>PCI_NORMAL</TD>
+
+<TD COLSPAN="2">Normal (not selected) cell fill color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SELECTED</TD>
+
+<TD COLSPAN="2">Selected cell fill color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_NTEXT</TD>
+
+<TD COLSPAN="2">Normal (not selected) cell text color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_STEXT</TD>
+
+<TD COLSPAN="2">Selected cell text color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SS_COLHEADBACK</TD>
+
+<TD COLSPAN="2">Column header background color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SS_COLHEADTEXT</TD>
+
+<TD COLSPAN="2">Column header text color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SS_ROWHEADBACK</TD>
+
+<TD COLSPAN="2">Row header background color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SS_ROWHEADTEXT</TD>
+
+<TD COLSPAN="2">Row header text color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SS_DIVIDER</TD>
+
+<TD COLSPAN="2">PegSpreadSheet divider color.</TD>
+</TR>
+
+<TR>
+<TD>PCI_SS_BACKGROUND</TD>
+
+<TD>PegSpreadSheet background color.</TD>
+</TR>
+</TABLE>
+<P>&nbsp;
+<BR>&nbsp;
+
+<A NAME="SETCOLUMNFONT"></A>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetColumnFont(const SIGNED iCol, PegFont *pFont)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets the font for an entire column in the spreadsheet.</FONT></FONT>
+<A NAME="SETCOLUMNSTYLE"></A>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetColumnStyle(const SIGNED iCol, const WORD wFlags)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+is used to set the style flags associated with a particular spreadsheet
+column. The default column style is TJ_CENTER|FF_RECESSED. The available
+styles are:</FONT></FONT>
+<BR>&nbsp;
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Cells are drawn with a thin border.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Cells are drawn with a raised border.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Cells are drawn with a recessed border.</TD>
+</TR>
+
+<TR>
+<TD>TJ_RIGHT</TD>
+
+<TD COLSPAN="2">Cell data is right justified.</TD>
+</TR>
+
+<TR>
+<TD>TJ_LEFT</TD>
+
+<TD COLSPAN="2">Cell data is left justified.</TD>
+</TR>
+
+<TR>
+<TD>TJ_CENTER</TD>
+
+<TD COLSPAN="2">Cell data is center justified</TD>
+</TR>
+
+<TR>
+<TD>SCF_SEPARATOR</TD>
+
+<TD COLSPAN="2">The column is a separator, and cell data is not displayed.</TD>
+</TR>
+
+<TR>
+<TD>SCF_ALLOW_SELECT</TD>
+
+<TD>Allow selection of this column.</TD>
+</TR>
+</TABLE>
+<P>&nbsp;
+<BR>&nbsp;
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetFooter(const SIGNED line, const SIGNED iCol, const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+is used to define the column footers. Columns footers are displayed directly
+below each column of spreadsheet data. Column footers are optional, and
+are only displayed if defined.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetHeader(const SIGNED line, const SIGNED iCol, const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+is used to define the spreadsheet column headers. Columns headers are displayed
+directly above each column in the spreadsheet. The number of rows of header
+data is determined automatically by the spreadsheet based on the number
+of header rows initialized by the calling object. That is, you do not need
+to explicitly indicate how many rows of column header data are required.
+You simply initialize the column headers as needed and PegSpreadSheet determines
+how to display the header information. The width of the column headers
+is also included when determining the width of each column. Columns
+headers are not required, and will not be displayed if not initialized.
+Column headers must be defined for the spreadsheet to support column selection.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetHeaderFont(PegFont *pFont) {mpHeaderFont = pFont;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function defines
+the font used to display column headers.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetRowHeader(const SIGNED iRow, const PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function
+is used to initialize the row headers. Rows headers are displayed to the
+left of each spreadsheet row. Row headers are not required, and will not
+be displayed if they are not initialized. Row headers must be defined for
+the spreadsheet to support row selection. Row headers are not scrolled
+when the spreadsheet performs a horizontal scrolling operation.</FONT></FONT>
+
+<A NAME="SETROWSTYLE"></A>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetRowStyle(const SIGNED iRow, const WORD wFlags)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets
+the style flags associated with each row in the spreadsheet.
+The only row style currently supported is the SRF_ALLOW_SELECT style, which
+allows the user to select the row header to select all cells in the row.
+The default row style is 0.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetScrollStartCol(const SIGNED iCol)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to determine which columns are scrolled right and left by the horizontal
+scroll bar. Columns to the left of this value are not scrolled, and columns
+to the right are. This allow you to "lock" certain columns in the display,
+while others are scrolled.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetSize(const SIGNED Rows, const SIGNED Cols)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets the size of the spreadsheet based on rows and columns.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void UnselectAll(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function unselects
+all rows, columns, and cells.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL UnselectCells(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function unselects
+cells. It returns TRUE if a selected cell was found, else FALSE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL UnselectColumns(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function unselects
+all columns. It returns TRUE if a selected column was found, else FALSE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL UnselectRows(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function unselects
+all rows. It returns TRUE if a selected row was found, else FALSE.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED UpdateColLayout(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function forces
+the spreadsheet to recalculate the visible/non-visible column parameters
+and scroll bar settings. This function should be called if the SS_PARTIAL_COL
+style flag is changed after the spreadsheet is visible.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED UpdateRowLayout(BOOL bForceVertical = FALSE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function forces
+the spreadsheet to recalculate the visible/non-visible row parameters and
+scroll bar settings. This function should be called if the number of column
+header rows, cell or header font, or any other variable that affects the
+number of visible rows is changed after the spreadsheet is visible.
+Setting bForceVertical TRUE forces a vertical scroll bar to be
+included. If bForceVertical is FALSE or omitted, a vertical scroll bar will
+be added only if needed.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED UpdateScrollBars(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function forces the spreadsheet to recalculate the size and position of the scrollbars.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED VScrollIntoView(const SIGNED iRow)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function scrolls the specified row into view.  </FONT></FONT>
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+an example of a PegSpreadSheet, centered in the client area of a PegDecoratedWindow:</FONT></FONT>
+
+<P><IMG SRC="Image72.gif" HEIGHT=382 WIDTH=502>
+
+<P>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A complete example
+using PegSpreadSheet (the example used to create the screen shot above)
+can be found in your \peg\examples\spread directory.</FONT></FONT>
+</BODY>
+</HTML>

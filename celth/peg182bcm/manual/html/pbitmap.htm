@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegBitmap</FONT></FONT></B></CENTER>
+
+<P><BR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegBitmap structure
+contains format and data address information for PEG compatible bitmaps.&nbsp;</FONT></FONT>
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegBitmap structure
+is defined as:</FONT></FONT>
+<PRE><B><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;&nbsp; BMF_RAW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00
+#define&nbsp;&nbsp; BMF_RLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01
+#define&nbsp;&nbsp; BMF_NATIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x02
+#define&nbsp;&nbsp; BMF_ROTATED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x04
+#define&nbsp;&nbsp; BMF_HAS_TRANS&nbsp;&nbsp;&nbsp; 0x10&nbsp;&nbsp;&nbsp;&nbsp; // has a transparency color
+#define&nbsp;&nbsp; BMF_SPRITE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x20&nbsp;&nbsp;&nbsp;&nbsp; // bitmap resides in video memory</FONT></FONT></B>
+</PRE>
+
+<PRE><B><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">struct PegBitmap
+{
+&nbsp;&nbsp;&nbsp; UCHAR uFlags;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // combination of above flags
+&nbsp;&nbsp;&nbsp; UCHAR uBitsPix;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 1, 2, 4, or 8
+&nbsp;&nbsp;&nbsp; WORD&nbsp; wWidth;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // in pixels
+&nbsp;&nbsp;&nbsp; WORD&nbsp; wHeight;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // in pixels
+&nbsp;&nbsp;&nbsp; DWORD dTransColor;&nbsp;&nbsp; // transparent color for >= 8bpp bitmaps
+&nbsp;&nbsp;&nbsp; UCHAR PEGFAR *pStart;
+};</FONT></FONT></B></PRE>
+
+<HR>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR>&nbsp;
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmc6.htm#PEGBITMAP">PEG
+Programming Manual</A></FONT></FONT>
+</BODY>
+</HTML>

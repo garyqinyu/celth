@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# (C)2004 Broadcom Corporation
+# This script prepares a settop for the Brutus application.
+
+# Remove old settop api shared libs
+rm -f /usr/lib/libsettop*.so
+
+# Create videos directory.
+# A symlink to /data/videos is preferred because it's a larger
+# partition when using the default filesystem.
+if [ ! -d videos ]; then
+	if [ -d /data ]; then
+		# glibc filesystems
+		if [ ! -d /data/videos ]; then
+			mkdir /data/videos
+		fi
+		ln -sf /data/videos .
+	else
+	if [ -d /mnt/hd ]; then
+		# uclibc filesystems
+		if [ ! -d /mnt/hd/videos ]; then
+			mkdir /mnt/hd/videos
+		fi
+		ln -sf /mnt/hd/videos .
+	else
+		# default to create it right here
+		mkdir videos
+	fi
+	fi
+fi
+
+# Create audio directory
+# A symlink to /data/audio is preferred because it's a larger
+# partition when using the default filesystem.
+if [ ! -d audio ]; then
+	if [ -d /data ]; then
+		# glibc filesystems
+		if [ ! -d /data/audio ]; then
+			mkdir /data/audio
+		fi
+		ln -s /data/audio .
+	else
+	if [ -d /mnt/hd ]; then
+		# uclibc filesystems
+		if [ ! -d /mnt/hd/audio ]; then
+			mkdir /mnt/hd/audio
+		fi
+		ln -s /mnt/hd/audio .
+	else
+		# default to create it right here
+		mkdir audio
+	fi
+	fi
+fi
+
+# Create other subdirs
+if [ ! -d pictures ]; then
+	mkdir pictures
+fi
+if [ ! -d scripts ]; then
+	mkdir scripts
+fi
+
+# Create standard /dev/bcm* nodes for Brutus
+. create_brutus_nodes
+

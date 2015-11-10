@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>Peg2DPolygon</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONTSIZE=+1>
+Overview
+</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon is an advanced drawing class which extends and encapsulates the functionality implemented in the PegScreen's Polygon method into a true sprite oriented 2 dimensional polygon.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Historically, in PEG, to draw a polygon one would allocate any number of PegPoint structures, assign values to the x and y members, create a PegColor structure and assign it's color properties accordingly. One would then call the PegScreen::Polygon method and pass it over the list of PegPoints and the PegColor structure. This would effectively draw the given polygon at the coordinates designated in the PegPoint array. Peg2DPolygon takes care of this work for you, and provides easy ways to move the polygon as well as rotate the polygon within it's bounding rectangle.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon simplifies the process of drawing 2D wireframes and filled polygons. Instead of having to normal one's desired polygon coordinates to screen coordinates, one can describe a polygon it relation to origin 0 x and 0 y being in the top-left corner of the bounding rectangle of the polygon. Once these coordinates are given to the Peg2DPolygon object, the object will translate these coordinates from their 0,0 base to the left and top of it's bounding rectangle as it is located on the screen. And, throughout the lifetime of the object, it updates this translation every time it is moved or resized.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Another great feature is the ability to rotate the polygon to any given angle without have to translate the points yourself. The following is a discussion of how the current angle value is used in determining the translation of the points of the polygon.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+It is important to understand how the angle value works in the Peg2DPolygon object. Consider an <I>xy</I> coordinate system (Figures 1 and 2, below). 
+A point <I>P</I> in the <I>xy</I> plane has coordinates <I>(x,y)</I> where <I>x</I> is considered positive along <I>OX</I> and negative along <I>OX'</I> while <I>y</I> is positive along <I>OY</I> and negative along <I>OY'</I>. The angle <I>A</I> described <I>counterclockwise</I> from <I>OX</I> is considered <I>positive</I>. If it is described <I>clockwise</I> from <I>OX</I> it is
+considered <I>negative</I>. We call <I>X'OX</I> and <I>Y'OY</I> the <I>x</I> and <I>y</I> axis respectively.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+The various quadrants are denoted by I,II,III and IV called the first, second, third and fourth quadrants, respectively. In Figure 1, for example, angle <I>A</I> is in the second quadrant while in Figure 2, angle <I>A</I> is in the third quadrant.
+</FONT>
+
+<BR>&nbsp;
+<CENTER><IMAGE SRC="dialfigs.gif" BORDER="0"></CENTER>
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+When working with angles with the Peg2DPolygon class, 0 degrees is always on line <I>OX</I> with greater angle values going <I>counterclockwise</I>. 
+Therefore, line <I>OY</I> is at 90 degrees, line <I>OX'</I> is at 180 degrees and line <I>OY'</I> is at 270 degrees.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+It is also important to note that the polygon is rotated relative to it's bounding rectangle. In other words, if you were to have a polygon that was bounded by a rectangle that was 48 pixels high and 48 pixels wide, the center of rotation for the polygon would be at relative 23 x and 23 y (24 pixels from the top left corner of the bounding rectangle). This can provide some very interesting rotational effects. The one aspect that you do have to be careful with in rotating the polygon is the distance the point is from the center of the bouding rectangle. If a point lies outside of the radius of the largest concentric circle that would fit within the perimeter of the bounding rectangle, then the point may become clipped as the polygon is rotated.
+</FONT>
+
+<P><A NAME="See Also"></A>
+<U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>
+See Also
+</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pthing.htm">PegThing</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon supports the standard frame styles FF_NONE, FF_THIN, FF_THICK, FF_RAISED, and FF_RECESSED. FF_NONE is the default.
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon supports the AF_TRANSPARENT flag. This flag can be dangerous if you are rotating the polygon and redrawing. It may not correctly erase the relic polygon. The way to aleviate this is to rotate the polygon, then have the parent of the Peg2DPolygon object draw itself. (This assumes that you have not set the PSF_VIEWPORT status on the Peg2DPolygon object.)
+</FONT>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon also supports the TT_COPY style flag. If set, this causes Peg2DPolygon to copy the array of PegPoints sent over in the constructor's parameter list. If you have allocated the points on the heap and would not like the data copied, do not set this flag. By default, this flag is not set.
+</FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon does not send any signals.
+</FONT>
+
+<P><A NAME="Derivation"></A><U>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon is derived from <A HREF="pthing.htm">PegThing</A>.
+</FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>Peg2DPolygon(PegRect&amp; tBoundingRect, PegPoint* pPoints, WORD wNumPoints, WORD wId = 0, WORD wStyle = FF_NONE)</B></FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+The constructor takes a reference to a PegRect that describes the bounding rectangle for the polygon, a pointer to a PegPoint structure, the number of points that describe the polygon, a WORD for the Id of the object and a WORD for the style flags.
+<P>
+It is necessary for the PegPoints to be allocated as an array of points, with the pPoints parameter pointing to the first element in the array.
+</FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void Draw()</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon overrides the PegThing::Draw method in order to correctly draw the polygon.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>SIGNED GetCurAngle() const</B>
+</FONT>
+<BR>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void SetAngle(SIGNED iTheta)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+These methods provide retrieval and setting of the current angle used to rotate the polygon.
+</FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>BOOL GetFill() const</B>
+</FONT>
+<BR>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void SetFill(BOOL bFill)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+These methods provide retrieval and setting of the fill flag used to determine if the polygon should fill it's interior or only draw it's outline.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>SIGNED GetLineWidth() const</B>
+</FONT>
+<BR>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void SetLineWidth(SIGNED iWidth)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+These methods provide retrieval and setting of the line width used when drawing the polygon.
+</FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>WORD GetNumPoints() const</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Returns the number of points in the polygon.
+</FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void ParentShift(SIGNED iXOffset, SIGNED iYOffset)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon overrides the PegThing::ParentShift method in order to correctly map the polygon coordinates to the new location on the screen. This member is called internally by the library and should not be called from a user application.
+</FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+<B>void Resize(PegRect tRect)</B>
+</FONT>
+<BR>
+<FONT FACE="Arial,Helvetica" COLOR="#000000">
+Peg2DPolygon overrides the PegThing::Resize method in order to correctly shift the polygon to the new location described by the new bounding rectangle.
+</FONT>
+
+
+
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica" COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica" COLOR="#000000">
+The following is a code snippet that creates the Peg2DPolygon displayed in Figure 1. You'll notice that since we globally allocated the PegPoints that describedthe polygon, we don't set the TT_COPY flag in the constructor to the Peg2DPolygon object.
+</FONT>
+
+<PRE>
+/*--------------------------------------------------------------------------*/
+// Global Polygon point data
+static PegPoint gtPolyPoints[] = { {47, 24}, {12, 12}, {24, 22},
+                                   {24, 23}, {31, 19}, {31, 27}, 
+                                   {24, 25}, {12, 35} };
+
+/*--------------------------------------------------------------------------*/
+PolygonWindow::PolygonWindow() : PegDecoratedWindow()
+{
+    mReal.Set(0, 0, 400, 300);
+    InitClient();
+
+    SetColor(PCI_NORMAL, BLUE);
+
+    Add(new PegTitle("Peg2DPolygon Example"));
+
+    PegRect tRect;
+    tRect.Set(mClient.wLeft + 10, mClient.wTop + 10, mClient.wLeft + 57,
+              mClient.wTop + 57);
+    mpPolygon = new Peg2DPolygon(tRect, &ampgtPolyPoints[0], 8,
+                                 101, FF_NONE);
+    mpPolygon->SetColor(PCI_NORMAL, BLUE);
+    mpPolygon->SetColor(PCI_NTEXT, WHITE);
+    Add(mpPolygon);
+}
+</PRE>
+
+<HR>
+
+<CENTER><IMAGE SRC="p2dpoly.gif" BORDER="0"></CENTER>
+
+</BODY>
+</HTML>

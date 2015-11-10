@@ -1,0 +1,1467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+        
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        
+  <meta name="Author" content="Kenneth G. Maxwell">
+        
+  <meta name="GENERATOR" content="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+  <title>PEG Reference Manual</title>
+</head>
+  <body text="#000000" bgcolor="#fffbf7" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+  &nbsp;<a href="../refman.htm"><img src="index.gif" border="0">
+ </a>
+   
+<table border="2" cols="5" width="100%" bgcolor="#cccccc">
+  <tbody>
+     <tr>
+  <td>        
+      <center><a href="#Derivation">Derivation</a>
+       </center>
+  </td>
+   <td>        
+      <center><a href="#Members">Members</a>
+       </center>
+  </td>
+   <td>        
+      <center><a href="#Signals">Signals</a>
+       </center>
+  </td>
+   <td>        
+      <center><a href="#Examples">Examples</a>
+       </center>
+  </td>
+   <td>        
+      <center><a href="#See%20Also">See Also</a>
+       </center>
+  </td>
+  </tr>
+     
+  </tbody> 
+</table>
+  &nbsp;  
+<center><b><font color="#9c0000"><font size="+2">PegThing</font></font></b></center>
+     
+<p><b><u><font face="Arial,Helvetica"><font size="+1">Overview</font></font></u></b>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">PegThing is the base
+ class from which all viewable PEG objects are derived. While you may never
+ create an instance of an actual PegThing in your application, it is very
+possible that you will derive your own custom control types from PegThing.
+In any event, every window and control you will use is based on PegThing,
+so you will be using the public functions of PegThing often when programming
+with PEG.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Understanding and remembering 
+the functions of class PegThing is vital to using the PEG library. We encourage 
+you to read the Programming Manual chapter on class PegThing, which contains 
+much more information about the design and use of the PegThing class.</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">In addition to the
+true member functions, PegThing implements several inline wrapper functions.
+These functions provide a simplified syntax for calling member functions
+of the <a href="pscreen.htm">PegScreen</a>
+  and <a href="pmessage.htm">PegMessageQueue</a>
+  classes. For example, you can always draw a line by calling the PegScreen
+ Line function directly:</font></font> </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">Screen()-&gt;Line(.....)</font></font></pre>
+  <font face="Arial,Helvetica"><font color="#000000">However, for the most
+ common operations PegThing provides an inline wrapper function that eliminates
+ the need to obtain the PegScreen instance pointer. This improves the API
+syntax and eliminates typing effort. The above function can more easily be
+invoked by using the wrapper function:</font></font>  
+<pre><font face="Arial,Helvetica"><font color="#000000">Line(...)</font></font></pre>
+  <font face="Arial,Helvetica"><font color="#000000">The public member functions
+ and wrapper functions are listed in the <a href="#Members">Members</a>
+  section of this reference.</font></font>   
+<p><font face="Arial,Helvetica"><font color="#000000">PegThing objects are 
+NOT viewport objects. If you are constructing a large container class, you 
+may want to derive that class from PegWindow, rather than from class PegThing. 
+For small custom gadgets, PegThing works well as a foundation upon which to
+build your custom class.&nbsp;</font></font>&nbsp; </p>
+ 
+<hr>   
+<p><a name="See Also"></a>
+ <u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">See
+ Also</font></font></font></u>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="pmc7.htm">
+ PEG Programming Manual</a>
+ </font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000"><a href="mansup.htm#VIEWPORTS">
+ Viewports</a>
+ </font></font>  </p>
+ 
+<p><a name="Derivation"></a>
+ <u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">Derivation</font></font></font></u>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">PegThing is a PEG base 
+class.</font></font> <br>
+ &nbsp; <br>
+ &nbsp;  </p>
+ 
+<p><a name="Members"></a>
+  <u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">Member
+ Functions</font></font></font></u> <br>
+ &nbsp; <br>
+ &nbsp;   
+<table cols="2" width="100%" border="0" cellspacing="0" cellpadding="0">
+   <!-- Start of left column --> <tbody>
+     <tr>
+       <td valign="Top"> 	       
+      <table border="0" cellspacing="0" cellpadding="2">
+   <tbody>
+           <tr>
+             <td valign="Top"><b><u><font face="Arial, Helvetica, sans-serif" color="#ff0000" size="+1">
+  Public Functions</font></u></b></td>
+           </tr>
+  <tr>
+             <td><a href="#Constructor">Constructors</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#ADD">Add()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#ADDTOEND">AddToEnd()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#ADDSTATUS">AddStatus()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#CENTER">Center()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#CENTEROF">CenterOf()</a>
+             </td>
+           </tr>
+  <tr>
+	     <td><a href="#CHECKDIRECTION">CheckDirectionalMove()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#CHECKSEND">CheckSendSignal()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#DEFKEY">DefaultKeyHandler()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#DESTROY">Destroy()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#DISTANCE">Distance()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#DRAW">Draw()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#DRAWCHILDREN">DrawChildren()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#FIND">Find()</a>
+             </td>
+           </tr>
+  <tr>
+	     <td><a href="#FINDNEAREST">FindNearest()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#FIRST">First()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#FRAMESTYLE">FrameStyle()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#GETCOLOR">GetColor()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#GETSTATUS">GetStatus()</a>
+             </td>
+  </tr>
+           <tr>
+             <td><a href="#ID">Id()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#INITCLIENT">InitClient()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#MESSAGE">Message()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#MESSAGECHILDREN">MessageChildren()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#MESSAGEQUEUE">MessageQueue()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#MOVEFRONT">MoveToFront()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#NEXT">Next()</a>
+             </td>
+           </tr>
+  <tr>
+             <td valign="Top"><a href="#NEXT_TAB_LINK">NextTabLink()</a>
+             <br>
+             </td>
+           </tr>
+           <tr>
+             <td><a href="#PARENT">Parent()</a>
+             </td>
+           </tr>
+           <tr>
+	     <td><a href="#PARENTSHIFT">ParentShift()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#PRESENTATION">Presentation()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#PREVIOUS">Previous()</a>
+             </td>
+           </tr>
+  <tr>
+             <td valign="Top"><a href="#PREV_TAB_LINK">PrevTabLink()</a>
+             <br>
+             </td>
+           </tr>
+           <tr>
+             <td valign="Top"><a href="#PRINT">Print()</a>
+             <br>
+             </td>
+           </tr>
+           <tr>
+             <td valign="Top"><a href="#PRINTER">Printer()</a>
+             <br>
+             </td>
+           </tr>
+           <tr>
+             <td><a href="#REMOVE">Remove()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#REMOVESTATUS">RemoveStatus()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#RESIZE">Resize()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#SCREEN">Screen()</a>
+             </td>
+           </tr>
+  <tr>
+	     <td><a href="#SENDSIGNAL">SendSignal()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#SETCOLOR">SetColor()</a>
+             </td>
+           </tr>
+  <tr>
+             <td valign="Top"><a href="#SET_TAB_LINKS">SetDefaultTabLinks()</a>
+             <br>
+             </td>
+           </tr>
+  <tr>
+             <td valign="Top"><a href="#SETPRINTER">SetPrintPtr()</a>
+             <br>
+             </td>
+           </tr>
+           <tr>
+             <td valign="Top"><a href="#SETSCREEN">SetScreenPtr()</a>
+             <br>
+             </td>
+           </tr>
+           <tr>
+             <td><a href="#SETSIGNALS">SetSignals()</a>
+             </td>
+           </tr>
+           <tr>
+             <td><a href="#SETTABORDER">SetTabOrder()</a>
+             </td>
+           </tr>
+           <tr>
+             <td><a href="#STDBORDER">StandardBorder()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#STATUSIS">StatusIs()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#STYLE">Style()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#TYPE">Type()</a>
+             </td>
+           </tr>
+  <tr>
+	     <td><a href="#UPDATECHILDCLIPPING">UpdateChildClipping()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#VERSION">Version()</a>
+             </td>
+           </tr>
+   	         
+        </tbody>       
+      </table>
+  </td>
+   <!-- Start of right column --> <td valign="Top"> 	       
+      <table border="0" cellspacing="0" cellpadding="2">
+  <tbody>
+           <tr>
+             <td valign="Top"><b><u><font face="Arial, Helvetica, sans-serif" color="#ff0000" size="+1">
+  Wrapper Functions</font></u></b></td>
+           </tr>
+  <tr>
+             <td><a href="#BEGINDRAW">BeginDraw()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#BITMAP">Bitmap()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#BITMAPFILL">BitmapFill()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#CAPTURE_PTR">CapturePointer()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#CIRCLE">Circle()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#DRAWTEXT">DrawText()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#ENDDRAW">EndDraw()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#INVALIDATE">Invalidate()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#KILLTIMER">KillTimer()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#LINE">Line()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#RECTANGLE">Rectangle()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#RECTMOVE">RectMove()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#RELEASE_PTR">ReleasePointer()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#SETPOINTERTYPE">SetPointerType()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#SETTIMER">SetTimer()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#TEXTHEIGHT">TextHeight()</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#TEXTWIDTH">TextWidth()</a>
+             </td>
+           </tr>
+  <tr>
+             <td>&nbsp;</td>
+           </tr>
+  <tr>
+             <td><a href="#PROTECTED">Protected Members</a>
+             </td>
+           </tr>
+   <tr>
+             <td valign="Top">&nbsp;<br>
+  <b><u><font face="Arial, Helvetica, sans-serif" color="#ff0000" size="+1">
+  Public Data</font></u></b></td>
+           </tr>
+  <tr>
+             <td><a href="#MREAL">mReal</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#MCLIENT">mClient</a>
+             </td>
+           </tr>
+  <tr>
+             <td><a href="#MCLIP">mClip</a>
+             </td>
+           </tr>
+   	         
+        </tbody>       
+      </table>
+  </td>
+     </tr>
+   <!-- End of two column table -->    
+  </tbody> 
+</table>
+   </p>
+ 
+<hr>   
+<p><a name="Constructor"></a>
+   </p>
+ 
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+ Constructors:</font></font></font></u>  </p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegThing(const PegRect 
+&amp;Rect, WORD wId = 0, WORD wStyle = FF_NONE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This constructor is used 
+when the desired initial position of the object on the screen is known at 
+the time of object creation. Rect contains the starting screen coordinates, 
+in pixels, for the object. The wStyle parameter indicates the object's initial 
+drawing style.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegThing(WORD wId 
+= 0, WORD wStyle = FF_NONE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This constructor is used 
+when the object position is not known at the time of object creation. When 
+this is the case, it is necessary to define the object's position some time 
+between when the object is created and when the object is drawn on the screen. 
+This can be done in a derived class constructor, or when the object receives 
+the PM_SHOW message.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The easiest way to
+set an object's position is to call the member function Resize(), which accepts 
+a PegRect argument which should contain the desired screen coordinates. Calling 
+Resize() is the only acceptable way to set an object's size or position after 
+the object is visible.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">A more direct method
+ of setting an object's position and size is to directly modify the object's
+ mReal (the absolute bounding rectangle of an object) and mClient (the inside
+ client area of an object) variables. This method must be used with caution
+ since PEG base classes often must insure that mClient remains correctly
+positioned relative to mReal. Also, you should never directly modify mReal
+or mClient after an object is visible, since this will usually not have the
+desired result due to PEG clipping enforcement.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="ADD"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Add(PegThing 
+*Who, BOOL bDraw = TRUE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function adds Who 
+to the current object. Who thus becomes a child of this. This function is 
+used to make windows and controls members of the presentation tree.</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">An object is normally
+ drawn after being added to a visible parent. This operation can be prevented,
+ if desired, by passing a FALSE value as the bDraw parameter to the Add function.</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">If the object Who is 
+already a member of the current object's child list, Who is not added again 
+to the list, but instead Who is simply unlinked from the child list and re-linked 
+at the head of the child list. This action changes the order of child objects, 
+which may be the desired operation.&nbsp;</font></font></p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Objects are added to 
+the parent according to the status of the object, meaning that objects with 
+PSF_VIEWPORT status or PSF_ALWAYS_ON_TOP status are always maintained ahead 
+of child objects which do not have this status. &nbsp;These differences are 
+maintained internally by PEG and are necessary to insure proper drawing, but
+are not normally the concern of the application level program.<br>
+ </font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">If Who is not visible
+ at the time this function is called, and the object this is visible, a PM_SHOW 
+message will be sent to Who to inform it that it has become visible. If the 
+calling object is not visible at the time Who is added, and the calling object 
+later becomes visible (by addition to a visible object), PM_SHOW messages 
+will be sent at that time to the calling object and all of its children.</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">When constructing complex 
+windows and dialogs, it is best to first add all of the child objects to the
+main window or dialog, and then add the main window or dialog to PegPresentationManager. 
+This is slightly more efficient than adding each child object to a window 
+or dialog that is already visible.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="ADDTOEND"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void AddToEnd(PegThing 
+*Who, BOOL bDraw = TRUE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function adds Who 
+to the current object. Who thus becomes a child of this. This function is 
+used to make windows and controls members of the presentation tree.</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The AddToEnd function
+ works very much like the Add() function, except the added object is added
+ to the end of the linked list of child objects, rather than being added
+to the head of the linked list. This is sometimes useful when adding objects
+ to PegList containers, to correct the order of child display.</font></font>
+ &nbsp;</p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Like the Add() function, 
+AddToEnd() operates within the constraints of object status,&nbsp; meaning 
+that objects with PSF_VIEWPORT status or PSF_ALWAYS_ON_TOP status are always 
+maintained ahead of child objects which do not have this status. </font></font><br>
+ &nbsp;  </p>
+ 
+<p><a name="ADDSTATUS"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void AddStatus(WORD 
+wMask)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function can be
+used to modify an object's mwStatus flags. AddStatus will logically OR the
+wMask parameter with the object's mwStatus variable. This function is used
+often by the PEG foundation objects to modify the state of visible window
+or control, but is rarely used by the application level software. The system
+status flag list and definitions are found <a href="sysstat.htm">here</a>
+ .</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="CAPTURE_PTR"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void CapturePointer(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function acts as 
+a wrapper function allowing access by a PegThing to the PegPresentationManager 
+member function of the same name.  Use of this function is equivalent to Presentation()-&gt;CapturePointer(this).</font></font>
+ <br>
+ &nbsp;  </p>
+ 
+<p><a name="CENTER"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Center(PegThing 
+*Who)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function will adjust 
+the screen coordinates of Who such that Who is horizontally and vertically 
+centered over the client area of this. Who does not necessarily have to be 
+a child of this, although this is the most common case. The following example 
+demonstrates centering an object on the screen:</font></font> </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">PegRect Rect;<br>Rect.Set(0, 0, 100, 100);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // create 100x100 pixel window<br>PegWindow *MyWin = new PegWindow(Rect);<br>Presentation()-&gt;Center(MyWin);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // center window on the screen<br>Presentation()-&gt;Add(MyWin);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // make the window visible</font></font></pre>
+    
+<p><a name="CENTEROF"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void CenterOf(PegThing *Who)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns the coordinates of the center of the object in a PegPoint structure.</font></font> </p>
+ <p><a name="CHECKDIRECTION"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual BOOL CheckDirectionalMove(SIGNED iKey)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Default arrow key handling.  Returns TRUE if the key was processed, otherwise FALSE.  This function is only provided if both #define PEG_KEYBOARD_SUPPORT and #define PEG_ARROW_KEY_SUPPORT are enabled in the configuration file pconfig.hpp.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+<p><a name="CHECKSEND"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual BOOL CheckSendSignal(UCHAR 
+uSignal)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function creates
+and sends a PegMessage with the appropriate SIGNAL value loaded in wType,
+object ID loaded in iData, this loaded in pSource, and Parent() loaded into
+the pTarget field of the message. The boolean value TRUE is returned after
+the signal is sent. FALSE is returned if the signal was not sent either because 
+the current object has no parent, the object ID is 0 or the specified signal 
+bit is currently disabled.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="DEFKEY"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void DefaultKeyHandler(const 
+PegMessage &amp;InMesg)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is called 
+by default when PM_KEY messages are received. This function is only provided 
+when PEG_KEYBOARD_SUPPORT is defined.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">This function checks
+ for keys which cause an input focus change, such as TAB and ARROW keys.
+If the key is not one of these keys, the function then checks to see if the 
+object signals require that a PSF_KEY_RECEIVED signal be sent to the object 
+parent. Finally, if none of these operations are performed, the key is passed 
+up to the parent of the current object.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">This function may be 
+overridden in derived classes to perform custom key handling, although it 
+is more common to simply catch PM_KEY messages in derived classes.</font></font>
+  <br>
+ &nbsp;  </p>
+ 
+<p><a name="DESTROY"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void Destroy(PegThing 
+*Who)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is called 
+to remove an object from view and delete the memory associated with that object.
+If the object has no parent, it has already been removed from view in which
+case Destroy() simply deletes the object. In the case that Who == this, Destroy()
+will post a message to PegPresentationManager to delete the calling object.</font></font>
+ <br>
+ &nbsp;  </p>
+ 
+<p><a name="DISTANCE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>LONG Distance(PegPoint p1, PegPoint p2)</b></font></font>
+  <br>
+  <font face="Arial,Helvetica"><font color="#000000">This function calculates the distance between two PegPoints.</font></font> <br>
+ &nbsp;  </p>
+<p><a name="DRAW"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Draw(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is called 
+by PegPresentationManager when an object initially needs to redraw itself, 
+or by the application software when an object has been modified. An example 
+of overriding the Draw() function is provided in <a href="pmc7.htm#DRAWING">
+ the PEG programming manual</a>
+ .</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="DRAWCHILDREN"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void DrawChildren(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function tells each 
+child of the current object to draw itself by calling the individual child 
+object Draw() functions. In your derived classes, you do not usually need 
+to call this function since this is normally handled automatically by PEG 
+when you call the base class drawing function. However, if you choose not 
+to call the base class drawing function in your custom Draw() function, you 
+will usually want to call DrawChildren() at some point in your drawing routine 
+to insure that objects which have been added to your parent class draw themselves.</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">An example of overriding
+ the Draw() function is provided in <a href="pmc7.htm#DRAWING">Overriding
+the Draw() function</a>
+ .</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="FIND"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual PegThing
+*Find(WORD wId, BOOL bRecursive = TRUE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function can be
+used to find any object based on the object ID value. For example, you may
+create a PegDialog window that has many child controls. If you need to modify
+the status of those controls as the dialog is manipulated, you will need
+to keep or obtain pointers to those child controls. There are two ways you
+could obtain a pointer to each child control. You could add member pointers
+to the dialog window that are initialized as each child control is constructed. 
+This is faster than using the Find() function to locate child controls, but 
+requires more memory to store all of the child control pointers. An alternative 
+is to use Find() to obtain a pointer to a child control when the pointer is
+needed.</font></font>  </p>
+ 
+<p><a name="ExampleFind"></a>
+ <font face="Arial,Helvetica"><font color="#000000">The following example 
+illustrates using Find() to locate a child PegString control and testing to
+see if the PegString has a non-NULL string value. If the string has a null
+value, the dialog OK button will not close the dialog. For this example, we
+assume the desired string has the enumerated ID value IDS_MY_STRING:</font></font>
+  </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">SIGNED MyDialog::Message(const PegMessage &amp;Mesg)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (Mesg.wType)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SIGNAL(IDB_OK, PSF_CLICKED):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PegString *pString = (PegString *) Find(IDS_MY_STRING);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pString-&gt;DataGet()) // Does string contain text??<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PegDialog::Message(Mesg);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>}</font></font></pre>
+<p><a name="FINDNEAREST"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual PegThing *FindNearestNeighbor(SIGNED iKey, PegThing *pStart, PegPoint CenterThis)<br>
+ <img src="bullet1.jpg" height="11" width="12">
+virtual PegThing *FindNearestNeighbor(PegThing *pStart, LONG *pPutDist, SIGNED iKey, PegPoint CenterThis, BOOL bLoose)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is used for arrow key handling.  It finds the nearest object in a specified direction.</font></font>  </p> 
+<p><a name="FIRST"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegThing *First(void) 
+const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns a pointer to
+the first child object in the current object's tree.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="FRAMESTYLE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void FrameStyle(WORD 
+wStyle)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function can be
+used to modify the appearance of the frame for most PegThing derived objects. 
+This function is provided for convenience, and is nearly identical to the 
+Style() function shown below with the exception that it guarantees that only 
+the object's frame style is modified, whereas the Style() function can modify 
+all style flags.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The available frame
+ styles are:</font></font> </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">FF_NONE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // no frame<br>FF_THIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // thin black frame<br>FF_RAISED&nbsp;&nbsp;&nbsp;&nbsp; // 3D raised frame<br>FF_RECESSED&nbsp;&nbsp; // 3D recessed frame<br>FF_THICK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 3D thick frame</font></font></pre>
+  <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>WORD FrameStyle(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This functions returns
+ the current frame style of an object.</font></font> <br>
+ &nbsp;   
+<p><a name="GETCOLOR"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual COLORVAL
+GetColor(const UCHAR uIndex)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+the current color value for the specified color index of an object. See SetColor 
+for a description of color indices and color values.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="GETSTATUS"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>WORD GetStatus()</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000"> Retreives the current 
+value of the mwStatus member variable.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="ID"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void Id(WORD wId)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Assigns the value of
+the object's mwId member. The default value is 0. Object IDs are used by
+PEG signaling classes to determine the message number associated with notification 
+messages. For all other class types, mwId has no effect on the internal operation 
+of PEG, but can be useful to the application level software for identifying 
+objects at run time.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>WORD Id(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns the value of
+the object's mwId member. The mwId value is not used by PEG directly, but
+is useful to the application software for keeping track of individual controls 
+or other objects when a window such as a complex dialog has several instances 
+of a particular object type associated with it. By assigning IDs to each object,
+the application can determine precisely the source of a control notification 
+by requesting the control's mwId value. Object IDs are also used to send and
+receive signals. The message number associated with a particular signal is
+calculated based on the object ID and the signal being sent.</font></font>
+  <br>
+ &nbsp;  </p>
+ 
+<p><a name="INITCLIENT"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void InitClient(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function should
+be called if the frame or border style of the object is modified at run time 
+after the object has been initialized. This function determines the new client 
+area rectangle based on the mReal rectangle and frame style. Many classes 
+override this function to do a custom calculation.</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="MESSAGE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual SIGNED Message(const 
+PegMessage &amp;Mesg)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is called 
+by PegPresentationManager to allow an object to process a message. This is 
+the most commonly overridden of all PEG functions, because customizing object 
+behavior is done by adding your own message types and message handling code 
+to the default operation performed by PEG.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Messages can either
+ be those defined internally by PEG, or they can be new messages defined
+by you. PEG system messages are recognized by the PegMessage.wType field,
+which is &lt;&nbsp;FIRST_USER_MESSAGE for PEG system messages. For this reason
+you should always insure that your user message types are greater than FIRST_USER_MESSSAGE. 
+A complete list of all PEG system messages is contained in the section of 
+this manual entitled PegMessageQueue.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The complete list of 
+system messages can be found <a href="pmessage.htm#SystemMesg">here</a>
+ .</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">An example of overriding
+ the message function can be found <a href="pmc8.htm#EXAMPLE3">here</a>
+ .</font></font> <br>
+ &nbsp;  </p>
+ 
+<p><a name="MESSAGECHILDREN"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void MessageChildren(const PegMessage &Mesg)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function passes the message on to all of its children.</font></font>
+  <br>
+ &nbsp;  </p>
+<p><a name="MESSAGEQUEUE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>static PegMessageQueue 
+*MessageQueue(void) const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+a pointer to the application's instance of PegMessageQueue. You will need
+to use this function in order to post messages to other windows or objects
+that are part of the application, and also to make use of PegTimer facilities.</font></font>
+  <br>
+ &nbsp;  </p>
+ 
+<p><a name="MOVEFRONT"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void MoveToFront(PegThing 
+*Who, BOOL bDraw = TRUE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is used 
+to change the z-order of a parent's child objects. This is useful when objects 
+overlap in the parent's client area. In this case, one object may be brought 
+"to the front" when selected, so that it is drawn on top of its siblings. 
+The Add() function can also be used to move an object which is already a child
+to the front of the child list. However, this function differs from the Add()
+function in that MoveToFront does not change the sequential order of objects,
+i.e. the tab order is not modified by calling MoveToFront. The presentation
+tree is simply modified such that the caller is moved to be the first child
+object.</font></font>&nbsp;</p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Like the Add() function, 
+MoveToFront() operates within the constraints of object status,&nbsp; meaning 
+that objects with PSF_VIEWPORT status or PSF_ALWAYS_ON_TOP status are always 
+maintained ahead of child objects which do not have this status. <br>
+ </font></font></p>
+ 
+<p></p>
+ 
+<p><a name="NEXT"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegThing *Next(void) 
+const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns a pointer to
+the current object's next sibling, or NULL if the current object is the end
+node of the current branch of the object tree.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;<br>
+ </font></font><a name="NEXT_TAB_LINK"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"><b>PegThing *NextTabLink(void)</b></font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000"> Returns a pointer to 
+the object which is next in the tab order, if known, otherwise returns NULL. 
+This function is only provided if PEG_KEYBOARD_SUPPORT and PEG_TAB_KEY_SUPPORT 
+are defined.&nbsp; When this configuration is defined, PEG objects which accept
+keyboard input focus are linked together in a circular list when the parent
+window is displayed. The order of this circular list is defined by the order
+in which child objects are added to the parent window.</font></font><br>
+   </p>
+ 
+<p><a name="PARENT"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegThing *Parent(void) 
+const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns a pointer to
+the parent object, or NULL if the object has no parent (i.e. the object is
+not visible).</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="PRESENTATION"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>static PegPresentationManager 
+*Presentation(void) const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+a pointer to the application's instance of PegPresentationManager. This value 
+is required in order to interact directly with the top-level presentation.
+ That is, in order to add a new window to the screen you would add the window
+ to PegPresentationManager as shown:</font></font> </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">PegWindow *MyWindow = new PegWindow(Rect);<br>Presentation()-&gt;Add(MyWindow);</font></font></pre>
+    
+<p><a name="PREVIOUS"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegThing *Previous(void) 
+const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns a pointer to
+the current object's previous sibling, or NULL if the current object is the
+first node of the current branch of the object tree.</font></font> <br>
+ &nbsp;<br>
+ </p>
+ 
+<p><a name="PREV_TAB_LINK"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"><b>PegThing *PrevTabLink(void)</b></font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns a pointer to
+the object which is previous in the tab order, if known, otherwise returns
+NULL. This function is only provided if PEG_KEYBOARD_SUPPORT and PEG_TAB_KEY_SUPPORT 
+are defined.&nbsp; When this configuration is defined, PEG objects which accept
+keyboard input focus are linked together in a circular list when the parent
+window is displayed. The order of this circular list is defined by the order
+in which child objects are added to the parent window.</font></font></p>
+ 
+<p><a name="PRINT"></a>
+<img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"><b>static PegScreen *Print(void) 
+const</b></font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000"> This function is called 
+to print the current object and all children. This function performs the following:<br>
+ </font></font></p>
+ 
+<ul>
+   <li>Temporarily replaces the PegScreen pointer with the printer driver 
+pointer.</li>
+   <li>Invokes Draw() for this object and all children</li>
+   <li>Replaces the PegScreen pointer to the true screen driver pointer.<br>
+   </li>
+ 
+</ul>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The current printer 
+driver supports only HP-PCL3 compatible printers. This function is provided 
+only if PEG_PRINTER_SUPPORT is defined in the pconfig.hpp configuration file.</font></font></p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Refer to the example 
+program \peg\examples\print which utilizes the PEG printer driver.<br>
+ </font></font></p>
+ 
+<p></p>
+ 
+<p></p>
+ 
+<p><a name="PRINTER"></a>
+<img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"><b>static PegScreen *Printer(void) 
+const</b></font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+a pointer to the printer driver, which is derived from PegScreen. The printer 
+driver is simply a PegScreen derived class that implements the drawing primitives 
+such that they can be directed to a compatible printer. The current printer 
+driver supports only HP-PCL3 compatible printers. This function is provided 
+only if PEG_PRINTER_SUPPORT is defined in the pconfig.hpp configuration file. 
+</font></font></p>
+ 
+<p><a name="RELEASE_PTR"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void ReleasePointer(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function acts as 
+a wrapper function allowing access by a PegThing to the PegPresentationManager 
+member function of the same name.  Use of this function is equivalent to Presentation()-&gt;ReleasePointer(this).</font></font>
+ <br>
+ &nbsp;  </p>
+ 
+<p><a name="REMOVE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual PegThing
+*Remove(PegThing *Who, BOOL bDraw = TRUE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function removes
+a child object from the current object's child list. This function is the
+opposite to Add(). Attempting to remove an object which is not in the child
+list has no effect. When an object is removed from a visible parent, it will
+receive a PM_HIDE message to notify it that it has been removed from the
+screen.</font></font>   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Remove() does not delete 
+the object after it has been removed. In fact the purpose of Remove() is to
+allow you to remove objects from the screen without deleting them, allowing 
+you to later re-display the object simply by re-adding it to a visible window. 
+If you want to remove and delete an object, the PegThing member function Destroy()
+is provided for that purpose.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="REMOVESTATUS"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void RemoveStatus(WORD 
+wMask)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">The opposite of AddStatus(), 
+RemoveStatus() can be used to clear individual bits or a combination of bits 
+in an object's mwStatus variable. This function will logically AND the complement 
+of wMask with the object's mwStatus variable.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="RESIZE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Resize(PegRect 
+Rect)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Any PEG object can resize 
+itself or any other object at any time by calling the Resize() function.
+The new screen coordinates for the object are passed in the parameter Rect.
+If you maintain or find a pointer to another object, you can also resize
+that object by calling the same function. The following example illustrates
+this concept:</font></font> </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">PegRect Rect(10, 10, 40, 40);<br>PegButton *MyButton = new PegTextButton(Rect, 0, "Hello");<br>.<br>.&nbsp; // at any time, to resize MyButton:<br>.<br>Rect.Set(20, 20, 60, 60);<br>MyButton-&gt;Resize(Rect);</font></font></pre>
+  <font face="Arial,Helvetica"><font color="#000000">If an object is visible
+ when it is resized, it will automatically perform the necessary invalidation
+ and drawing. It is perfectly OK to resize an object that is not visible,
+in fact in many cases this is the best time to do it.</font></font> 
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+  
+<p><a name="SCREEN"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>static PegScreen
+*Screen(void) const</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+a pointer to the screen interface object. The screen interface object provides
+ all of the drawing functions you will use in custom drawing routines. For
+ information about how to draw on the screen, refer the <a href="pscreen.htm">
+ PegScreen</a>
+  class reference.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Note: The Screen()
+function returns the static PegThing member variable mpScreen. mpScreen does
+not have to be set in stone for the life of your application. One possible
+reason to temporarily replace the mpScreen pointer value is to perform screen
+printing operations. By defining a PegScreen class that drives a printer,
+you can easily print any PEG window by temporarily setting the mpScreen pointer
+to point to your print driver, telling the PEG window to re-draw, and then
+setting the mpScreen member back to its original value.</font></font> 
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="SENDSIGNAL"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void SendSignal(UCHAR uSignal)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function builds a signal based on uSignal and sends it to this object's parent.</font></font>  </p>
+ <p><a name="SETCOLOR"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void SetColor(const 
+UCHAR uIndex, const COLORVAL uColor)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">SetColor is called to 
+override at run time an object's default color values. Every PEG object has 
+at least four color indexes, any of which can be reset using the SetColor
+ function. The color indexes which can be passed in uIndex are defined as
+follows:</font></font>  </p>
+ 
+<pre><font face="Arial,Helvetica"><font color="#000000">PCI_NORMAL:&nbsp;&nbsp;&nbsp; The normal client area fill color.<br>PCI_SELECTED:&nbsp; The fill color when the object is selected.<br>PCI_NTEXT:&nbsp;&nbsp;&nbsp;&nbsp; The normal text color for the object.<br>PCI_STEXT:&nbsp;&nbsp;&nbsp;&nbsp; The text color to use when the object is selected.</font></font></pre>
+  <font face="Arial,Helvetica"><font color="#000000">The available uColor
+values are defined in the file pegtypes.hpp. These color values will vary
+depending on the color depth supported on the target system. A few PEG objects
+such as PegTable have additional color values associated with them.</font></font>
+  <br>
+<br>
+<a name="SET_TAB_LINKS"></a>
+<img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"><b>void SetDefaultTabLinks(WORD 
+wId, WORD wSignalMask)</b></font></font><br>
+<font face="Arial,Helvetica"><font color="#000000">This is called automatically 
+by PegWindow derived objects when they receive the PM_SHOW message. This establishes
+the initial order of tabbing &nbsp;through the list of child objects. Note
+that this function is only defined when PEG_KEYBOARD_SUPPORT and PEG_TAB_KEY_SUPPORT
+are defined in the pconfig.hpp header file. This function is also called
+when objects that can receive keyboard focus are added to a visible window.</font></font><br>
+<br>
+<font face="Arial,Helvetica"><font color="#000000">The default tab order
+is determined from the position of child objects with PSF_ACCEPTS_FOCUS status.
+Child objects are placed in the tab list in a top-to-bottom, left-to-right
+search order. By default the child object which initially recieves input
+focus is always the top most, left most child object.<br>
+<br>
+The application program can change the default initial focus by first finding
+the child object with PSF_DEFAULT_FOCUS status and removing this status by
+calling pChild-&gt;RemoveStatus(PSF_DEFAULT_FOCUS). The application than
+then re-define the initial focus by calling pChild-&gt;SetStatus(PSF_DEFAULT_FOCUS)
+on the desired child object.<br>
+</font></font><br>
+ <br>
+ <a name="SETPRINTER"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"><b>void SetPrintPtr(PegScreen 
+*pScreen)</b></font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is called 
+during program startup to initialize the static pointer to the PEG printer 
+driver. This function is only provided if PEG_PRINTER_SUPPORT is defined in
+the pconfig.hpp configuration file.</font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;<br>
+ </font></font><a name="SETSCREEN"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"><b>void SetScreenPtr(PegScreen 
+*pScreen)</b></font></font><br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is called 
+during program startup to initialize the static pointer to the PEG screen 
+driver.</font></font><br>
+ &nbsp; 
+<p><a name="SETSIGNALS"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void SetSignals(WORD 
+wSendMask)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is used 
+to identify which notification messages a signaling control should send to 
+its parent. The mask value should be created by using the SIGMASK macro. This
+enables multiple signals to be enabled with one call to SetSignals, similar 
+to the object style flags. The available signal masks and descriptions of 
+each may be found <a href="signals.htm">here</a>
+ .</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+ <p><a name="SETTABORDER"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void SetTabOrder(WORD 
+*pIds)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function will override the default tab order of the peg objects.  This is only provided if both #define PEG_KEYBOARD_SUPPORT and #define PEG_TAB_KEY_SUPPORT are enabled in the configuration file pconfig.hpp.  The parameter pIds should be an array of object ID's sorted in the order you want them to be, with the last entry set to 0.  If the object of an ID doesn't exist, it ignores it and continues with the next one.  Make sure that this function is called after the base object becomes visible, because it is there that the default tab order is installed.  For example:  <br><br>
+<code>
+	SIGNED MyPegClass::Message(const PegMessage &Mesg)<br>
+	{<br>
+	&nbsp;&nbsp;WORD wOrder[] = {MyID_1, MyID_2, MyID_3, 0}; // Terminate with 0<br>
+	&nbsp;&nbsp;switch(Mesg.wType)<br>
+	&nbsp;&nbsp;{<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;case PM_SHOW:<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PegWindow::Message(Mesg); // This will set the default tab order.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTabOrder(wOrder);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // This will set user-defined tab order.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+	&nbsp;&nbsp;}<br>
+	}
+</code>
+</font></font>
+ &nbsp;</p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void SetSignals(WORD 
+wId, WORD wSignalMask)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function can be
+used to both assign an object's ID and the associated signal mask.</font></font>
+ &nbsp;</p>
+ 
+<p><a name="STDBORDER"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void StandardBorder(COLORVAL 
+bFillColor)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function draws a 
+standard border based on the object frame style, fill color, and mReal values.</font></font>
+  <br>
+ &nbsp;  </p>
+ 
+<p><a name="STATUSIS"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>BOOL StatusIs(WORD 
+wMask)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is used 
+to test individual bits of an object's private mwStatus variable. This variable 
+contains system status flags common to all PEG classes. An application program 
+generally should never attempt to modify these flags. However it is sometimes 
+useful to read this value to test for certain object states. The system status 
+flag list and definitions are found <a href="sysstat.htm">here</a>
+ .</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="STYLE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Style(WORD 
+wStyle)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function is used 
+to set the style flags for an object. The available style flags are shown 
+on the following page. Not all style flags are supported by all classes.
+In all cases, the desired style flags can be 'OR'ed together to form one
+style parameter.</font></font>  </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">As an aid in remembering
+ the names of the style flags, the flags are grouped into different categories,
+ and the name of each flag starts with an abbreviation of that category.
+For example, the frame flag names start with FF for Frame Flag, and the button 
+flags start with BF for Button Flag. The style flags are found <a href="styles.htm">
+ here</a>
+ .</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>virtual WORD Style(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+the current style flags for an object.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="TYPE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>UCHAR Type(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Returns the object's
+enumerated type, held in the private member variable muType. This variable
+is used to determine the class of an object.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>void Type(UCHAR uType)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Assigns the value of
+the object's private muType member. This is normally done by the constructor
+of the PEG object, although you can define new types for your derived objects.</font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="VERSION"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>const PEGCHAR *Version(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This function returns
+a pointer to the PEG library version string.</font></font>  </p>
+ 
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+ Public Data Members:</font></font></font></u> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="MCLIENT"></a>
+ <img src="bullet2.jpg" height="10" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegRect mClient</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This rectangle defines
+ the client area of a window or control. In some cases mClient may be equal
+ to mReal, but generally mClient is at least a border width of pixels smaller
+ than mReal. Child objects are not allowed to draw outside of their parent's
+ mClient unless they have PSF_NONCLIENT system status.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="MCLIP"></a>
+ <img src="bullet2.jpg" height="10" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegRect mClip</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This rectangle defines
+ the clipping rectangle of the object. This may be smaller than mReal if
+the object extends beyond the client area of its parent.</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="MREAL"></a>
+ <img src="bullet2.jpg" height="10" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>PegRect mReal</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">This rectangle defines
+ the outer limits of an object, inclusive. Objects are never allowed to draw 
+themselves outside of this rectangle.</font></font>  </p>
+ 
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+ Inline Wrapper Functions:</font></font></font></u> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="BEGINDRAW"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void BeginDraw(void)</b></font></font>
+  <br>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void BeginDraw(PegBitmap 
+*pMap)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;BeginDraw(this);</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The first form of this 
+function is used to begin a normal drawing operation. The second form is used
+to begin drawing into an off screen bitmap, created using CreateBitmap()
+ or Capture().</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="BITMAP"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void Bitmap(PegPoint 
+Where, PegBitmap *Getmap, BOOL bOnTop = FALSE)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;Bitmap(this, 
+Where, Getmap, bOnTop)</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="BITMAPFILL"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void BitmapFill(PegRect 
+Rect, PegBitmap *Getmap)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;BitmapFill(this, 
+Rect, Getmap);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="CAPTURE_PTR"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void CapturePointer(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Presentation()-&gt;CapturePointer(this);</font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="CIRCLE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void Circle(SIGNED 
+xCenter, SIGNED yCenter, SIGNED radius, PegColor &amp;Color, SIGNED iWidth)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;Circle(this, 
+xCenter, yCenter, radius, Color, iWidth);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="DRAWTEXT"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void DrawText(PegPoint 
+Where, const PEGCHAR *Text, PegColor &amp;Color, PegFont *pFont, SIGNED Count 
+= -1)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;DrawText(this, 
+Where, Text, Color, pFont, Count);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="ENDDRAW"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void EndDraw(void)</b></font></font>
+  <br>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void EndDraw(PegBitmap 
+*pMap)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;EndDraw();</font></font>
+   </p>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">The first form of this 
+function is used to complete a normal drawing operation. The second form
+is used to complete drawing into an off screen bitmap, created using CreateBitmap()
+ or Capture().</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="INVALIDATE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void Invalidate(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;Invalidate(mClient);</font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void Invalidate(const 
+PegRect &amp;Rect)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;Invalidate(Rect);</font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="KILLTIMER"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void KillTimer(WORD 
+wId)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: MessageQueue()-&gt;KillTimer(this, 
+wId);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="LINE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void Line(SIGNED 
+wXStart, SIGNED wYStart, SIGNED wXEnd, SIGNED wYEnd, const PegColor &amp;Color, 
+SIGNED wWidth = 1)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;Line(this, 
+wXStart, wYStart, wXEnd, wYEnd, Color, wWidth);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="RECTANGLE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void Rectangle(const 
+PegRect &amp;Rect, const PegColor &amp;Color, SIGNED wWidth = 1)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;Rectangle(this, 
+Rect, Color, wWidth);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="RECTMOVE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void RectMove(PegRect 
+Get, PegPoint Put)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;RectMove(this, 
+Get, Put);</font></font>  </p>
+ 
+<p><a name="RELEASE_PTR"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void ReleasePointer(void)</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Presentation()-&gt;ReleasePointer(this);</font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="SETPOINTERTYPE"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void SetPointerType(UCHAR 
+bType)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;SetPointerType(bType);</font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="SETTIMER"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline void SetTimer(WORD 
+wId, LONG lCount, LONG lReset)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: MessageQueue()-&gt;SetTimer(this, 
+wId, lCount, lReset);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="TEXTHEIGHT" /a=""></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline SIGNED TextHeight(const 
+PEGCHAR *Text, PegFont *Font)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;TextHeight(Text, 
+Font);</font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+ </p>
+ 
+<p><a name="TEXTWIDTH"></a>
+ <img src="bullet1.jpg" height="11" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>inline SIGNED TextWidth(const 
+PEGCHAR *Text, PegFont *Font)</b></font></font> <br>
+ <font face="Arial,Helvetica"><font color="#000000">Implementation: Screen()-&gt;TextWidth(Text, 
+Font);</font></font>  </p>
+ 
+<p><a name="PROTECTED"></a>
+ <u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">Protected
+ Members:</font></font></font></u>  </p>
+ 
+<p><img src="bullet2.jpg" height="10" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>WORD mwStyle</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Object style flags.</font></font>
+   </p>
+ 
+<p><img src="bullet2.jpg" height="10" width="12">
+ <font face="Arial,Helvetica"><font color="#000000"> <b>WORD mwId</b></font></font>
+  <br>
+ <font face="Arial,Helvetica"><font color="#000000">Object ID value.</font></font>
+   </p>
+ 
+</body>
+</html>

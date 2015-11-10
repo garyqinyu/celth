@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;
+<BR><B><FONT COLOR="#9C0000"><FONT SIZE=+2>
+PEG Signal Definitions</FONT></FONT></B>
+&nbsp;
+<P><FONT COLOR="#000000"><FONT FACE="Arial,Helvetica">
+
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Base Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_SIZED</TD>
+<TD COLSPAN = 2>Sent when the object is moved or sized.
+</TR>
+<TR>
+<TD>PSF_FOCUS_RECEIVED
+<TD COLSPAN = 2>sent when the object receives input focus.
+</TR>
+<TR>
+<TD>PSF_FOCUS_LOST
+<TD>Sent when the object loses input focus.
+</TR>
+<TR>
+<TD>PSF_KEY_RECEIVED
+<TD>Sent when an input key that is not supported is received.
+</TR>
+<TR>
+<TD>PSF_RIGHTCLICK
+<TD>Sent when a right-click message is received by the object.
+</TR>
+<TR>
+<TD>PSF_LDBLCLICK
+<TD>Sent when a left double click is received by the object.
+</TR>
+<TR>
+<TD>PSF_RDBLCLICK
+<TD>Sent when a right mouse button double click is received.
+</TR>
+</TABLE>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Button Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_CLICKED
+<TD COLSPAN = 2>Default button select notification.
+</TR>
+<TR>
+<TD>PSF_CHECK_ON
+<TD COLSPAN = 2>Sent by check box and  menu button when checked.
+</TR>
+<TR>
+<TD>PSF_CHECK_OFF
+<TD COLSPAN = 2>Sent by check box and menu button when unchecked.
+</TR>
+<TR>
+<TD>PSF_DOT_ON
+<TD COLSPAN = 2>Sent by radio button and menu button when selected.
+</TR>
+<TR>
+<TD>PSF_DOT_OFF
+<TD COLSPAN = 2>Sent by radio button and menu button when unselected.
+</TR>
+<TR>
+<TD>PSF_LIST_SELECT
+<TD COLSPAN = 2>Sent by PegList derived objects, including PegComboBox.
+</TR>
+<TR>
+</TABLE>
+
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Notebook Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_PAGE_SELECT
+<TD COLSPAN = 2>Sent whan a new page is selected.
+</TR>
+</TABLE>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Scroll Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_SCROLL_CHANGE
+<TD COLSPAN = 2>Sent by non-client PegScroll derived objects.
+</TR>
+<TR>
+<TD>PSF_SLIDER_CHANGE
+<TD COLSPAN = 2>Sent by PegSlider derived objects.
+</TR>
+</TABLE>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Spin Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_SPIN_MORE
+<TD COLSPAN = 2>Sent by PegSpinButton on down or right.
+</TR>
+<TR>
+<TD>PSF_SPIN_LESS
+<TD COLSPAN = 2>Sent by PegSpinButton on up or left.
+</TR>
+</TABLE>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Table Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_COL_SELECT
+<TD COLSPAN = 2>Sent when PegTable column(s) are selected.
+</TR>
+<TR>
+<TD>PSF_ROW_SELECT
+<TD COLSPAN = 2>Sent when PegTable row(s) are selected.
+</TR>
+<TR>
+<TD>PSF_CELL_SELECT
+<TD COLSPAN = 2>Sent when PegTable cell(s) are selected.
+</TR>
+<TR>
+<TD>PSF_COL_UNSELECT
+<TD COLSPAN = 2>Sent when a PegTable column is unselected.
+</TR>
+<TR>
+<TD>PSF_ROW_UNSELECT
+<TD COLSPAN = 2>Sent when a PegTable row is unselected.
+</TR>
+<TR>
+<TD>PSF_CELL_UNSELECT
+<TD COLSPAN = 2>Sent when a PegTable cell is unselected.
+</TR>
+</TABLE>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Text Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_TEXT_SELECT
+<TD COLSPAN = 2>Sent when the user selects all or a portion of a text object.
+</TR>
+<TR>
+<TD>PSF_TEXT_EDIT
+<TD COLSPAN = 2>Sent each time text object string is modified.
+</TR>
+<TR>
+<TD>PSF_TEXT_EDITDONE
+<TD COLSPAN = 2>Sent when a text object modification is complete.
+</TR>
+</TABLE>
+
+<BR><B><FONT COLOR="#000000"><FONT SIZE=+1><U>
+PEG Tree Signals
+</U></FONT></FONT></B><P>
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>PSF_NODE_SELECT
+<TD COLSPAN = 2>Sent when a new node is selected.
+</TR>
+<TR>
+<TD>PSF_NODE_DELETE
+<TD COLSPAN = 2>Sent when delete key pressed over node.
+</TR>
+<TR>
+<TD>PSF_NODE_OPEN
+<TD COLSPAN = 2>Sent when node is opened.
+</TR>
+<TR>
+<TD>PSF_NODE_CLOSE
+<TD COLSPAN = 2>Sent when node is closed.
+</TR>
+<TR>
+<TD>PSF_NODE_RCLICK
+<TD COLSPAN = 2>Sent on RBUTTON clicked on selected node.
+</TR>
+</TABLE>
+
+</FONT>
+</BODY>
+</HTML>

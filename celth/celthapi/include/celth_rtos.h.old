@@ -1,0 +1,138 @@
+#ifndef __CELTH_RTOS_H
+#define __CELTH_RTOS_H
+
+#ifdef __cplusplus
+
+extern "C" {
+
+#endif
+
+#include "stdio.h"
+
+#include "assert.h"
+
+#include "celth_stddef.h"
+
+#include "bkni.h"
+
+
+#define CELTHOSL_MSEC_PER_TICK			(1)
+#define CELTHOSL_MSEC_TO_TICKS(msec)		(((msec) / CELTHOSL_MSEC_PER_TICK) + 1)
+
+
+
+
+/* --- Tasks Typedef --------------------------------------------------------- */
+typedef CELTH_VOID*	CELTHOSL_TaskId_t ;
+typedef	CELTH_VOID*	(*CELTHOSL_EntryPoint_t)	( CELTH_VOID* );
+
+/*typedef struct _CELTHOSL_TaskInfo_t	CELTHOSL_TaskInfo_t;*/
+
+
+
+
+
+/* --- Event Typedef ------------------------------------------------------ */
+typedef enum
+{
+	CELTHOSL_EVENT_OP_AND,
+	CELTHOSL_EVENT_OP_OR
+} CELTHOSL_EventOperation_t;
+/*
+typedef struct Event_Struct{
+CELTH_UINT  dummy;
+}Event_Struct;
+*/
+typedef BKNI_EventHandle	CELTHOSL_EventId_t ;
+
+
+/* --- Timers Typedef ---------------------------------------------------------- */
+typedef CELTH_VOID*	CELTHOSL_TimerId_t ;
+typedef CELTH_VOID   (*CELTHOSL_TimerExpire_t) (CELTHOSL_TimerId_t , CELTH_VOID*, CELTH_VOID* ) ;
+
+typedef enum
+{
+	CELTHOSL_kTimerStopped,  /* The timer is not started or is stopped                 */
+	CELTHOSL_kTimerRunning,  /* The timer is started and is running                    */
+	CELTHOSL_kTimerExpired   /* The timer has been started (without CB, and is expired */
+} CELTHOSL_TimerState_t ;
+
+typedef struct _CELTHOSL_TimerInfo_t	CELTHOSL_TimerInfo_t;
+struct _CELTHOSL_TimerInfo_t
+{
+	CELTH_VOID*				pUserRef;
+	CELTH_VOID*				pClientData;
+	CELTHOSL_TimerExpire_t	pfClientCallBack;
+	CELTHOSL_TimerState_t	TimerState;
+
+	CELTHOSL_TimerInfo_t	*pNext;
+};
+
+/* --- General Functions ------------------------------------------------------*/
+extern	CELTH_INT	CELTHOSL_Init		( CELTH_VOID ) ;
+extern	CELTH_INT	CELTHOSL_Terminate	( CELTH_VOID ) ;
+
+extern	CELTH_CONST	CELTH_CHAR*	CELTHOSL_GetVersion( CELTH_VOID ) ;
+
+/* --- Tasks Functions ------------------------------------------------------*/
+extern	CELTHOSL_TaskId_t		CELTHOSL_TaskCreate	( CELTH_CONST CELTH_CHAR*		pcName,
+														CELTHOSL_EntryPoint_t	pfEntryPoint,
+														CELTH_VOID*				pParam,
+														CELTH_INT					iStackSize,
+														CELTH_INT					iPriority
+ );
+
+														
+extern	CELTHOSL_TaskId_t		CELTHOSL_TaskId        ( CELTH_CONST CELTH_CHAR*	pucName );
+extern	CELTHOSL_TaskId_t		CELTHOSL_TaskIdSelf    ( CELTH_VOID );
+
+
+
+extern	CELTH_VOID                CELTHOSL_TaskDelay     ( CELTH_INT iDelay );
+extern	CELTH_INT                 CELTHOSL_TaskDelete    ( CELTHOSL_TaskId_t pTaskId );
+extern	CELTH_INT                 CELTHOSL_TaskSuspend   ( CELTHOSL_TaskId_t pTaskId );
+extern	CELTH_INT                 CELTHOSL_TaskResume    ( CELTHOSL_TaskId_t pTaskId );
+
+
+
+/* --- Memory Management Functions --------------------------------------------*/
+/* Memory allocation in system_partition = partition defined in cacheable -----*/
+extern	CELTH_VOID*   CELTHOSL_MemoryAlloc		( CELTH_INT iSize ) ;
+extern	CELTH_VOID	CELTHOSL_MemoryFree		( CELTH_VOID* pBlock ) ;
+
+
+/* --- Reboot Functions --------------------------------------------*/
+extern	CELTH_VOID   CELTHOSL_Reboot( CELTH_VOID );
+
+/* --- Other Functions --------------------------------------------*/
+extern	CELTH_Status_t	CELTHOSL_GetTick( CELTH_DWORD* pdwTicks);
+
+
+/* --- Event Functions --------------------------------------------------------*/
+extern	CELTH_Status_t	CELTHOSL_EventCreate		( CELTHOSL_EventId_t *peEventId );
+extern	CELTH_VOID	CELTHOSL_EventDelete		( CELTHOSL_EventId_t eEventId );
+extern	CELTH_VOID	CELTHOSL_ResetEvent	( CELTHOSL_EventId_t eEventId );
+extern	CELTH_VOID	CELTHOSL_SetEvent		( CELTHOSL_EventId_t eEventId );
+
+extern  CELTH_Status_t  CELTHOSL_WaitForEvent(CELTHOSL_EventId_t eEventId, CELTH_INT iTimeoutMsec);
+
+
+
+  
+
+/*#define	CELTHAssert	assert*/
+
+
+
+#ifdef __cplusplus
+
+}
+
+#endif
+
+
+
+
+
+
+#endif

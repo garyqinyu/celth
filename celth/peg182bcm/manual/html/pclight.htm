@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="UltraEdit32">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegColorLight</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegColorLight is a state driven
+object that allows for graphically displaying data states by shape and color. The
+two basic shapes supported are a rectangle and a circle.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plight.htm">PegLight</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pblight.htm">PegBitmapLight</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegColorLight supports the standard PegThing styles
+for borders: FF_NONE, FF_THIN, FF_RECESSED and FF_RAISED. PegColorLight also supports two additional
+styles: LS_RECTANGLE and LS_CIRCLE. These additional styles define the drawing style of the 
+PegColorLight.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegColorLight does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegColorLight is derived
+from <A HREF="plight.htm">PegLight</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegColorLight(PegRect &amp;Rect, WORD wNumStates, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor takes
+a reference to a PegRect to determine its size, a WORD value for the number 
+of states it supports, and a style WORD. It is important to remember 
+that the light states are 0 based. Therefore, the first state is 0 and the 
+last state is wNumStates - 1.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegColorLight(SIGNED iLeft, SIGNED iTop, WORD wNumStates, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes SIGNED values for the left and top position of the
+light. By default, it will make the light 100 pixels wide and 100 pixels
+high. It also takes WORDs for the number of states and the style.
+</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegColorLight overrides
+the Draw() function to draw the correct color and shape for the current state 
+of the light.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual WORD SetNumStates(WORD wNumState)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This method allows resetting the number of states supported by the object at
+runtime. It will copy over the COLORVAL's that were already assigned to it, if
+there are any. If the new number of states is less than the previous number
+of states, it will only copy over as many as are newly assigned. If the 
+new number of states is greater, then it will copy all of the previous
+COLORVAL's, and NULL out the remainder. It will also set the current state to a
+valid state if the current state is beyond the range of the number of states.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL SetStateColor(WORD wState, COLORVAL tColor)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method allows a
+color to be associated with a state. It returns a boolean for success or 
+failure. It will fail if wState is less than 0 or greater than maximum 
+states - 1.</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is an example of two PegColorLight
+objects on a PegDecoratedWindow. The first light, on the left, has the LS_RECTANGLE style
+flag set and is being drawn with a raised border. The second has the LS_CIRCLE style flag set.</FONT></FONT>
+
+<P>
+<CENTER><IMAGE SRC="pclight.gif" BORDER="0"></CENTER>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The above PegColorLight objects were created by the
+following code snippet:</FONT></FONT>
+
+<PRE>
+PegColorLight *mpLight1, *mpLight2;
+.
+.
+.
+PegRect LightRect = mClient;
+LightRect.wTop += 20;
+LightRect.wLeft += 20;
+LightRect.wRight = LightRect.wLeft + 100;
+LightRect.wBottom = LightRect.wTop + 100;
+
+mpLight1 = new PegColorLight(LightRect, FF_RAISED | LS_RECTANGLE, 3);
+mpLight1->SetStateColor(0, RED);
+mpLight1->SetStateColor(1, BLUE);
+mpLight1->SetStateColor(2, GREEN);
+mpLight1->SetState(1, FALSE);
+Add(mpLight1);
+
+LightRect.Shift(120, 0);
+
+mpLight2 = new PegColorLight(LightRect, LS_CIRCLE | FF_RECESSED | AF_TRANSPARENT, 4);
+mpLight2->SetStateColor(0, CYAN);
+mpLight2->SetStateColor(1, BLUE);
+mpLight2->SetStateColor(2, GREEN);
+mpLight2->SetStateColor(3, LIGHTGREEN);
+mpLight2->SetState(3, FALSE);
+Add(mpLight2);
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

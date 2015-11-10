@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegVPrompt</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVPrompt (Peg Vertical Prompt)
+is a text display object. PegVPrompt can be drawn with several different border styles,
+and can be updated dynamically for interactive updates or real-time information
+display. PegVPrompt does not support user editing.
+
+<P>
+PegVPrompt differs from <A HREF="pprompt.htm">PegPrompt</A> in that the text is
+displayed vertically, with the first character of the prompt string displayed
+at the top of the
+prompt object and the last character of the prompt string displayed at the bottom
+of the prompt object.
+
+<P>
+The PegVPrompt text is centered both horizontally and vertically within the 
+prompt client area.
+</P>
+</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The font used by
+PegVPrompt can be changed at any time by using the SetFont() function, which
+is a PegTextThing member function. Likewise, the color used by PegVPrompt
+can be set at any time by calling the SetColor() function.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pstring.htm">PegString</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pprompt.htm">PegPrompt</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVPrompt supports
+the same styles as <A HREF="pprompt.htm">PegPrompt</A>, as shown below.</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>TJ_RIGHT</TD>
+
+<TD>Right justified text.</TD>
+</TR>
+
+<TR>
+<TD>TJ_LEFT</TD>
+
+<TD>Left justified text.</TD>
+</TR>
+
+<TR>
+<TD>TJ_CENTER</TD>
+
+<TD>Centered text.</TD>
+</TR>
+
+<TR>
+<TD>TT_COPY</TD>
+
+<TD>Instructs the prompt to copy the string assigned. This flag should
+be used when the string assigned to the prompt is created dynamically using
+temporary storage.</TD>
+</TR>
+
+<TR>
+<TD>AF_TRANSPARENT</TD>
+
+<TD>Does not fill client area, assumes same color as parent.</TD>
+</TR>
+
+<TR>
+<TD>AF_ENABLED</TD>
+
+<TD>Prompt can be selected.</TD>
+</TR>
+</TABLE>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In addition to the
+common signals defined by PegThing, PegVPrompt supports the PSF_CLICKED
+signal notification.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVPrompt is derived
+from <A HREF="pprompt.htm">PegPrompt</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegVPrompt(const PegRect &amp;Rect, const PEGCHAR *Text, WORD wId = 0,
+WORD wStyle = FF_NONE|AF_TRANSPARENT)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegVPrompt constructor
+accepts a rectangle describing the prompt position
+and size, a pointer to the initial text value, an optional object ID and
+style flags.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVPrompt overrides
+the Draw() function to display the prompt text.</FONT></FONT>
+
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are examples
+of PegVPrompt:</FONT></FONT>
+<BR><P>&nbsp;
+<BR><IMG SRC="image65.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;
+</FONT></FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=5 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegDialog</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDialog is a PegDecoratedWindow
+class with added features to support modal and non-modal dialog window
+execution.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Dialog windows usually
+draw themselves with a different frame and client color than other windows.
+Dialog windows may be executed as modal windows by calling their member
+function Execute().</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Dialog windows attach
+special significance to buttons with the following IDs:</FONT></FONT>
+<PRE><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">IDB_CLOSE
+IDB_OK
+IDB_CANCEL
+IDB_ABORT
+IDB_RETRY
+IDB_YES
+IDB_NO
+IDB_APPLY</FONT></FONT></B></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These button IDs are
+reserved by PEG, and are found in the header file pegtypes.hpp. When a
+button with one of the above ID values is selected, the dialog will close.
+When defining a dialog window, you must insure that at least one button
+added to the dialog is constructed with one of the above button ID values.
+Otherwise, the only way to close the dialog will be via program intervention.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When any of the buttons
+listed above is selected, the dialog window will send a PM_DIALOG_NOTIFY
+message to its parent window (or its "ReportTo" window) to indicate that
+the dialog has been completed. The message iData member will contain the
+ID of the button that caused the dialog to close. In all cases except PM_DIALOG_APPLY,
+the dialog will close after the parent window has received the PM_DIALOG_NOTIFY
+message.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In the case of a
+modal dialog, Execute() will return when any of these messages are received,
+and the return value will be the ID of the button that caused the dialog
+to close.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In the case in which the user
+selects the IDB_APPLY button, the dialog will send the PM_DIALOG_NOTIFY
+message to its parent without closing.</FONT></FONT>
+
+<P><A NAME="See Also"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdecwin.htm">PegDecoratedWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmesgwin.htm">PegMessageWindow</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Style
+Flags</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDialog supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD>Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD>Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD>Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+</TABLE>
+<A NAME="Derivation"></A><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Derivation</FONT></U></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDialog derives
+from <A HREF="pdecwin.htm">PegDecoratedWindow</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Constructors:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDialog(const PegRect &amp;Rect, const PEGCHAR *Title = NULL, PegThing *ReportTo = NULL,
+WORD wStyle = FF_RAISED)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegDialog(const PEGCHAR *Title = NULL, PegThing *ReportTo = NULL, WORD wStyle
+= FF_RAISED)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are two constructors
+available for PegDialog. The first defines the window size and position
+at the time the window is created. The second requires that the window
+size and position be determined after the window is constructed, but before
+the window is displayed.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Public
+Functions:</FONT></U></FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegDialog overrides
+the Message() function to catch signals sent by one or more of the reserved
+button IDs that cause the dialog to close or report to its owner window.</FONT></FONT>
+
+<P>
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>Examples:</FONT></U></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+a PegDialog window. The full source code for this window can be found in
+the file \peg\examples\pegdemo\pegdemo.cpp.</FONT></FONT>
+
+<P><IMG SRC="image25.gif" ><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"></FONT></FONT>
+</BODY>
+</HTML>

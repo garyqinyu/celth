@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="ViM 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegLinearBitmapScale</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearBitmapScale is 
+an output HMI gadget that facilitates a graphical representation of any given 
+value in relation to a minimum and maximum value. PegLinearBitmapScale has the
+added benefits of allowing the user to specify a background bitmap as well as
+determining the needle travel start and end points. You may also specify a 
+bitmap that is used to draw the needle. This allows for a very
+custom look for your scale.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pscale.htm">PegScale</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="plscale.htm">PegLinearScale</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">See the <A HREF="pscale.htm#Styles">
+PegScale Styles</A> section for a detailed list of styles. PegLinearBitmapScale does not
+support the SS_TICMARKS style or any of the frame styles because it does not draw its own scale 
+background. It uses the specified bitmap instead.</FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearBitmapScale does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearBitmapScale is derived
+from <A HREF="pscale.htm">PegScale</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegLinearBitmapScale(PegRect &amp;Rect, LONG lMinValue, LONG lMaxValue,
+SIGNED iMinTravelOffset, SIGNED iMaxTravelOffset, PegBitmap* pBkgBitmap,
+PegBitmap* pNeedleBmp, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes a reference to a PegRect to determine its size, a minimum
+value and maximum value, an offset for the travel on the minimum side of the
+scale and an offset for the maximum side of the scale. The travel offset values
+are expressed in pixels and allow for restricting the needle travel to a
+specific region of the scale. For example, if the scale is oriented vertically,
+and you would like to keep the needle at least 100 pixels from the bottom, and
+the minimum value is at the bottom of the scale, then iMinTravelOffset should
+be set to 100.
+<P>
+The pBkgBitmap parameter is a pointer to a PegBitmap structure that will be
+used to draw the background of the scale. The pNeedleBmp, if it is not NULL,
+will be used to draw the needle on the scale. By default the needle is 
+assumed to have it's zero travel point in the middle of the bitmap. Therefore,
+if the scale is oriented vertically, the needle's zero travel point is 
+assumed to be half the height of the bitmap that is used for drawing. See 
+below for an explanation on how to change this behavior.
+<P>
+The final parameter is a WORD for the style. Note that this object does not
+support any frame styles. It is assumed that the background bitmap 
+contains all of the visual elements necessary to properly draw the background
+and frame of the scale.
+</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegLinearBitmapScale(SIGNED iLeft, SIGNED iTop, LONG lMinValue,
+LONG lMaxValue, SIGNED iMinTravelOffset, SIGNED iMaxTravelOffset, 
+PegBitmap* pBkgBitmap, PegBitmap* pNeedleBmp, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This constructor takes SIGNED values to determine it's left and top position on
+the screen. By default, if pBkgBitmap is not NULL, it will assign itelf a 
+rectangle the width and height of pBkgBitmap. It then takes the same
+parameters as the above constructor.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegLinearBitmapScale overrides
+the Draw() function to draw the background bitmap and needle.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmap *GetBkgBitmap(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns a pointer
+to the background bitmap.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetMaxTravelOffset(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the travel
+offset for the maximum end of the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetMinTravelOffset(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method returns the 
+travel offset for the minimum end of the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmap* GetNeedleBitmap(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method
+returns a pointer to the bitmap used to draw the needle.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED GetNeedleOffset(void) const</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+This inline method returns the current needle offset.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetBkgBitmap(PegBitmap *pBmp)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method sets the background
+bitmap to pBmp.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetMaxTravelOffset(SIGNED iOffset)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method sets the travel
+offset for the maximum end of the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetMinTravelOffset(SIGNED iOffset)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method sets the travel
+offset for the minimum end of the scale.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetNeedleBitmap(PegBitmap* pBmp)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method sets
+the needle bitmap to pBmp.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetNeedleOffset(SIGNED iOffset)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline method sets
+the needle offset. The needle offset refers to the distance from the
+center of the bitmap that is used for the zero travel point of the needle
+bitmap. A negative value will move the zero travel reference above the 
+center of the bitmap on vertically oriented scales, and to the left of
+the center of the bitmap on horizontally oriented scales. Likewise, a 
+positive value will move the reference point below or to the right of center,
+dependant on the scale's orientation.
+</FONT></FONT>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The example below shows several 
+PegLinearBitmapScale objects on a PegDecoratedWindow. You'll notice on the scale on the far left that
+travel is restricted to the top 2/3 of the total bounding rectangle of the scale. This allows
+for a digital readout of the current value to be within the rectangle of the bitmap.</FONT></FONT>
+
+<BR>&nbsp;
+
+<CENTER>
+<IMAGE SRC="plbscale.gif">
+</CENTER>
+
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following code snippet shows how to create and
+display a PegLinearBitmapScale. This particular example is for the scale on the far left of the above
+window. This also shows that the PegPrompt that displays the current value is added directly to
+the PegLinearBitmapScale.</FONT></FONT>
+
+<BR>&nbsp;
+
+<PRE>
+PegLinearBitmapScale *mpScale1;
+PegPrompt *mpValPrompt;
+.
+.
+.
+WinRect.Set(50, 50, 125, 250);
+mpScale1 = new PegLinearBitmapScale(WinRect, 0, 100, 120, 23, &amp;gbbluebkgBitmap, &amp;gbBlueNeedleBitmap,
+&nbsp;&nbsp;&nbsp;&nbsp;SS_FACELEFT | SS_ORIENTVERT | SS_BOTTOMTOTOP | SS_USERTRAVEL);
+
+WinRect.Set(57, 215, 115, 240);
+mpValPrompt = new PegPrompt(WinRect, "0", 101, FF_RECESSED | TJ_CENTER | TT_COPY);
+mpScale1->Add(mpValPrompt, FALSE);
+
+Add(mpScale1);
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

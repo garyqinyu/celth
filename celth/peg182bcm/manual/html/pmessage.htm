@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Kenneth G. Maxwell">
+  <meta name="GENERATOR" content="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+  <title>PEG Reference Manual</title>
+</head>
+ <body text="#000000" bgcolor="#fffbf7" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+ &nbsp;<a href="../refman.htm"><img src="index.gif" border="0">
+</a>
+ 
+<table border="2" cols="5" width="100%" bgcolor="#cccccc">
+ <tbody>
+    <tr>
+ <td> 
+      <center><a href="#Derivation">Derivation</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#Members">Members</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#SystemMesg">System Messages</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#Examples">Examples</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#See%20Also">See Also</a>
+      </center>
+ </td>
+ </tr>
+ 
+  </tbody>
+</table>
+ &nbsp; 
+<center><b><font color="#9c0000"><font size="+2">PegMessageQueue</font></font></b></center>
+   
+<p><b><u><font face="Arial,Helvetica"><font size="+1">Overview</font></font></u></b>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">PegMessageQueue is a
+simple encapsulated FIFO message queue with member functions for queue management.
+PegMessageQueue provides functions for sending and receiving <a href="pmesg.htm">
+PegMessage</a>
+ formatted messages. PegMessageQueue also performs timer maintenance and
+miscellaneous housekeeping duties.</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">PEG messages can be
+divided into two types. PEG system messages, which are generated internally 
+by PEG to control and manipulate PEG objects, and USER messages, which are
+defined and used by your application program. Whether a message is a system
+message or a user message is determined by the value of the message wType
+field. This is a 16 bit unsigned value. PEG reserves message wType values
+1-FIRST_USER_MESSAGE - 1, which is currently equal to 0x4000. This leaves
+message types 16384 (0x4000) through 65535 (0xFFFF) available for user definition.</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">Integrated versions 
+of PEG provide PegMessageQueue functionality based completely on the underlying 
+RTOS message services. This implementation is invisible to the external system
+software, allowing PEG applications to be fully portable between development
+and real-time environments.</font></font>  </p>
+<p><a name="SystemMesg"></a>
+<font face="Arial,Helvetica"><font color="#000000"><b><u><font size="+1">
+System Message List</font></u></b></font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">The following, while 
+not a complete list of the PEG system messages, are the system messages which
+would potentially be of interest in the application level software.</font></font>
+ 
+<table border="2" cols="2" width="100%">
+ <tbody>
+    <tr>
+ <td><font size="+1">Message</font></td>
+  <td><font size="+1">Description</font></td>
+ </tr>
+  <tr>
+ <td>PM_ADD</td>
+  <td colspan="2">This message can be issued to add an object to another object.
+The message pTarget field should contain a pointer to the parent object,
+and the message pSource filed should contain a pointer to the child object.</td>
+ </tr>
+  <tr>
+ <td>PM_CLOSE</td>
+  <td colspan="2">Recognized by PegWindow derived objects, and causes the 
+recipient to remove itself from its parent and delete itself from memory.</td>
+ </tr>
+  <tr>
+ <td>PM_CURRENT</td>
+  <td colspan="2">This message is sent to an object when it becomes a member 
+of the branch of the presentation tree which has input focus.</td>
+ </tr>
+  <tr>
+ <td>PM_DESTROY</td>
+  <td colspan="2">This message is sent to PegPresentationManager to destroy 
+an object. The pSource member of the message should point to the object to
+be destroyed.</td>
+ </tr>
+  <tr>
+ <td>PM_DIALOG_NOTIFY</td>
+  <td colspan="2">This message is sent to the owner of a PegDialog when the 
+dialog window is closed if the dialog window is executed non-modally. The 
+message iData member will contain the ID of the button used to close the dialog
+window.</td>
+ </tr>
+  <tr>
+ <td>PM_DRAW</td>
+  <td colspan="2">This message can be sent to an object to force that object 
+to redraw itself.</td>
+ </tr>
+  <tr>
+ <td>PM_EXIT</td>
+  <td colspan="2">This message is sent to PegPresentationManager to cause 
+termination of the application program.</td>
+ </tr>
+  <tr>
+      <td valign="Top">PM_GAINED_KEYBOARD<br>
+      </td>
+      <td valign="Top">This message is sent to an object when it gains keyboard
+input focus. This message is only defined when PEG_KEYBOARD_SUPPORT is enabled.<br>
+      </td>
+      <td valign="Top"><br>
+      </td>
+    </tr>
+    <tr>
+ <td>PM_HIDE</td>
+  <td colspan="2">This message is sent to an object whenever it is removed 
+from a visible parent.</td>
+ </tr>
+  <tr>
+ <td>PM_KEY</td>
+  <td colspan="2">This message is sent to the current input object when keyboard 
+input is received. The message iData member contains the corresponding ASCII
+character code, if any, and the lData member of the message contains the
+keyboard scan code, if available.</td>
+ </tr>
+  <tr>
+ <td>PM_LBUTTONDOWN</td>
+  <td colspan="2">This message is sent to an object when the user generates 
+mouse click input. PegPresentationManager routes mouse input directly to the
+lowest child object containing the click position. If the child object does
+not process mouse input, the message is passed up to the parent object. This
+process continues until an object in the active tree processes the message,
+or the message ends up back at PegPresentationManager. The position of the
+mouse click is included in the message Point field.</td>
+ </tr>
+  <tr>
+ <td>PM_LBUTTONUP</td>
+  <td colspan="2">This message is sent to an object when the user releases 
+the left mouse button. The flow of this message is identical to PM_LBUTTONDOWN.</td>
+ </tr>
+  <tr>
+      <td valign="Top">PM_LOST_KEYBOARD<br>
+      </td>
+      <td valign="Top">This message is sent to an object when it loses keyboard
+input focus. This message is only defined when PEG_KEYBOARD_SUPPORT is enabled.<br>
+      </td>
+      <td valign="Top"><br>
+      </td>
+    </tr>
+    <tr>
+ <td>PM_MAXIMIZE</td>
+  <td colspan="2">This message can be sent to any PegWindow derived object. 
+If the target window is sizeable (as determined by the PSF_SIZEABLE status
+flag), it will resize itself to fill client rectangle of its parent.</td>
+ </tr>
+  <tr>
+ <td>PM_MINIMIZE</td>
+  <td colspan="2">Similar to PM_MAXIMIZE, this message can be sent to any 
+PegWindow derived object. If the window is sizable, it will create a proxy 
+PegIcon, add the icon to the parent window, and remove itself from its parent.</td>
+ </tr>
+  <tr>
+ <td>PM_MWCOMPLETE</td>
+  <td colspan="2">This message is sent to the owner of a PegMessageWindow 
+when the message window is closed if the message window is executed non-modally. 
+The message iData member will contain the ID of the button used to close the
+message window.</td>
+ </tr>
+  <tr>
+ <td>PM_NONCURRENT</td>
+  <td colspan="2">This message is sent to an object when it loses membership 
+in the branch of the presentation tree which has input focus.</td>
+ </tr>
+  <tr>
+ <td>PM_PARENTSIZED</td>
+  <td colspan="2">This message is sent to all children of a PegWindow derived 
+object if the window is re-sized. This makes it very easy for child windows 
+that want to maintain a certain proportional spacing or position within their
+parent to catch this message and resize themselves whenever the parent window
+is sized.</td>
+ </tr>
+  <tr>
+ <td>PM_POINTER_ENTER</td>
+  <td colspan="2">This message is sent to an object when the mouse pointer 
+(if any) passes over an object.</td>
+ </tr>
+  <tr>
+ <td>PM_POINTER_EXIT</td>
+  <td colspan="2">This message is sent to an object when the mouse pointer 
+(if any) leaves the object.</td>
+ </tr>
+  <tr>
+ <td>PM_POINTER_MOVE</td>
+  <td colspan="2">This message is sent to an object whenever the mouse pointer 
+moves over the object.</td>
+ </tr>
+  <tr>
+ <td>PM_SHOW</td>
+  <td colspan="2">This message is sent to an object when it is added to a 
+visible parent, before the object is first drawn. This allows an object to
+perform any necessary initialization prior to drawing itself on the screen.</td>
+ </tr>
+  <tr>
+ <td>PM_SIZE</td>
+  <td colspan="2">This message is sent to an object to cause it to re-size. 
+This is equivalent to calling the Resize() function. Note that PEG does not
+differentiate between moving an object and resizing an object. Both are accomplished
+via the Resize operation. The new size for the object is included in the
+message Rect field.</td>
+ </tr>
+  <tr>
+ <td>PM_RESTORE</td>
+  <td colspan="2">This message can be sent to any sizable PegWindow derived 
+object to cause that window to restore its size and position after it has 
+been maximized or minimized.</td>
+ </tr>
+  <tr>
+ <td>PM_RBUTTONDOWN</td>
+  <td colspan="2">This message is sent in systems that support right mouse 
+button input. PEG objects do not process right mouse button messages.</td>
+ </tr>
+  <tr>
+ <td>PM_RBUTTONUP</td>
+  <td colspan="2">This message is sent in systems that support right mouse 
+button input. PEG objects do not process right mouse button messages.</td>
+ </tr>
+  <tr>
+ <td>PM_TIMER</td>
+  <td colspan="2">This message is sent to an object that has started a timer 
+via the PegMessageQueue TimerSet function when that timer expires. The ID
+of the timer is included in the iData member of the message.</td>
+ </tr>
+ 
+  </tbody>
+</table>
+ <font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>  
+</p>
+<p><font face="Arial,Helvetica"><font color="#000000">&nbsp;</font></font>
+  </p>
+<p><a name="See Also"></a>
+<font face="Arial,Helvetica"><font color="#000000"><u><font size="+1">See 
+Also</font></u></font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="pmc4.htm">
+PEG Programming Manual</a>
+</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="pmesg.htm">
+PegMessage</a>
+</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="ptimer.htm">
+PegTimer</a>
+</font></font>  </p>
+<p><a name="Derivation"></a>
+<font face="Arial,Helvetica"><font color="#000000"><u><font size="+1">Derivation</font></u></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">PegMessageQueue is a PEG
+base class.</font></font> <br>
+&nbsp; <br>
+&nbsp;  </p>
+<p><a name="Members"></a>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><u><font size="+1">
+Constructors:</font></u></font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegMessageQueue(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This is the only PegMessageQueue
+constructor. One instance of PegMessageQueue is created during program startup,
+usually in PegTask. This queue instance is referenced by all PEG objects.</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><u><font size="+1">
+Public Functions:</font></u></font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Fold(PegMessage
+*In)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function looks for
+a matching message in the queue, and if one is found updates the existing 
+message to contain the data values of In. If a duplicate message is not found,
+Fold() calls Push() to place the message at the end of the queue. Messages
+are determined to be equal if the pTarget, wType, and pSource values of the
+messages are equivalent.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void KillTimer(PegThing
+*Who, WORD wId)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function destroys
+the timer owned by Who with ID wId. All timers created by application level 
+objects must be destroyed when the objects are destroyed. Forgetting to Kill
+timers associated with deleted objects will cause invalid pointer references
+and program failure.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Pop(PegMessage
+*pPut)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This retrieves the top
+message from the queue, and copies it into pPut.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Purge(PegThing
+*pTarget)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function removes messages
+from the queue which have a Mesg.pTarget field matching pTarget. This is
+used to remove messages from the queue which are destined for objects that
+have been deleted.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Push(PegMessage
+*pGet)</b></font></font> <br>
+<img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Push(PegMessage
+&amp;Get)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">These functions place a
+new message at the end of the queue.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void SetTimer(PegThing
+*Who, WORD wId, LONG lCount, LONG lReset)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is called
+to load and start a new timer. The timer will send PM_TIMER messages to Who
+each time the timer expires. The PM_TIMER message iData field will contain
+the wId of the timer, allowing an object to create and identify several timers
+simultaneously.</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">lCount indicates the
+number of timer ticks before the first timeout.</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">If the lReset value 
+is non-zero, the timer will restart after expiration with lReset ticks. This
+can be used for a periodic timer. If the lReset value is 0, the timer will
+expire once, send one PM_TIMER message, and destroy itself. This is a one-shot
+timer.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void TimerTick(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is called
+by the system level software to inform PEG of each timer tick. The PEG timer
+tick interval is therefore dependent on the frequency at which the TimerTick
+function is called. For integrated versions of PEG, the TimerTick function
+is called by the service routine for a single RTOS level timer.&nbsp;</font></font>
+ </p>
+<hr>  
+<p><a name="Examples"></a>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><u><font size="+1">
+Examples:</font></u></font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">The following example 
+creates and sends a new PegMessage. The message will cause the target object 
+to resize.</font></font> </p>
+<pre><font face="Arial,Helvetica"><font color="#000000">void SomeObject::ResizeWindow(PegWindow *Target, PegRect NewSize)<br>{<br>&nbsp;&nbsp;&nbsp; PegMessage NewMessage(Target, NewSize);<br>&nbsp;&nbsp;&nbsp; MessageQueue()-&gt;Push(NewMessage);<br>}</font></font></pre>
+  
+<hr>  
+<p><font face="Arial,Helvetica"><font color="#000000">The following example 
+window creates a periodic timer when the window is made visible, receives 
+periodic timer messages, and destroys the timer when the window is hidden:</font></font>
+ </p>
+<pre><font face="Arial,Helvetica"><font color="#000000">MyWindow::Message(const PegMessage &amp;Mesg)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch(Mesg.wType)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PM_SHOW:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SetTimer(TIMER_1, 100, 100);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PegWindow::Message(Mesg);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PM_HIDE:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KillTimer(TIMER_1);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PegWindow::Message(Mesg);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PegWindow::Message(Mesg);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>}</font></font></pre>
+  
+</body>
+</html>

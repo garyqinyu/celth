@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegFont</FONT></FONT></B></CENTER>
+&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegFont structure
+contains format and data address information for PEG compatible fonts.&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegFont structure
+is defined as:</FONT></FONT>
+<PRE>
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">struct PegFont
+{
+&nbsp;&nbsp;&nbsp; UCHAR uType;
+&nbsp;&nbsp;&nbsp; UCHAR uAscent;
+&nbsp;&nbsp;&nbsp; UCHAR uDescent;
+&nbsp;&nbsp;&nbsp; UCHAR uHeight;
+&nbsp;&nbsp;&nbsp; WORD&nbsp; wBytesPerLine;
+&nbsp;&nbsp;&nbsp; WORD&nbsp; wFirstChar;
+&nbsp;&nbsp;&nbsp; WORD&nbsp; wLastChar;
+&nbsp;&nbsp;&nbsp; WORD&nbsp; *pOffsets;
+&nbsp;&nbsp;&nbsp; UCHAR *pWidths;
+&nbsp;&nbsp;&nbsp; UCHAR *pData;
+};</FONT></FONT></B></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<HR>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><U><FONT SIZE=+1>See
+Also</FONT></U></FONT></FONT>
+<BR>&nbsp;
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmc6.htm#PEGFONT">PEG
+Programming Manual</A></FONT></FONT>
+</BODY>
+</HTML>

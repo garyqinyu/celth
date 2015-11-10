@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Examples</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegTreeView</FONT></FONT></B></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView, derived
+from PegWindow, displays a hierarchical presentation of <A HREF="pnode.htm">PegTreeNode</A>
+objects. PegTreeView always uses automatic vertical and horizontal scrolling,
+so that whenever more nodes are present than can be displayed in the PegTreeView
+client area, scroll bars are provided for panning the node display area.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView is actually
+a container object. When you create and display PegTreeView style windows,
+you will generally interact directly with the PegTreeNode children of the
+PegTreeView container. Any nesting level of PegTreeNode children can be
+displayed in the PegTreeView window.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView allows
+node selection using the mouse or the keyboard.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegTreeView constructor
+accepts parameters for creating the first or top level node in the tree.
+PegTreeView immediately creates this top node, and it is always present.
+Additional nodes are added by adding them to this top node.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The model for programming
+PegTreeView is very similar to the general PEG programming model, since
+in both cases you are working with tree structured lists of objects.</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pwindow.htm">PegWindow</A></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pnode.htm">PegTreeNode</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView supports
+the following style flags:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>FF_NONE</TD>
+
+<TD COLSPAN="2">No Frame</TD>
+</TR>
+
+<TR>
+<TD>FF_THIN</TD>
+
+<TD COLSPAN="2">Thin Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RAISED</TD>
+
+<TD COLSPAN="2">Raised 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_RECESSED</TD>
+
+<TD COLSPAN="2">Recessed 3D Frame.</TD>
+</TR>
+
+<TR>
+<TD>FF_THICK</TD>
+
+<TD COLSPAN="2">Thick 3D Frame.</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView sends
+the following signals based on user selections:</FONT></FONT>
+<TABLE BORDER=2 COLS=2 WIDTH="100%" >
+<TR>
+<TD>PSF_NODE_DELETE</TD>
+
+<TD COLSPAN="2">This signal is sent when the user presses the "Delete"
+key while a node is selected. It is the responsibility of the application
+software to actually remove and/or delete the selected node.</TD>
+</TR>
+
+<TR>
+<TD>PSF_NODE_SELECT</TD>
+
+<TD COLSPAN="2">This signal is sent when a new node is selected in the
+PegTreeView container.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>PSF_NODE_OPEN</TD>
+
+<TD COLSPAN="2">This signal is sent when the user opens a node which has
+children.</TD>
+</TR>
+
+<TR>
+<TD>PSF_NODE_CLOSE</TD>
+
+<TD COLSPAN="2">This signal is sent when the user closes a node previously
+opened.</TD>
+</TR>
+</TABLE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">For each of the above
+signals, the message contains the following data:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.pSource = Pointer to PegTreeView object.
+Message.iData&nbsp;&nbsp; = ID of the PegTreeView object.
+Message.pData&nbsp;&nbsp; = Pointer to selected <A HREF="pnode.htm">PegTreeNode</A>.</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView derives
+from <A HREF="pwindow.htm">PegWindow</A>.</FONT></FONT>
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTreeView(const
+PegRect &amp;Rect, WORD wStyle, const PEGCHAR *Text, PegBitmap *pMap = NULL)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegTreeView
+constructor accepts the initial TreeView position, frame style, and top
+node text. An optional bitmap or thumbnail to be associated with the top
+level node may also be defined.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+DestroyNode(PegTreeNode *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function removes
+the indicated node from the tree and deletes the node object. If the indicated
+node has children, they are also removed and destroyed.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The FindNode() function
+is often used in conjunction with DestroyNode(), to remove a specified node
+as follows:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;&nbsp;&nbsp; DestroyNode(FindNode(1, "Temp"));</FONT></FONT></PRE>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView overrides
+the Draw() function to display the tree view connecting lines and node
+anchors.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void DrawNode(PegTreeNode *pStart, PegPoint Put, SIGNED iMaxMapWidth)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Draws the node pointed
+to by pStart.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTreeNode
+*FindNode(SIGNED iLevel, PEGCHAR *Text)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the PegTreeNode at the indicated nesting level with the matching
+text string. If multiple nodes at the correct nesting level have a matching
+text string, the first or topmost matching node pointer will be returned.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Node nesting levels
+start at 0. The only level 0 node is the top tree node. The first level
+of nodes under the top node are level 1 nodes, the next level of indented
+nodes are level 2 nodes, etc.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+GetHScrollInfo(PegScrollInfo *Put)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView overrides
+the GetHScrollInfo function to calculate the tree width based on the sum
+of the individual node widths, and positions the horizontal scroll bar
+accordingly.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+GetIndent(void) {return miIndent;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the current indent level, in pixels.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTreeNode
+*GetSelected(void) {return mpSelected;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the selected node.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+GetVScrollInfo(PegScrollInfo *Put)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView overrides
+the GetVScrollInfo function to calculate the tree height based on the sum
+of the individual node heights, and positions the vertical scroll bar accordingly.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>SIGNED
+Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegTreeView catches
+mouse and keyboard messages to test for node actions.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTreeNode
+*RemoveNode(PegTreeNode *Who)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function removes,
+but does not delete, the indicated node from the tree. If the node has
+children, the children are also removed from the tree but remain attached
+to the node.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The FindNode() function
+is often used in conjunction with RemoveNode, to remove a specified node
+as follows:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;&nbsp;&nbsp; RemoveNode(FindNode(1, "Temp"));</FONT></FONT></PRE>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Reset(const PEGCHAR *Top)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This method resets
+the entire tree by removing and deleting all of the tree's nodes. The text for
+the top node is then set to Top.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Select(PegTreeNode *Who, BOOL bRedraw = TRUE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function selects
+the indicated node via program control.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+SetIndent(SIGNED iVal) {miIndent = iVal;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to override the default indent level of each generation of child
+nodes. The indent level is specified in pixels.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+ToggleBranch(PegTreeNode*)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function either opens or closes a branch of the tree, depending on it's current status.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegTreeNode
+*TopNode(void) {return mpTopNode;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the top tree node. Using this pointer, the application level
+software can traverse the entire tree.</FONT></FONT>
+<P>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is
+an example of a PegTreeView window populated with PegTreeNodes. In this
+case the PegTreeView window is used as the client for a <A HREF="pnotebk.htm">PegNotebook</A>
+page. This example is taken from PegWindowBuilder:</FONT></FONT>
+<P><IMG SRC="image35.gif" >
+<P>
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following function
+creates a PegTreeView control and populates the control with PegTreeNodes.
+The top level node is labeled "Hockey Teams". Two sub-nodes are created
+labeled "Good Teams" and "Bad Teams". To each of these nodes are added
+several hockey team names (no offense intended!).</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">extern PegBitmap gbTopNodeBitmap;
+extern PegBitmap gbTeamBitmap;
+extern PegBitmap gbCategoryBitmap;
+
+void MyWindow::CreateTreeView(void)
+{
+&nbsp;&nbsp;&nbsp; PegTreeView *pTree;
+&nbsp;&nbsp;&nbsp; pTree = new PegTreeView(mClient, FF_RECESSED,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Hockey Teams", &amp;gbTopNodeBitmap);
+
+&nbsp;&nbsp;&nbsp; pTree->Id(IDW_HOCKEY_TREE);
+
+&nbsp;&nbsp;&nbsp; PegTreeNode *pNode = pTree->TopNode();
+
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Good Teams", &amp;gbCategoryBitmap));
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Bad Teams", &amp;gbCategoryBitmap));
+
+&nbsp;&nbsp;&nbsp; // get pointer to first sub-node:
+
+&nbsp;&nbsp;&nbsp; pNode = pNode->First();
+
+&nbsp;&nbsp;&nbsp; // add good teams to this node:
+
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Red Wings", &amp;gbTeamBitmap));
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Blues",&nbsp;&nbsp;&nbsp;&nbsp; &amp;gbTeamBitmap));
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Stars",&nbsp;&nbsp;&nbsp;&nbsp; &amp;gbTeamBitmap);
+
+&nbsp;&nbsp;&nbsp; // get pointer to next node:
+
+&nbsp;&nbsp;&nbsp; pNode = pNode->Next();
+
+&nbsp;&nbsp;&nbsp; // add bad teams to this node:
+
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Mighty Ducks", &amp;gbTeamBitmap));
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Sharks",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;gbTeamBitmap));
+&nbsp;&nbsp;&nbsp; pNode->Add(new PegTreeNode("Kings",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;gbTeamBitmap));
+
+&nbsp;&nbsp;&nbsp; Add(pTree);
+}</FONT></FONT></PRE>
+
+</BODY>
+</HTML>

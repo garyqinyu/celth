@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="UltraEdit32">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegFiniteDial</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteDial is an HMI output gadget that
+provides an analog equivalent to a digital readout. It can be fed any integral data from 
+any source.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The dial is categorized as finite 
+because it takes a specific start angle and a specific end angle that map to a minimum and
+maximum value, respectively. So, in action, the needle on the dial moves between the start and 
+end angles based on the current value that is between the minimum and maximum values assigned to 
+the dial. The travel of the needle may be the entire 360 degrees of a circle, say from 0 to 359
+in a counter clockwise direction, but may not wrap.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pdial.htm">PegDial</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pfbdial.htm">PegFiniteBitmapDial</A></FONT></FONT>
+
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteDial supports
+the styles described in <A HREF="pdial.htm#Styles">PegDial.</A></FONT></FONT>
+
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteDial does not
+send any signals.</FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteDial is derived
+from <A HREF="pdial.htm">PegDial</A>.</FONT></FONT>
+
+<P><A NAME="Members"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegFiniteDial(PegRect &amp;Rect, SIGNED iMinAngle, SIGNED iMaxAngle,
+LONG lMinValue, LONG lMaxValue, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor takes a reference to a PegRect
+to determine its size, a style WORD, a minimum and maximum angle and a minimum and
+maximum value.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegFiniteDial(SIGNED iLeft, SIGNED iTop, SIGNED iMinAngle, SIGNED iMaxAngle,
+LONG lMinValue, LONG lMaxValue, WORD wStyle)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor takes
+SIGNED values to determine the left and top positions of the dial. By default,
+an object created using this constructor will have a width and height of 100
+pixels. The remaining arguments are the same as above.
+</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The dial will map the minimum angle to the minimum
+value, and the maximum angle to the maximum value. So, the dial will behave as expected. If you set the 
+minimum angle to be 0 and the maximum angle to be 180, and the minimum value to 0 and the maximum
+value to 100, then setting the value on the dial to 50 will set the needle to 90 degrees, straight
+up.</FONT></FONT>
+
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegFiniteDial
+overrides the Draw() function.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void SetLimits(SIGNED iMinAngle, SIGNED iMaxAngle, LONG lMinValue, LONG lMaxValue)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function sets the boundaries for the min/max values and angles of the needle.  It then redraws the needle if necessary.</FONT></FONT>
+<HR>
+
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following is an example of three PegFiniteDials
+on a PegDecoratedWindow.</FONT></FONT>
+
+<P>
+<CENTER><IMAGE SRC="pfdial.gif" BORDER="0"></CENTER>
+
+<P>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The above PegFiniteDials were created by the
+following code snippet:</FONT></FONT>
+
+<PRE>
+PegFiniteDial *mpDial1, *mpDial2, *mpDial3;
+.
+.
+.
+PegRect WinRect;
+
+WinRect.Set(50, 50, 200, 200);
+mpDial1 = new PegFiniteDial(WinRect, 180, 0, -50, 100, AF_TRANSPARENT | DS_STANDARDSTYLE);
+mpDial1->SetTicFreq(10);
+mpDial1->SetTicLen(10);
+mpDial1->SetDialColor(CYAN);
+
+WinRect.Shift(160, 0);
+mpDial2 = new PegFiniteDial(WinRect, 225, 315, 0, 300,
+     FF_RAISED | DS_THICKNEEDLE | DS_TICMARKS | DS_RECTCOR);
+mpDial2->SetColor(PCI_NORMAL, DARKGRAY);
+mpDial2->SetNeedleColor(BLUE);
+mpDial2->SetTicFreq(50);
+mpDial2->SetTicLen(20);
+
+WinRect.Shift(160, 0);
+mpDial3 = new PegFiniteDial(WinRect, 225, 315, 0, 300
+     FF_RECESSED | DS_POLYNEEDLE | DS_TICMARKS | DS_RECTCOR);
+mpDial3->SetColor(PCI_NORMAL, LIGHTGRAY);
+mpDial3->SetDialColor(GREEN);
+mpDial3->SetNeedleColor(YELLOW);
+mpDial3->SetTicFreq(50);
+mpDial3->SetTicLen(20);
+
+Add(mpDial1);
+PegPrompt* pPrompt = new PegPrompt(105, 160, 40, "0", 101, FF_RECESSED | TJ_CENTER | TT_COPY);
+pPrompt->SetColor(PCI_NTEXT, RED);
+mpDial1->Add(pPrompt);
+
+Add(mpDial2);
+pPrompt = new PegPrompt(265, 160, 40, "0", 102, FF_RECESSED | TJ_CENTER | TT_COPY);
+pPrompt->SetColor(PCI_NTEXT, BLUE);
+mpDial2->Add(pPrompt);
+
+Add(mpDial3);
+</PRE>
+
+<HR>
+</BODY>
+</HTML>

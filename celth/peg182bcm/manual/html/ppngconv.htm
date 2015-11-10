@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegPngConvert</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPngConvert is
+a PegImageConvert derived class for reading and de-compressing PNG input
+images. Before using PegPngConvert, be sure to read fully the PegImageConvert
+base class documentation.
+
+<P>The "PNG" graphics format was designed as a replacement for the proprietary
+and patented GIF graphics format. "PNG" is normally defined as an acronym for
+"Portable Network Graphics", but many say that PNG truly is an abbreviation
+for "PNG is Not Gif". The compression ratios, image support, and animation
+support of PNG are all equal to or superior to GIF.
+
+<P>The PegPngConvert class is only included in the PEG library if
+ PEG_PNG_CONVERT is defined in header file pconfig.hpp.
+
+<P>PegPngConvert reads
+PNG image files and produces PegBitmap structures.
+The structures produced are NOT deleted when the PegPngConvert object is
+deleted, unless you first call the DestroyImages() function before deleting
+the PegPngConvert object.
+
+<P>Normal usage is to
+create the PegPngConvert object, use it to read and decompress any number
+of PNG images, and to retrieve the PegBitmap structures from the conversion
+object using the GetBitmapList() function. Once you have retrieved the output
+produced, you can delete the conversion object without losing any data.
+After you are done using or displaying the PegBitmaps produced, you should
+free the memory associated with the run-time conversion by deleting the
+PegBitmap by calling Screen()->DestroyBitmap(pMap).</FONT></FONT>
+<BR>&nbsp;
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbmpconv.htm">PegBmpConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pgifconv.htm">PegGifConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pimgconv.htm">PegImageConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pjpgconv.htm">PegJpgConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pquant.htm">PegQuant</A></FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegPngConvert is
+derived from PegImageConvert.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPngConvert(WORD wId)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates an image conversion object.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL ReadImage(SIGNED iCount = 1)</B></FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL ReadImage(FILE *fd, SIGNED iCount = 1)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function reads
+the PNG image. The iCount parameter defined the maximum number of PegBitmap
+structures to produce in the event that the PNG file contains multiple images.
+<P>The second form of the function is defined only if PIC_FILE_MODE is defined
+in the \peg\include\pimgconv.hpp header file. The first form of the function
+is used when PIC_FILE_MODE is not defined.
+
+
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A complete working
+example program using the run-time image conversion classes is provided
+in your PEG distribution in the directory \peg\examples\imgbrows.</FONT></FONT>
+</BODY>
+</HTML>

@@ -1,0 +1,21 @@
+#!build
+default:
+	program
+	:cx_option=no_rtti
+	:target=win32gui
+	:cx_silent=161
+	:sysincdirs=\peg\include
+c:\peg\examples\pegdemo\scripfon.cpp
+	C++
+c:\peg\examples\pegdemo\monsfont.cpp
+	C++
+c:\peg\examples\pegdemo\pegdemo.cpp
+	C++
+c:\peg\examples\pegdemo\pool.cpp
+	C++
+c:\peg\examples\pegdemo\sand.cpp
+	C++
+c:\peg\examples\pegdemo\demobmp.cpp
+	C++
+peg.lib
+	library

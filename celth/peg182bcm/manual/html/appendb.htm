@@ -1,0 +1,190 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<CENTER><B><I><FONT FACE="Bookman Old Style"><FONT SIZE=+2>Appendix B:
+ThreadX Integration/Demo</FONT></FONT></I></B></CENTER>
+
+
+<P>ThreadX is fully integrated with the PEG library. This integration includes
+support for both the <B>GraphicsServer</B> and <B>MULTITHREAD</B> execution
+models. The ThreadX integration files are shipped as a separate package
+from the core PEG library. This section of the manual details the filenames,
+locations, and contents of each of the ThreadX integration files. This
+section of the manual also provides a description of the ThreadX demo program.
+
+<P>The integration files as delivered are configured for a PC environment.
+This is easily modified to run on other targets. Those areas that require
+modification are highlighted in this appendix.
+
+<P>&nbsp;
+
+<P><B><I><FONT FACE="Arial"><FONT SIZE=+2>Integration Notes:</FONT></FONT></I></B>
+
+<P><B><FONT FACE="Arial">Integration Files:</FONT></B>
+
+<P><B>thxpeg.cpp</B>- This is the main ThreadX integration file. This file
+includes PegTask, PegMessageQueue replacement functions, and miscellaneous
+functions for running multiple ThreadX threads that create and display
+windows. This file should be located in the directory \peg\source.
+
+<P><B>thxpeg.hpp</B>- This file contains macro definitions and function
+prototypes corresponding to thxpeg.cpp. This file should be located in
+the directory \peg\include.
+
+<P>&nbsp;
+
+<P><B><FONT FACE="Arial">Integration Functions:</FONT></B>
+
+<P>The file thxpeg.cpp contains several functions that you will need to
+reference in your standard ThreadX startup functions in order to run PEGX.
+<UL>
+<LI>
+<B><FONT FACE="Arial">void PegInitialize(char *Pointer)</FONT></B></LI>
+</UL>
+This function should be called from <B>tx_application_define(</B>), where
+<B>Pointer</B> is the address of the first available memory location. This
+function creates configures keyboard and mouse handlers, creates PegTask,
+creates the ThreadX message queue used by PegTask, and creates the timer
+for correct operation of the hi-level PEG timer service. When running in
+the MULTITHREAD mode, this function also creates semaphores for protecting
+the PEG timer list and the display device.
+
+<P>Removing the keyboard handler requires commenting out the call to ‘TakeKeyboard()’.
+<UL>
+<LI>
+<B><FONT FACE="Arial">void PegTaskMain(ULONG)</FONT></B></LI>
+</UL>
+This is the PegTask entry point. This function creates PegScreen, PegPresentationManager,
+and PegMessageQueue. After these objects are created, PegTaskMain calls
+PegAppInitialize(), which is the normal PEG application startup function.
+
+<P>For the DOS environment, PegTaskMain contains a few lines of code for
+speeding up the PC hardware timer interrupt. This code should be removed
+for non-PC targets.
+<UL>
+<LI>
+<B><FONT FACE="Arial">void PegTimerService(ULONG)</FONT></B></LI>
+</UL>
+This is the ThreadX callback function for the PEG timer. This function
+simply sends a message to PegTask indicating that a timer tick has expired.
+
+<P>The remaining functions contained in thxpeg.cpp are used to implement
+PegMessageQueue directly using ThreadX message queue services. Note that
+when running on ThreadX, PegIdleFunction is never called, but instead threads
+are directly suspended when the message queue for a thread is empty. This
+requires that all input devices be interrupt driven, or that external tasks
+poll input devices and send messages to PegTask when input messages are
+generated. The PC driver files are interrupt driven.
+
+<P>&nbsp;
+
+<P><B><FONT FACE="Arial">Driver Files:</FONT></B>
+
+<P><B>pegio.asm</B>- This file contains the low-level interrupt handlers
+for PC keyboard and mouse. Even if your target is not a PC-compatible,
+these service routines are useful templates for installing your own input
+devices. The type of mouse is configured by selecting PS2_MOUSE or SERIAL_MOUSE
+in the file \peg\include\peg.hpp. If neither is enabled, the mouse drivers
+are not required and should not be linked into your target code. Note that
+for SERIAL_MOUSE, the correct serial COM port and interrupt vector must
+also be selected in \peg\peg.hpp. The file pegio.asm should be located
+in the directory \threadx\peg.
+
+<P><B>pinpdrv.cpp</B>- Hi-level driver routines for keyboard and mouse.
+This file should be located in the directory \threadx\peg.
+
+<P><B>pegapp.cpp</B> and <B>pegapp.hpp</B>- These files contain the source
+and prototypes for the demo application program. These files should be
+located in \threadx\peg.
+
+<P><B>ellogo.cpp, sslogo.cpp, and pegxbmp.cpp</B>- These are simple bitmap
+files created with PegImageConvert. These bitmaps are used for the opening
+splash screen of the demo and for the small animation window.
+
+<P><B>peglib.bat</B>- Batch file for building the PEG library for ThreadX.
+This file should be in your threadx build directory. For example, if you
+are using ThreadX with the Borland compiler, this file should be in the
+directory \threadx\borland. Swell Software currently only provides batch
+files for building the library using Borland C++. Additional compilers
+are being added and batch files for other compilers will be provided in
+future releases. If you are using another compiler, you will have to modify
+the batch file command line for your compiler.
+
+<P><B>pegapp.bat</B>- Batch file for building the PEGX demo application.
+This file should also be located in your ThreadX build directory.
+
+<P><B><I><FONT FACE="Arial"><FONT SIZE=+2>Demo Notes:</FONT></FONT></I></B>
+
+<P>The ThreadX demo is written to run in MULTITHREAD mode only, and while
+it will compile it will not execute correctly if PEG_MULTITHREAD is not
+defined in \peg\peg.hpp before building the PEG library. All of the actual
+demo source code is contained in the file \threadx\peg\pegapp.cpp.
+
+<P>The first demo function is of course PegAppInitialize(). This function
+creates and displays the opening splash screen, which is a PegThing derived
+class named ThreadXBitmapWin.
+
+<P>ThreadXBitmapWin uses a PegTimer to move the bitmaps shown on the splash
+screen. Once the bitmaps are in place, ThreadXBitmapWin adds a PegTextButton
+to itself, which is the ‘Continue…" button.
+
+<P>When the Continue button sends the ‘PSF_CLICKED’ signal, ThreadXBitmapWin
+adds the demo dialog window to PegPresentationManager, and then Destroys
+itself.
+
+<P>The dialog window that displays the demo text is a PegDialog derived
+window named ThreadXDemoDialog. As the user steps through the demo, ThreadXDemoDialog
+creates and starts two additional ThreadX threads, called CounterTask and
+WalkerTask.
+
+<P>CounterTask creates the counter interface window and adds it to PegPresentationManager.
+Note that CounterTask is non-modal, and therefore all GUI interactions
+must be enclosed within LOCK_PEG and UNLOCK_PEG macros. CounterTask directly
+updates the count field on the interface window, while the window itself
+executes within the <I>PegTask</I> thread. While this may seem confusing,
+it is a useful way for a task that performs non-GUI related processing
+to create and display a window. The window processes messages from within
+the PegTask thread, while the task that created the window can directly
+interact with the graphical presentation as long as the LOCK_PEG and UNLOCK_PEG
+macros are used.
+
+<P>WalkerTask demonstrates the alternative (and simpler) method of executing
+a window from tasks other than PegTask. WalkerTask creates the bitmap animation
+window named WalkerWin, and calls the WalkerWin::Execute() function. At
+that point WalkerWin runs entirely from within the WalkerTask thread. It
+is important to remember that Execute() does not return to the point of
+being called until the window is closed.
+
+<P>WalkerWin overrides the Message() function to detect a mouse click on
+the animation window. When a PM_LBUTTONUP message is received, the WalkerWin
+sends a PM_CLOSE message to itself, which causes modal execution to terminate
+and returns control to WalkerTask at the line following the call to Execute().
+
+<P>Note that WalkerTask reconstructs WalkerWin each time through the while(1)
+loop. This is required since WalkerWin destroys itself when the Execute()
+function returns. WalkerTask should not attempt to re-display or delete
+WalkerWin after returning from the Execute() function.
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+
+<P>&nbsp;
+</BODY>
+</HTML>

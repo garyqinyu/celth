@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegGifConvert</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegGifConvert is
+a PegImageConvert derived class for reading and de-compressing GIF input
+images. Before using PegGifConvert, be sure to read fully the PegImageConvert
+base class documentation.
+
+<P>The PegGifConvert class is only included in the PEG library if
+ PEG_GIF_CONVERT is defined in header file pconfig.hpp.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegGifConvert reads
+GIF image files and produces PegBitmap structures and GIF_IMAGE_INFO structures.
+The structures produced are NOT deleted when the PegGifConvert object is
+deleted, unless you first call the DestroyImages() function before deleting
+the PegGifConvert object.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Normal usage is to
+create the PegGifConvert object, use it to read and decompress any number
+of GIF images, and to retrieve the PegBitmap and GIF_IMAGE_INFO structures
+from the conversion object using the GetBitmapList() and GetImageInfo()
+functions. Once you have retrieved the output produced, you can delete
+the conversion object without losing any data. After you are done using
+or displaying the PegBitmaps produced, you should free the memory associated
+with the run-time conversion by deleting the PegBitmap and GIF_IMAGE_INFO
+arrays.</FONT></FONT>
+<BR>&nbsp;
+
+<P><B><FONT FACE="Arial,Helvetica"><FONT COLOR="#CC0000"><FONT SIZE=+1>**
+WARNING **</FONT></FONT></FONT></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegGifConvert uses
+the LZW decompression algorithm to read and decode GIF images. The LZW
+algorithm is patented, and the patent is now owned by Unisys Corporation.
+<B>Usage of LZW requires that the user obtain a usage license directly
+from Unisys</B>. Software providers such as Swell Software are not allowed
+to provide a transferable usage license. It is therefore your responsibility
+to obtain an LZW usage license if you decide to use the PegGifConvert class
+in your application. By providing PEG users with a GIF decompression class,
+free of charge, Swell Software in no way implies that an LZW license has
+been obtained, and assumes no responsibility for any user who willfully
+violates the Unisys LZW patent by using the PegGifConvert class without
+obtaining an LZW license from Unisys.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">At the time of this
+printing, LZW usage licenses are available from Unisys for a royalty charge
+of 0.45%&nbsp; (forty-five one-hundreths of one percent) or less per OEM
+unit shipment. Further information can be obtained from the Unisys WWW
+site, www.unisys.com.</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbmpconv.htm">PegBmpConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pimgconv.htm">PegImageConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pjpgconv.htm">PegJpgConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ppngconv.htm">PegPngConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pquant.htm">PegQuant</A></FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegGifConvert is
+derived from PegImageConvert.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegGifConvert(WORD wId)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates an image conversion object.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>GIF_HEADER *GetGifHeader(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+a pointer to the GIF file header information. This can be used to determine
+additional information about the decoded GIF. There is one GIF_HEADER structure
+produced for each GIF file converted. The GIF_HEADER structure is deleted
+when the PegGifConvert object is destroyed. The GIF header information structure
+is defined as:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica">typedef struct {
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wWidth;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // overall width
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wHeight;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // overall height
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wColors;
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uBackClrIndex;
+&nbsp;&nbsp;&nbsp; COLORVAL&nbsp;&nbsp;&nbsp; cBackground;&nbsp;&nbsp;&nbsp; // background fill color
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uAspectRatio;
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IsGif89;
+} GIF_HEADER;</FONT></PRE>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>GIF_IMAGE_INFO *GetGifInfo(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica">This function is used to retrieve a pointer
+to the array of GIF information structures produced during image conversion.
+There will be one element in the array for each image converted, i.e. one
+GIF file may contain any number of images and the equivalent number of
+GIF_IMAGE_INFO structures will be produced. The GIF_IMAGE_INFO structures
+define local information for each embedded image such as size, relative
+offset, and delay time. The GIF_IMAGE_INFO structure is defined as:</FONT>
+<PRE><FONT FACE="Arial,Helvetica">typedef struct {
+&nbsp;&nbsp;&nbsp; SIGNED&nbsp;&nbsp;&nbsp;&nbsp; xOffset;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // relative x offset
+&nbsp;&nbsp;&nbsp; SIGNED&nbsp;&nbsp;&nbsp;&nbsp; yOffset;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // relative y offset
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wWidth;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // width in pixels&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wHeight;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // height in pixels&nbsp;
+&nbsp;&nbsp;&nbsp; WORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tDelay;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // delay in hundredths of a second
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uHasTrans;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uTransColor;
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uInputFlag;&nbsp;&nbsp;&nbsp;&nbsp; // wait for user input?
+&nbsp;&nbsp;&nbsp; UCHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uDisposal;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // image overwrite method
+
+} GIF_IMAGE_INFO;</FONT></PRE>
+<FONT FACE="Arial,Helvetica">After your application has completed using
+the image data produced by the conversion object, you must delete the GIF_IMAGE_INFO
+array to avoid a memory leak.&nbsp;</FONT>&nbsp;
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A complete working
+example program using the run-time image conversion classes is provided
+in your PEG distribution in the directory \peg\examples\imgbrows.</FONT></FONT>
+</BODY>
+</HTML>

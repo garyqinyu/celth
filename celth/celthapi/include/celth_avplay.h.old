@@ -1,0 +1,41 @@
+#ifndef __CELTH_AVPLAY_H
+#define __CELTH_AVPLAY_H
+
+#ifdef __cplusplus
+
+extern "C" {
+
+#endif
+
+
+
+
+
+  
+
+
+
+
+void CelthApi_AV_Init();
+
+void CelthApi_AV_Play(Celth_FrontendBand band,unsigned short VPID, unsigned short APID, unsigned short PCRPID, bvideo_codec_type vcodec,baudio_format_type aformat);
+
+void CelApi_Av_Stop();
+
+void CelApi_Av_ChangeVideoFormat();
+
+
+
+
+#ifdef __cplusplus
+
+}
+
+#endif
+
+
+
+
+
+
+#endif

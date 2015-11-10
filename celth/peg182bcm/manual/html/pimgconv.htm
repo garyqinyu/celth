@@ -1,0 +1,553 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=4 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegImageConvert</FONT></FONT></B></CENTER>
+
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegImageConvert is
+the base class used to provide the image decompression and other processing
+used by the PEG utility program of the same name. PegImageConvert serves
+as the base class for PegBmpConvert, PegGifConvert, PegJpgConvert, and
+PegPngConvert classes.
+These classes provide the ability to read, color quantize, RLE encode,
+and generate PegBitmap formatted data structures at program run time.
+
+<P><B>Note: Most applications do NOT use or enable run-time image conversion!</B>
+Run-time image conversion can consume a large amount of dynamic memory, and
+should only be used if required. The better alternative to run-time image
+conversion in many cases is to use the ImageConvert utlity program
+to pre-convert image files into PegBitmap source files.
+
+<P>The run-time image conversion classes are enabled individually with
+#defines in the pconfig.hpp header file. If any type of image conversion is
+enabled, the base PegImageConvert class is compiled and included in the
+PEG library.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The image conversion
+classes are designed to run either standalone using file input, or under
+separate low-priority execution threads. There are definitions at the top
+of the file \peg\include\pimgconv.hpp to define how the image conversion
+classes are going to be used.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The definition <B>PIC_FILE_MODE</B>,
+when enabled, instructs the image conversion to use ANSI 'C' file I/O input
+methods. Alternatively, when this definition is disabled, the image conversion
+classes use a circular data buffer for input. This input buffer should
+be 'fed' by an external task. When running in this mode the conversion
+object calls a user defined callback function when the conversion object
+needs more input data or when the state of the conversion object changes.
+This facilitates usage in a multitasking environment where the input data
+is streaming in from an external source. The provided callback function
+may sleep or otherwise suspend the conversion process until additional
+input data is available.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">One of the jobs of the 
+image conversion class is to map the input file colors to the target system
+display capabilities. There are also two basic color mapping modes that can 
+be used by the conversion object. These mapping modes
+are referred to as "inline" mode and "post-read" mode. In inline remapping
+mode, the converter reads and decompresses one scanline of input data to
+a temporary buffer, and remaps this single row to the target colors or grayscale.
+This process continues on a line-by-line basis until the entire image has
+been remapped to the target system palette. The benefit of this conversion
+mode is that only a single-line temporary buffer is required in addition to
+the final output data array, meaning that this conversion mode uses less
+dynamic memory than post-read conversion. Please note, however, that inline
+conversion mode requires that the input data is scan-line oriented and not
+interlaced. For this reason inline conversion mode cannot be used with
+interlaced PNG input files, which use an interlace format that is not scan 
+line oriented.<P>
+
+Post-read conversion means that the entire input image is read into a temporary
+buffer, and the image is then color mapped into the final output buffer. This
+conversion mode can require much more memory than inline conversion, especially
+for cases when high color depth (i.e. 24bpp) images are being remapped to lower
+color depth target displays which may require less than 8 bpp output in the final
+buffer. Post-read conversion has the benefits of being able to produce an
+optimal color palette for 8 bpp paletted systems, and also is able to handle
+interlaced PNG files.<P>
+
+The color mapping algorithm used can be either a best match algorithm or a
+dithering algorithm. For inline remapping the algorithm is determined by
+the conversion mode. For post-read remapping the algorithm used is determined
+by which color-mapping function is called by the application.
+
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">After conversion is
+complete, the conversion objects return a pointer to a PegBitmap structure
+containing the converted image ready for display. In most cases, only one
+converted image will be available, however for animated GIF files there may
+be multiple PegBitmap structures produced. The application software can 
+determine how many images were converted by calling the GetBitmapCount()
+function, and may retrieve pointers to each bitmap by calling the 
+GetBitmapPointer() function.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The image conversion
+classes can also be used in combination with the PEG color quantization
+class, PegQuant. The image conversion classes will count the colors present
+in each image for use in the color quantization histogram.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The definition PIC_QUANT,
+when enabled, includes the color counting functions required for custom
+palette generation. When this definition is disabled, the color quantization
+functions are not included. This definition is disabled for most embedded
+targets.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The order in which
+the PegImageConvert member functions are called is critical for correct
+operation. This is detailed further in the member function descriptions.
+In general, the conversion process can either convert the incoming data
+inline to a pre-defined system palette, or in one pass after reading the
+entire input image. Inline conversion is the most memory efficient when
+running with a fixed system palette.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The general order
+of operation for inline conversion to a fixed system palette is:</FONT></FONT>
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Construct the conversion
+object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Set the conversion object
+mode to PIC_INLINE_REMAP or PIC_INLINE_DITHER.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Initialize the conversion
+object system palette.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Set the conversion object
+callback function if not using a filesystem.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object ReadImage() function.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object RleEncode() function (optional).</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Retrieve the completed
+PegBitmap pointer using GetBitmapPointer().</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Delete the conversion
+object.</FONT></FONT></LI>
+</UL>
+
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The general order
+of operation for post-read conversion to a fixed system palette is:</FONT></FONT>
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Construct the conversion
+object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Initialize the conversion
+object system palette.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Set the conversion object
+callback function if not using a filesystem.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object ReadImage() function.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object RemapBitmap() or DitherBitmap() function to remap the image to the 
+target system color depth.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object RleEncode() function (optional).</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Retrieve the completed
+PegBitmap pointer using GetBitmapPointer().</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Delete the conversion
+object.</FONT></FONT></LI>
+</UL>
+
+
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This order of operation
+is somewhat different when the goal is to create a custom palette
+and perform post-read remapping to the optimal paleete:</FONT></FONT>
+<UL>
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Construct a PegQuant
+object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Construct the conversion
+object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Set the conversion object
+callback function if not using a filesystem.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object ReadImage() function.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the conversion
+object CountColors() function.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call the PeqQuant object
+ReduceColors() function.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Pass palette produced
+by PegQuant as system palette to the conversion object.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Call conversion object
+DitherBitmap() or RemapBitmap() function to remap to optimal palette.</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Retrieve the completed
+PegBitmap pointer(s) using GetBitmapPointer().</FONT></FONT></LI>
+
+<LI>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Delete the conversion
+object.</FONT></FONT></LI>
+</UL>
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#CC0000"><FONT SIZE=+1>**
+Important Note **</FONT></FONT></FONT></B>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><B><I>The PegBitmap
+structures created by the conversion object are not deleted when the object
+is destroyed</I></B>. Under normal operation, the caller retrieves the
+bitmaps after conversion by calling the GetBitmapList()&nbsp; function.
+The caller then owns the memory associated with the Bitmaps, and must free
+this memory after the bitmaps are no longer needed.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">If the caller does
+not retrieve the PegBitmap structures, they should be deleted with a call
+to DestroyImages() before deleting the conversion object. This can be useful
+in an application where you do not actually want to display the images,
+but you do need to obtain image size or other attribute information. In
+this case, you can construct the conversion object(s), tell them to read
+the image, retrieve whatever information is required, and then call DestroyImages()
+to clean up the memory associated with the conversion objects.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pbmpconv.htm">PegBmpConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pgifconv.htm">PegGifConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pjpgconv.htm">PegJpgConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="ppngconv.htm">PegPngConvert</A></FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pquant.htm">PegQuant</A></FONT></FONT>
+
+<P><A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegImageConvert
+is a PEG base class.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+
+<P><A NAME="Members"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegImageConvert(WORD wId)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This constructor
+creates an image conversion object.</FONT></FONT>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD ConsumeImageInput(UCHAR *Buffer, WORD wLength)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called by derived conversion classes to get input data. This abstracts
+the data source (either file or input buffer) from the derived conversion
+classes.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void CountColors(PegQuant *pQuant)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called after the image has been decoded to count the occurrences of each
+possible color value. This is used for color reduction along with the PegQuant
+class. This function is only provided if PIC_QUANT is defined in the file
+\peg\include\pimgconv.hpp.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG DataSize(void) {return mlDataSize;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+returns the data size, in bytes, of the PegBitmap data constructed by the
+conversion object.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void DestroyImages(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to destroy all PegBitmap images created by the conversion object.
+This should only be done if the caller does not want to keep and use the
+PegBitmaps produced.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL DitherBitmap(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called after an image has been read and a system palette has been assigned
+with SetSystemPalette(). This function will dither the contained PegBitmap
+to the system palette.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetBitmapCount(void) {return mwImageCount;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+can be called to learn the number of PegBitmap structures produced during
+the image read operation. GIF and JPG files can contain any number of individual
+images.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegBitmap *GetBitmapPointer(int iIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns a pointer to the PegBitmap structure at the specified index produced by the conversion process. Most images (JPG, PNG, etc.) only have one bitmap, so pass an index of 0 to obtain it.  GIF's can have multiple bitmaps, so pass the index of the bitmap you need.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetByteWidthForOutputColorDepth(WORD wImgWidth)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns the byte width based on output color depth, always padding to a full byte scanline.  Images with less than 8 bits per pixel always pad to a full byte per scanline.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>LONG GetDataSize(int iIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the data size of the specified image.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PEGCHAR *GetErrorString(void){return msError;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the error string associated with a conversion failure. This value if only
+valid if the conversion object State variable indicates an error has occurred.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR *GetLocalPalette(void){return mpLocalPalette;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns
+the local palette associated with the converted bitmap(s). This palette
+is embedded in the source image.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetMode(void) {return mwMode;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the operating
+mode of the conversion object. The operating mode is determined by the
+caller when configuring the conversion object. The available modes are:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PIC_NO_CONVERT&nbsp;&nbsp;&nbsp;&nbsp; // no inline conversion (custom palette mode)
+PIC_INLINE_DITHER&nbsp; // dither on the fly
+PIC_INLINE_REMAP&nbsp;&nbsp; // remap to best color on the fly
+PIC_RGB_TRANS&nbsp;&nbsp; // use RGB transparency
+PIC_INDEX_TRANS&nbsp;&nbsp;&nbsp;&nbsp; // use indexed transparency</FONT></FONT></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When operating with
+a fixed system palette, it is important to configure the conversion object
+for an inline conversion mode prior to reading the image. This saves a
+large amount of memory space over reading the image and then converting
+to a fixed palette.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR GetOutputBitsPerPix(void){return muOutBitsPerPix;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function returns the output color depth determined by the system palette assigned to the conversion object.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPixel GetPixelColor(UCHAR *pGet, WORD wYPos, WORD wIndex, WORD wImgWidth)</B></FONT></FONT><br>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPixel GetPixelColor(UCHAR *pGet, WORD wIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the PegPixel value at the specified index.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetRowsConverted(void) {return mwRowsConverted;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">In inline conversion modes, this returns how many rows of image data have been mapped to the system palette.  This can be useful for the progressive display of complex images.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD GetState(void) {return mwState;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the state
+variable of the conversion object. The possible states are:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PIC_IDLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // waiting for input data
+PIC_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // an error has occurred
+PIC_HEADER_KNOWN&nbsp;&nbsp; // the header (width, height, type) is known
+PIC_PALETTE_KNOWN&nbsp; // the palette is known
+PIC_ONE_CONV_DONE&nbsp; // at least one conversion complete
+PIC_COMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // all conversions are complete</FONT></FONT></PRE>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegPixel GetTransColor(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the transparent color value.</FONT></FONT>
+
+<p><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void GetULCColor(UCHAR *pRed, UCHAR *pGreen, UCHAR *pBlue)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the upper-left
+hand corner color of the first bitmap.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void Id(WORD wId) {mwId = wId;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Sets the conversion
+object ID.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD Id(void) {return mwId;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the ID of
+the conversion object. This is a caller defined value used to identify
+a particular converter when many conversions are occurring concurrently.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>UCHAR ImageType(void) {return muImageType;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the image
+type processed by the conversion object. The supported image types are:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PIC_TYPE_BMP
+PIC_TYPE_GIF
+PIC_TYPE_JPG</FONT></FONT></PRE>
+<IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD InputFreeSpace(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Returns the number
+of bytes free in the input buffer. This function is only provided when
+PIC_FILE_MODE is not defined.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual BOOL ReadImage(FILE *pFile, SIGNED iCount = 100)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual BOOL ReadImage(SIGNED iCount = 100)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function begins
+the conversion process. This function should be called only after the converter
+has been configured with SetMode(). The first form is provided for PIC_FILE_MODE,
+and the second form for a multitasking environment. Use of the iCount parameter
+depends on the ReadImage() implementation for a specific derived class. Currently,
+iCount is used only in the GIF image conversion implementation as an upper limit
+on the number of GIF89a embedded images converted.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL RemapBitmap(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function is
+called to do a best-color mapping of the bitmap to a fixed system palette.
+The SetSystemPalette() function must be called before RemapBitmap(). This
+function does no dithering, but instead uses a closest match algorithm.
+This is useful when an optimal palette has been generated.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>BOOL RleEncode(BYTE bOutBitsPix)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be called to RLE encode a converted bitmap. The function will first determine
+if RLE encoding saves space before doing the encoding, so the caller cannot
+assume that the contained PegBitmap is encoded after calling this function.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual void RotateImages(SIGNED iRotation)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function rotates the bitmap.  Only values of 90 or 270 degrees are supported.  The bitmap rotates counter-clockwise.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>WORD SendData(UCHAR *Get, WORD wSize)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function feeds
+input data to the converter. This function is only provided when PIC_FILE_MODE
+is not defined. This function allows an external task to pass data to the
+conversion object.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetGrayscale(BOOL bGray)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function changes the color mapping algorithm to match colors based on brightness using a linear grayscale target palette.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetIdleCallback(BOOL (*pFunc)(WORD wId, WORD wState, PegImageConvert
+*pObject)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function assigns
+a callback function that the conversion object will call whenever input
+data is needed or the state of the conversion object has changed. The callback
+function will receive the ID of the conversion object, the conversion object
+state variable, and a pointer to the conversion object. This function is
+only provided when PIC_FILE_MODE is not defined.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The callback function
+should be structured such that it tests the conversion object state variable
+to determine the reason for the callback. If the conversion object needs
+data, the callback function should provide it by calling the conversion
+object SendData() function. The state variable may also indicate that conversion
+is complete or that an error has occurred.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The wState value
+is a bitwise OR of the status flags defined above under the GetState()
+function.</FONT></FONT>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The main purpose
+for the callback structure is to facilitate running in a multitasking environment.
+The callback function may be structured to sleep using OS defined methods
+until new input data becomes available.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetMode(WORD wMode)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function configures
+the conversion object for one of several possible modes. <B><I>This function
+should be called before the input image is actually read</I></B>. The available
+modes are:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PIC_NO_CONVERT&nbsp;&nbsp;&nbsp;&nbsp; // no inline conversion (custom palette mode)
+PIC_INLINE_DITHER&nbsp; // dither on the fly
+PIC_INLINE_REMAP&nbsp;&nbsp; // remap to best color on the fly
+PIC_RGB_TRANS&nbsp;&nbsp; // use RGB transparency
+PIC_INDEX_TRANS&nbsp;&nbsp;&nbsp;&nbsp; // use indexed transparency</FONT></FONT></PRE>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">When operating with
+a fixed system palette, it is important to configure the conversion object
+for an inline conversion mode prior to reading the image. This saves a
+large amount of memory space over reading the image and then converting
+to a fixed palette.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetSystemPalette(UCHAR *pPal, WORD wPalSize, BOOL bFast = FALSE)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function informs
+the conversion object of the working system palette. This is required for
+best-color remapping and dithering. The bFast parameter is saved in member
+variable mbUseFastLookup for subsequent palette matching operations.</FONT></FONT>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTransColor(UCHAR uRed, UCHAR uGreen, UCHAR uBlue)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void SetTransColor(UCHAR uIndex)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This function can
+be used to assign a transparent color, either by its RGB value or its palette index.
+This is only required for .bmp input images, since other image types embed
+transparency information.&nbsp;</FONT></FONT>&nbsp;
+<HR>
+
+<P><A NAME="Examples"></A>
+
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">A complete working
+example program using the run-time image conversion classes is provided
+in your PEG distribution in the directory \peg\examples\imgbrows.&nbsp;</FONT></FONT>&nbsp;
+<HR>
+
+</BODY>
+</HTML>

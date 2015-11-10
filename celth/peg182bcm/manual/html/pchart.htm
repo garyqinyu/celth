@@ -1,0 +1,377 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="Vim 5.6">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER>
+<P><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegChart</FONT></FONT></B></CENTER>
+
+<P><BR>
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegChart is the base
+class for all of the charts in the PEG library. PegChart is a virtual base
+class, therefore, it is not possible to instantiate an object of this type
+directly at run time. The main job of PegChart is to provide a basic framework
+for it's derived children. It does this by keeping track of an extra style
+variable, over and above the one retained by PegThing. It also provides
+the algorithms for calculating the layout of the chart based on whether
+or not the chart will be drawing labels and tick marks. And, lastly, it
+provides drawing methods for the common elements of a chart (ie., X and
+Y tick marks, labels and grid lines).</FONT></FONT>
+
+<P><A NAME="See Also"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+
+<P><A NAME="Styles"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegChart supports
+the following styles:</FONT></FONT>
+
+<TABLE BORDER=2 COLS=3 WIDTH="100%" >
+<TR>
+<TD>CS_DRAWXGRID</TD>
+
+<TD COLSPAN="2">This flag causes grid lines to be drawn along the X axis
+in the chart region.</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWYGRID</TD>
+
+<TD COLSPAN="2">This flag causes grid lines to be drawn along the Y axis
+in the chart region.</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWXTICS</TD>
+
+<TD COLSPAN="2">This flag causes tick marks to be drawn along the X axis
+at specified intervals..</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWYTICS</TD>
+
+<TD COLSPAN="2">This flag causes tick marks to be drawn along the Y axis
+at specified intervals.</TD>
+</TR>
+
+<TR>
+<TD>CS_AUTOSIZE</TD>
+
+<TD COLSPAN="2">If this flag is set, the chart will always take up the
+entire mClient region of it's parent. When the parent is resized or moved,
+the PegChart responds to the message and resizes itself appropriately.&nbsp;</TD>
+</TR>
+
+<TR>
+<TD>CS_DUALYTICS</TD>
+<TD COLSPAN="2">
+Setting this flag causes the chart to draw Y tic marks on both the
+left and right side of the chart area. By default, the chart only draws
+tic marks on the left side. 
+</TD>
+</TR>
+
+<TR>
+<TD>CS_DUALYLABELS</TD>
+<TD COLSPAN="2">
+Used in conjunction with CS_DUALYTICS, this flag forces the chart to
+draw Y axis labels on both the left and right sides of the chart
+area.
+</TD>
+</TR>
+
+<TR>
+<TD>CS_XAXISONZEROY</TD>
+<TD COLSPAN="2">
+By default, the chart will draw the X axis at the bottom of the chart
+region. There are occasions where it is more effective for determining
+data position when the X axis is, instead, placed horizontal to 0
+on the Y axis. Setting this flag effects this behavior. The X axis will
+be drawn <I>inside</I> of the chart region, perpendicular to the Y
+axis, at the 0 Y position.
+</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWLINEFILL</TD>
+<TD COLSPAN="2">
+This flag tells the chart to draw a filled polygon from each line segment
+to 0 on the Y axis.
+</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWXLABELS</TD>
+
+<TD>This flag causes incremental labels to be drawn along the X axis. The
+label text is based on the minimum and maximum possible values of X.</TD>
+</TR>
+
+<TR>
+<TD>CS_DRAWYLABELS</TD>
+
+<TD>This flag causes incremental labels to be drawn along the Y axis. The
+label text is based on the minimum and maximum possible values of Y.</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="Signals"></A><U><FONT SIZE=+1>Signals</FONT></U>
+<BR>PegChart does not send any signals..
+
+<P><A NAME="Derivation"></A>
+<BR><U><FONT SIZE=+1>Derivation</FONT></U>
+<BR>PegChart is derived from <A HREF="pthing.htm">PegThing</A>.
+
+<P><A NAME="Members"></A>
+<BR><U><FONT SIZE=+1>Constructor:</FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12> <B>PegChart(const PegRect&amp;
+Rect, LONG lMinX, LONG lMaxX, LONG lMinY, LONG lMaxY, WORD wMajorXScale = 0,
+WORD wMajorYScale = 0)</B>
+<BR>The constructor is fairly straight forward. Like most PegThing derived
+objects, you pass it the rectangle you wish for it to occupy. If you have
+CS_AUTOSIZE turned on, you may just want to pass it the parent's mClient
+rectangle.
+<P>The next four LONG values specify the minimum and maximum values for
+X and Y. The last two parameters are for setting the major tick mark frequency
+for the X and Y axis, respectively. For instance, if your minimum Y value
+is -100 and your maximum Y value is 900, and you specify a Y scale of 100,
+if the CS_DRAWYTICS bit is set in the extended style flag, you will see
+tick marks on the Y axis starting at -100 and incrementing 100 all the
+way to 900. Therefore, there will be 11 tick marks drawn on the Y axis.
+If you were to also turn on the CS_DRAWYGRID bit, you would see a grid
+line at the same interval as the tick marks. Label scaling, or interval,
+is independant of the tick mark/grid line scaling. Therefore, it is possible
+to specify tick marks to appear at intervals of 100, while specifying labels
+to be drawn every 200. No matter the scaling, all drawing starts at the
+minimum value and works it's way toward the maximum value until it meets
+or exceeds the maximum value. This holds true for both the X and Y axis.
+
+<P><U><FONT SIZE=+1>Public Functions:</FONT></U>
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>virtual void Draw(void)</B> <BR>
+PegChart overrides the Draw() function to draw the background color
+of the chart area, and, if specified, the optional tick marks, labels and
+grid lines.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>PegRect GetChartRegion() const</B><BR>
+Returns the rectangle that represents the area where the chart is actually
+being drawn. This rectangle's size and position is based on the position
+and size of it's parent (if CS_AUTOSIZE is set), as well as any tick marks
+or labels that it may be drawing. In other words, this rectangle roughly
+corresponds to a typical mClient rectangle in a standard PegThing.
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetExStyle() const</B><BR>
+Returns the current value of mwExStyle. Possible values are listed
+<A HREF="#Styles">here</A>.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>PegFont* GetFont() const</B><BR>
+Returns a pointer to the current font being used to draw axis labels.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetMajorTicSize()</B><BR>
+Returns the length, in pixels, used to draw major tics.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetMajorXScale()</B><BR>
+Returns the tic interval for the major scale on the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetMajorYScale()</B><BR>
+Returns the tic interval for the major scale on the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>LONG GetMaxX() const</B><BR>
+Returns the maximum allowable value for X.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>LONG GetMaxY() const</B><BR>
+Returns the maximum allowable value for Y.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetMinorTicSize()</B><BR>
+Returns the length, in pixels, used to draw minor tics.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetMinorXScale()</B><BR>
+Returns the tic interval for the minor scale on the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetMinorYScale()</B><BR>
+Returns the tic interval for the minor scale on the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>LONG GetMinX() const</B><BR>
+Returns the minimum allowable value for X.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>LONG GetMinY() const</B><BR>
+Returns the minimum allowable value for Y.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetXLabelHeight() const</B><BR>
+Returns the height of the labels along the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetXLabelScale() const</B><BR>
+Returns the interval for drawing labels along the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetYLabelScale() const</B><BR>
+Returns the interval for drawing labels along the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>WORD GetYLabelWidth() const</B><BR>
+Returns the width of the labels along the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>virtual void MapDataToPoint(PegChartPoint* pPoint)</B><BR>
+This method converts the data points held in pPoint to screen coordinates
+based on the size of the mChartRegion of the chart, and the minimum and
+maximum allowable values for X and Y. It then puts the coordinates in the
+appropriate pPoint members. This method is typically not called by objects
+outside of the chart classes.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>virtual void MapPointToData(PegChartPoint* pPoint)</B><BR>
+This method does the opposite of MapDataToPoint. In that it takes screen
+coordinates and converts them to data points based on the same criteria
+as MapDataToPoint. This method is typically not called by objects outside
+of the chart classes.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>virtual SIGNED Message(const PegMessage&amp; Mesg)</B><BR>
+PegChart overrides the Message method in order to provide appropriate
+layout recalculation when it's parent is moved, or optionally, resized.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>virtual void RecalcLayout(BOOL bRedraw = TRUE)</B><BR>
+This method calculates the region used for drawing the actual chart
+(represented internally by mChartRegion). This method takes into account
+the drawing of tick marks and labels. This method is typically not called
+by objects outside of the chart classes.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>virtual void RecalcSize(const PegRect&amp; NewRect, BOOL bRedraw = TRUE)</B><BR>
+This method resets the chart's size to the new rectangle, then calls
+RecalcLayout and passes through bRedraw. This method is typically not called
+by objects outside of the chart classes.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetExStyle(WORD wStyle)</B><BR>
+Sets the current value of mwExStyle. Possible values are listed <A HREF="#Styles">here</A>.
+These values may be bitwise OR'd together.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetFont(PegFont* pFont)</B><BR>
+Sets the font used for drawing axis labels.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMajorTicSize(WORD wScale)</B><BR>
+Sets the length for the major tic marks on both axis's.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMajorXScale(WORD wScale)</B><BR>
+Sets the tic interval for the major scale on the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMajorYScale(WORD wScale)</B><BR>
+Sets the tic interval for the major scale on the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMaxX(LONG lData)</B><BR>
+Sets the maximum value for X.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMaxY(LONG lData)</B><BR>
+Sets the maximum value for Y.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMinorTicSize(WORD wScale)</B><BR>
+Sets the length for the minor tic marks on both axis's.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMinorXScale(WORD wScale)</B><BR>
+Sets the tic interval for the minor scale on the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMinorYScale(WORD wScale)</B><BR>
+Sets the tic interval for the minor scale on the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMinX(LONG lData)</B><BR>
+Sets the minimum value for X.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetMinY(LONG lData)</B><BR>
+Sets the minimum value for Y.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetXLabelHeight(WORD wHeight)</B><BR>
+Sets the height of the labels along the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetXLabelScale(WORD wScale)</B><BR>
+Sets the interval for drawing labels along the X axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetYLabelScale(WORD wScale)</B><BR>
+Sets the interval for drawing labels along the Y axis.
+
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12>
+<B>void SetYLabelWidth(WORD wWidth)</B><BR>
+Sets the width of the labels along the Y axis.
+
+<BR>
+
+<HR>
+
+<P><A NAME="Examples"></A>
+<BR><U><FONT SIZE=+1>Examples:</FONT></U>
+<BR>PegChart is not directly instantiable.
+See <A HREF="plnchart.htm">PegLineChart</A>, <A HREF="pmlchart.htm">PegMultiLineChart</A>
+or <A HREF="pstchart.htm">PegStripChart</A> for an example of appropriate usage.
+
+<BR>
+<HR>
+</BODY>
+</HTML>

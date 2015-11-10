@@ -1,0 +1,49 @@
+#!/bin/sh
+# this script sets LD_LIBRARY_PATH environment variable
+# and checks consistence of the system configuration
+LD_LIBRARY_PATH=.:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+PATH=.:${PATH}
+export PATH
+
+if [ $UID -ne "0" ]; then
+	echo "You need to run $@ as root."
+	exit 1
+fi
+
+case $1 in
+install)
+	if [ -f settop.install ] ; then
+		# Run the standard install script
+		. settop.install
+		echo "Done"
+	else
+		echo "The settop script could not find the settop.install script."
+		echo "Make sure you have a complete reference software image in the"
+		echo "current directory."
+		exit 1
+	fi
+	;;
+*)
+	if [ ! -z ${POWER_STANDBY} ]; then
+		if [ ! -f settop.power ] ; then
+			echo "### 00:00:00.000 POWER_STANDBY is set but settop.power is missing."
+			exit 1
+		fi
+		echo "$@"
+		exec env ${config} settop.power "$@"
+	fi
+	# Run a platform-specific script in order to install drivers
+	if [ -f settop.%%PLATFORM%% ] ; then
+		. settop.%%PLATFORM%%
+	else
+		echo "### 00:00:00.000 settop.%%PLATFORM%% missing. Drivers will not install."
+	fi
+
+	# Start whatever application is requested
+	target=$1;
+	shift
+	exec env ${config} ${target} "$@"
+	;;
+esac
+

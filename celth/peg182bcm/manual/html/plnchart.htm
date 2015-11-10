@@ -1,0 +1,160 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Jim DeLisle">
+   <META NAME="GENERATOR" CONTENT="UltraEdit32">
+   <title>PEG Reference Manual</title>
+</head>
+<body text="#000000" bgcolor="#FFFBF7" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<a href="../refman.htm"><img SRC="index.gif" BORDER=0 ></a>
+<table BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<tr>
+<td>
+<center><a href="#Derivation">Derivation</a></center>
+</td>
+
+<td>
+<center><a href="#Members">Members</a></center>
+</td>
+
+<td>
+<center><a href="#Styles">Styles</a></center>
+</td>
+
+<td>
+<center><a href="#Signals">Signals</a></center>
+</td>
+
+<td>
+<center><a href="#Examples">Example</a></center>
+</td>
+
+<td>
+<center><a href="#See Also">See Also</a></center>
+</td>
+</tr>
+</table>
+
+<center>
+<p><b><font color="#9C0000"><font size=+2>PegLineChart</font></font></b></center>
+
+<p><b><u><font face="Arial,Helvetica"><font size=+1>Overview</font></font></u></b>
+<p><font face="Arial,Helvetica"><font color="#000000">PegLineChart is a
+simple abstract down from PegChart and supports the displaying of a single
+line on a given scale.</font></font>
+<br>&nbsp;
+<p><a NAME="See Also"></a>
+<br><u><font face="Arial,Helvetica"><font color="#000000"><font size=+1>See
+Also</font></font></font></u>
+<br><font face="Arial,Helvetica"><a href="pmlchart.htm">PegMultiLineChart</a></font>
+<p><a NAME="Styles"></a>
+<br><u><font face="Arial,Helvetica"><font color="#000000"><font size=+1>Style
+Flags</font></font></font></u>
+<br><font face="Arial,Helvetica"><font color="#000000">
+Please see <A HREF="pchart.htm#Styles">PegChart</A> for a complete description
+of style flags.
+
+<P>
+<a NAME="Signals"></a><u><font face="Arial,Helvetica"><font size=+1>Signals</font></font></u>
+<br>PegLineChart does not send any signals.
+
+<p><a NAME="Derivation"></a>
+<br><u><font face="Arial,Helvetica"><font size=+1>Derivation</font></font></u>
+<br>PegLineChart is derived from <a href="pchart.htm">PegChart</a>.
+
+<p><a NAME="Members"></a>
+<br><u><font size=+1>Constructor:</font></u>
+<p><img SRC="bullet1.jpg" height=11 width=12> <b>PegLineChart(const PegRect&amp;
+Rect, LONG lMinX, LONG lMaxX, LONG lMinY, LONG lMaxY, WORD wMajorXScale = 0,
+WORD wMajorYScale = 0)</b>
+<br>The constructor is fairly straight forward. Like most PegThing derived
+objects, you pass it the rectangle you wish for it to occupy. If you have
+CS_AUTOSIZE turned on, you may just want to pass it the parent's mClient
+rectangle.
+<p>The next four LONG values specify the minimum and maximum values for
+X and Y. The last two parameters are for setting the major tick mark frequency
+for the X and Y axis, respectively. For instance, if your minimum Y value
+is -100 and your maximum Y value is 900, and you specify a Y scale of 100,
+if the CS_DRAWYTICS bit is set in the extended style flag, you will see
+tick marks on the Y axis starting at -100 and incrementing 100 all the
+way to 900. Therefore, there will be 11 tick marks drawn on the Y axis.
+If you were to also turn on the CS_DRAWYGRID bit, you would see a grid
+line at the same interval as the tick marks. Label scaling, or interval,
+is independant of the tick mark/grid line scaling. Therefore, it is possible
+to specify tick marks to appear at intervals of 100, while specifying labels
+to be drawn every 200. No matter the scaling, all drawing starts at the
+minimum value and works it's way toward the maximum value until it meets
+or exceeds the maximum value. This holds true for both the X and Y axis.
+<p><u><font size=+1>Public Functions:</font></u>
+<p><img SRC="bullet1.jpg" height=11 width=12><b> PegChartPoint* AddPoint(LONG
+lX, LONG lY)</b>
+<br>This method adds a new point to the end of the line segment. It returns
+a pointer to the newly created point.
+<p><img SRC="bullet1.jpg" height=11 width=12> <b>virtual void Draw(void)</b>
+<br>PegChart overrides the Draw() function to draw the line segments that
+make up the line.
+<p><img SRC="bullet1.jpg" height=11 width=12><b> PegChartPoint* GetFirstPoint()
+const</b>
+<br>Returns the first point of the line segment.
+<p><img SRC="bullet1.jpg" height=11 width=12><b> COLORVAL GetLineColor()
+const</b>
+<br>Returns the COLORVAL used for determining the color of the line.
+<p><img SRC="bullet1.jpg" height=11 width=12><b> PegChartPoint* InsertPoint(PegChartPoint*
+pPoint, LONG lX, LONG lY)</b>
+<br>This method inserts a new point <b><i>after </i></b>the point pointed
+to by pPoint. It returns a pointer to the newly created point.
+<p><img SRC="bullet1.jpg" height=11 width=12> <b>virtual SIGNED Message(const
+PegMessage&amp; Mesg)</b>
+<br>PegChart overrides the Message method in order to provide appropriate
+layout recalculation when it's parent is moved, or optionally, resized.
+<p><img SRC="bullet1.jpg" height=11 width=12> <b>void RecalcLine()</b>
+<br>This method forces a recalculation of the screen coordinates for every
+point on the line.
+<p><img SRC="bullet1.jpg" height=11 width=12> <b>virtual void RecalcSize(const
+PegRect&amp; NewRect, BOOL bRedraw = TRUE)</b>
+<br>This method is overridden in order to ensure that the line data is
+up to date. In other words, if the chart is moved or resized, the screen
+coordinates associated with a given data point will change. In order to
+keep up with these changes, this method calls the RecalcLine method to
+update the screen coordinates of all the data points associated with the
+line.
+<p><img SRC="bullet1.jpg" height=11 width=12><b> PegChartPoint* RemovePoint(PegChartPoint*
+pPoint)</b>
+<br>This method removes the point pointed to by pPoint. It returns a pointer
+to the point proceeding the deleted point, or NULL if there is none.
+<p><img SRC="bullet1.jpg" height=11 width=12> <b>void ResetLine()</b>
+<br>This method removes all of the points associated with the line.
+<p><img SRC="bullet1.jpg" height=11 width=12><b> void SetLineColor(COLORVAL
+Color)</b>
+<br>Sets the COLORVAL used for determining the color the line.
+<p>
+<hr>
+<p><a NAME="Examples"></a>
+<br><u><font size=+1>Examples:</font></u>
+<p>The following code snippet produces the PegLineChart pictured below.
+<br>&nbsp;
+
+<pre>&nbsp;&nbsp;&nbsp; <tt>PegLineChart* pLineChart = new PegLineChart(Rect, 0, 1000, 0, 1000, 100, 100);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->SetXLabelScale(200);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->SetExStyle(CS_DRAWXTICS | CS_DRAWYTICS | CS_DRAWXGRID |</tt>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CS_DRAWYGRID | CS_AUTOSIZE | CS_DRAWYLABELS | CS_DRAWXLABELS);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->AddPoint(100, 100);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->AddPoint(200, 200);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->AddPoint(300, 300);</tt>
+<tt>&nbsp;&nbsp;&nbsp; PegChartPoint* pPoint = pLineChart->AddPoint(400, 400);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->AddPoint(500, 500);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->AddPoint(600, 600);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->AddPoint(700, 800);</tt>
+<tt>&nbsp;&nbsp;&nbsp; pLineChart->InsertPoint(pPoint, 450, 0);</tt></pre>
+<tt></tt>
+
+<p>
+<CENTER>
+<br><img SRC="image70.gif" ALT="PegLineChart example screen shot" height=505 width=648>
+</CENTER>
+
+<p>
+<hr>
+</body>
+</html>

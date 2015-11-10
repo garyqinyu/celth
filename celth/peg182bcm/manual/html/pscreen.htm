@@ -1,0 +1,615 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    
+  <meta name="Author" content="Kenneth G. Maxwell">
+    
+  <meta name="GENERATOR" content="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+  <title>PEG Reference Manual</title>
+</head>
+ <body text="#000000" bgcolor="#fffbf7" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+ <a href="../refman.htm"><img src="index.gif" border="0">
+</a>
+ 
+<table border="2" cols="4" width="100%" bgcolor="#cccccc">
+ <tbody>
+    <tr>
+ <td> 
+      <center><a href="#Derivation">Derivation</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#Members">Members</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#Examples">Examples</a>
+      </center>
+ </td>
+  <td> 
+      <center><a href="#See%20Also">See Also</a>
+      </center>
+ </td>
+ </tr>
+ 
+  </tbody>
+</table>
+  
+<center><b><font color="#9c0000"><font size="+2">PegScreen</font></font></b></center>
+   
+<p>&nbsp; <br>
+&nbsp; <br>
+&nbsp;  </p>
+<p><b><u><font face="Arial,Helvetica"><font size="+1">Overview</font></font></u></b>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">PegScreen is the PEG
+class that provides the drawing primitives used by the individual PEG objects
+to draw themselves on the display device. PEG windows and controls never
+directly manipulate video memory, but instead use the PegScreen member functions
+to draw lines, text, bitmaps, etc. Most importantly, PegScreen provides a
+layer of isolation between the video hardware and the rest of the PEG library,
+which is required to insure that PEG is easily portable to any target environment.</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">Class PegScreen is an
+abstract class from which the target specific PegScreen classes are derived.
+This hierarchy insures that a consistent set of API functions are provided
+to PEG and application objects independent of the target environment.</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">Most often the PegScreen 
+member functions are used to draw directly to the video frame buffer. However 
+it is also possible to draw into a private PegBitmap, and then use the PegScreen::Bitmap()
+function to transfer the private PegBitmap to the video frame buffer. This
+technique is commonly used for displaying animation sequences, or for drawing
+on top of an image before displaying the image. The general sequence required
+for off-screen drawing is:</font></font> </p>
+<ul>
+ <li> <font face="Arial,Helvetica"><font color="#000000">Call the CreateBitmap() 
+function to allocate a PegBitmap.</font></font></li>
+  <li> <font face="Arial,Helvetica"><font color="#000000">Call the second
+form of BeginDraw(..), passing in the bitmap you want to draw to.</font></font></li>
+  <li> <font face="Arial,Helvetica"><font color="#000000">Call any of the
+standard drawing functions to draw into the private bitmap.</font></font></li>
+  <li> <font face="Arial,Helvetica"><font color="#000000">Terminate the off-screen 
+drawing by calling the second form of EndDraw().</font></font></li>
+ 
+</ul>
+ <font face="Arial,Helvetica"><font color="#000000">Once the above sequence 
+is concluded, you have a PegBitmap that contains whatever custom drawing you
+have invoked. You can then display this PegBitmap at any location on the
+screen by calling the standard PegScreen::Bitmap() function. Once you are
+done with the PegBitmap and no longer need to display it, you should always
+use the DestroyBitmap() function to free all memory associated with the PegBitmap.</font></font><font face="Arial,Helvetica"><font color="#000000"></font></font>
+  
+<p><font face="Arial,Helvetica"><font color="#000000">When running with a
+video controller that supports extended video memory and possibly a hardware 
+bitblit engine, the PEG CreateBitmap function is optimized to create the bitmap
+in non-visible video memory. The PegScreen class contains a <b><i>Video Memory
+Manager</i></b>, which keeps track of used and free areas of non-visible video
+memory. A flag is set in the PegBitmap structure to indicate that the bitmap
+resides in non-visible video memory. When you display the bitmap, the PegScreen
+class knows to use the video controller bitblit engine to display the bitmap
+rather than doing so via processor memory copy operations. </font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">It is important to remember
+that when drawing to an off-screen PegBitmap, all drawing coordinates are
+relative to (0,0), which is the upper left corner position of the bitmap.</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">Class <a href="pthing.htm">
+PegThing</a>
+ provides wrapper functions for the most commonly used PegScreen Drawing operations.&nbsp;</font></font>
+&nbsp; </p>
+<hr>  
+<p><a name="See Also"></a>
+<u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">See 
+Also</font></font></font></u>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="pmc5.htm">
+PEG Programming Manual</a>
+</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="pthing.htm">
+Class PegThing</a>
+</font></font>  </p>
+<p><a name="Derivation"></a>
+<u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">Derivation</font></font></font></u>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">PegScreen is an abstract
+base class.</font></font> <br>
+&nbsp; <br>
+&nbsp;  </p>
+<p><a name="Members"></a>
+  </p>
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+Constructors:</font></font></font></u>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegScreen(const PegRect
+&amp;Size)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This constructor determines
+the size in pixels of the PegScreen frame buffer. This does not have to be
+that same dimension as PegPresentationManager, although this is the most
+typical case. One instance of the target specific PegScreen derived interface
+class is created during program startup. The PegScreen constructor is normally
+responsible for configuring the target video controller and initializing
+other variables used for improved drawing performance.</font></font>  </p>
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+Public Functions:</font></font></font></u>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void AALine(SIGNED wXStart, SIGNED wYStart, SIGNED wXEnd, SIGNED wYEnd, COLORVAL ForeColor, SIGNED wWidth)
+</b></font></font>  <br>
+<font face="Arial,Helvetica"><font color="#000000">Draws an anti-aliased (dithered) line between the start and end coordinates.  This is only supported for 16 or 24 bit colors.</font></font></p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>UCHAR AddPointerType(PegBitmap
+*pMap, SIGNED xOffset, SIGNED yOffset)</b></font></font>  <br>
+<font face="Arial,Helvetica"><font color="#000000">This function can be called
+to define a new pointer type, meaning a new pointer bitmap,&nbsp; when using
+a mouse or similar pointing device. The first parameter is a pointer to a
+PegBitmap to display when this pointer type is invoked via the SetPointerType()
+function. The x and y offset parameters specify the distance, in pixels,
+from the upper left corner of the bitmap to the bitmap "hotspot". The PEG
+screen drivers automatically position the pointer so that the hotspot is
+centered over the current pointer position.</font></font></p>
+<p><font face="Arial,Helvetica"><font color="#000000"> The number of pointer
+types which may be defined by the definition <b>UserPointerTypes </b>in the
+header file pscreen.hpp. &nbsp;The return value of this function is the index
+assigned to this pointer type. The application must keep track of this index
+for subsequent calls to the SetPointerType() function.</font></font></p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Arc(PegThing
+*Caller, SIGNED xCenter, SIGNED yCenter, SIGNED iRadius, float start_angle,
+float end_angle, PegColor Color, SIGNED width = 1)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws a
+portion of a circle from start_angle to end_angle (in degrees) at the indicated 
+position and radius. The iWidth parameter determines the border width, if
+any. This function requires floating point arithmetic and is only provided
+if the definition PEG_FP_GRAPHICS is enabled in the file \peg\include\peg.hpp. 
+A pie-chart effect can be achieved by setting Color.uFlags to CF_FILL. </font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void BeginDraw(PegThing
+*Caller)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function should be
+called at the beginning of every Draw() function. This call prepares the
+screen for output. The actual function performed depends on the target platform
+PegScreen implementation.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void BeginDraw(PegThing
+*Caller, PegBitmap *pMap)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This alternate form of
+BeginDraw is used to begin drawing into an off-screen bitmap. Off-screen drawing
+can be used to do display smooth animation sequences or for many other purposes.
+When this form of BeginDraw() is used, the PegScreen driver is placed into
+a virtual drawing mode, where all drawing functions operate within the off-screen
+bitmap, rather than drawing to the visible video memory buffer.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Bitmap(PegThing
+*Caller, PegPoint Where, PegBitmap *Getmap, BOOL bOnTop = FALSE)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws a
+bitmap on the screen. Where defines the upper-left corner position of the
+bitmap on the screen. Getmap points to a bitmap generated with the PegImageConvert
+utility.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void BitmapFill(PegThing
+*Caller, PegRect Rect, PegBitmap *Getmap)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function fills a
+rectangular area of the screen with tiled copies of the bitmap pointed to
+by GetMap. Rect defines the screen area to be filled, inclusive.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Capture(PegCapture
+*Info, PegRect &amp;Rect)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function captures 
+a rectangular area of the screen and saves the copy in a PegCapture object
+referenced by pointer Info.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Circle(PegThing
+*Caller, SIGNED xCenter, SIGNED yCenter, SIGNED iRadius, PegColor &amp;Color,
+SIGNED iWidth = 0)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws a
+circle at the indicated position and radius. The iWidth parameter determines 
+the border width, if any. This function is only provided if the definition 
+PEG_FULL_GRAPHICS is turned on in the file \peg\include\peg.hpp. This function 
+does not use floating point math.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual PegBitmap
+*CreateBitmap(SIGNED iWidth, SIGNED iHeight)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is called
+to create a PegBitmap at run-time. The bitmap is normally formatted in the
+native pixel format of the active frame buffer, however this is transparent
+to the application software. A bitmap created in this fashion can be used
+as a 'virtual screen', allowing drawing to the off-screen bitmap instead
+of to the actual video memory.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void DeleteFont(PegFont
+*OldFont)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function frees all
+memory associated with OldFont. This function should be called after the
+use of a font created with MakeFont is complete. The DeleteFont function is
+only available if the definition PEG_VECTOR_FONTS is enabled when the PEG
+library is built. PEG_VECTOR_FONTS is defined in the file \peg\include\peg.hpp. 
+The example program contained in \peg\examples\vecfont illustrates the use
+of MakeFont and DeleteFont. In this example the font created at run time
+is assigned to a PegTextBox object. The font size and style can be modified
+freely at run time, without including additional bitmapped fonts (and the
+associated memory) in the application program.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void DestroyBitmap(PegBitmap
+*pBitmap)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">Deletes the bitmap associated
+with the pBitmap pointer. This method takes into account bitmaps that are
+using video memory directly, as opposed to bitmaps that are in system memory.
+This is the preferred method for deleting bitmaps that were created using
+the CreateBitmap method.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void DrawText(PegThing
+*Caller, PegPoint Where, const PEGCHAR *Text, PegColor &amp;Color, PegFont
+*pFont, SIGNED Count = -1)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws text
+on the screen. Where determines the upper left starting position for drawing
+the text. If Count is &gt;= 0, a maximum of Count characters will be drawn
+unless the string pointed to by Text is less than Count in length. If Count
+is set to -1, the entire null terminated string is drawn at the indicated
+position.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>UCHAR *DumpWindowsBitmap(DWORD
+*PutSize, PegRect &amp;View)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function creates a
+Microsoft Windows compatible bitmap file in memory. The bitmap file is an 
+exact capture of the <i>View</i> rectangle. Since PEG assumes no file I/O 
+capabilities, this function returns a pointer of the bitmap residing in memory;
+ it is the caller's job to write the bitmap from memory into permanent storage
+such  as a floppy or hard disk drive for use in a PC environment.  </font></font></p>
+<p><font face="Arial,Helvetica"><font color="#000000">This function is only
+provided if the #define PEG_BITMAP_WRITER is enabled in the configuration
+file pconfig.hpp when the PEG library is built.  </font></font></p>
+<p><font face="Arial,Helvetica"><font color="#000000">This function is used
+primarily for testing and/or capturing screen shots on  the embedded target
+for use in promotional literature. This function is NOT normally used for
+production software since the output format created by this function is the
+Microsoft Windows bitmap format, not the PegBitmap format.  </font></font></p>
+<p><font face="Arial,Helvetica"><font color="#000000">DumpWindowsBitmap returns
+a pointer to the bitmap image in memory. The caller can then save the image
+using whatever storage is available on the target system.<i><b><u> The caller
+is responsible for freeing the memory associated with the memory bitmap!!</u></b></i>
+ The file size  (i.e. memory buffersize ) is returned in the location pointed
+to by PutSize, or a size of 0 to indicate failure.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Ellipse(PegThing
+*Caller, const PegRect &amp;Bound, PegColor Color, SIGNED iWidth)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws an
+Ellipse with the provided parameters. The ellipse is bounded on all sides
+by Bound. The ellipse is filled if the Color.uFlags value includes CF_FILL.
+The ellipse may have a border, drawn in Color.uForeground, of iWidth pixels.
+If the ellipse is filled, it is filled with Color.uBackground.</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">The Ellipse function 
+is not required internally by the PEG library, and is therefore only provided 
+if the #define PEG_FULL_GRAPHICS is turned on in the header file \peg\include\peg.hpp.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void EndDraw()</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function should be
+called at the end of every Draw() function. This call notifies the PegScreen 
+that drawing has been completed. The actual function performed depends on
+the target platform PegScreen implementation. For example, the Win32 platform,
+which utilizes a double buffered video memory, uses this indication to transfer
+the local memory buffer to the visual video memory. BeginDraw and EndDraw
+can also be used to maintain the level of draw nesting. On systems which
+utilize multiple palettes, draw nesting is used to determine when a new palette
+should be loaded into the palette buffer or video controller palette registers.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void EndDraw(PegBitmap
+*pBitmap)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is used
+to conclude an off-screen drawing sequence and put the screen driver back
+into normal (on-screen) drawing mode.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual COLORVAL GetBitmapPixel(SIGNED x, SIGNED y, PegBitmap *pMap)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the COLORVAL associated with the pixel in the bitmap at coordinates x, y.  This function is only provided if the #define PEG_IMAGE_SCALING is enabled in the configuration file pconfig.hpp when the PEG library is built.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual COLORVAL GetInvalidRect(void)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the dimensions of the Invalidated area in a PegRect.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual UCHAR *GetPalette(DWORD
+*pPutSize)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns a pointer to the
+current palette, and writes the number of palette entries to pPutSize. There
+will be 3 UCHAR values for each palette entry. These values are the Red,
+Green, and Blue components for each color value.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual COLORVAL GetPixel(PegThing
+*Caller, SIGNED x, SIGNED y)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the COLORVAL associated
+with the pixel at screen coordinates x, y.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegBitmap *GetPointer(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This method returns a
+PegBitmap pointer to the current mouse pointer bitmap.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegBitmap *GetPointerPos(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This method returns a PegPoint with x/y coordinates for the location of the pointer.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>UCHAR GetPointerType(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function returns the
+current pointer type. The available pointer types are enumerated at the top
+of the file \peg\include\pscreen.hpp. The types provided with PEG include:</font></font>
+ </p>
+<pre><font face="Arial,Helvetica"><font color="#000000">&nbsp;&nbsp;&nbsp; PPT_NORMAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>&nbsp;&nbsp;&nbsp; PPT_VSIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1<br>&nbsp;&nbsp;&nbsp; PPT_HSIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2<br>&nbsp;&nbsp;&nbsp; PPT_NWSE_SIZE&nbsp;&nbsp; 3<br>&nbsp;&nbsp;&nbsp; PPT_NESW_SIZE&nbsp;&nbsp; 4<br>&nbsp;&nbsp;&nbsp; PPT_IBEAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5<br>&nbsp;&nbsp;&nbsp; PPT_HAND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6</font></font></pre>
+ <font face="Arial,Helvetica"><font color="#000000">Additional pointer shapes 
+can also be defined and added using AddPointerType();</font></font>  
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED GetXPointerOffset(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the X offset of
+the currently used mouse pointer.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED GetXRes(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the horizontal 
+screen resolution, in pixels.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED GetYPointerOffset(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the Y offset of
+the currently used mouse pointer.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED GetYRes(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the vertical screen
+resolution, in pixels.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void HidePointer(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is called
+to hide the mouse pointer.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Invalidate(const
+PegRect &amp;Rect)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is called
+to notify PegScreen that a rectangular region of the screen needs to be redrawn.
+PegScreen does not allow ANY drawing to occur to an area of the screen which
+has not previously been invalidated. PEG objects normally invalidate the
+correct areas of the screen when they are modified via a resize, move, or
+other modification that requires the object to redraw itself. In some cases
+you will be required to invalidate the client area of your custom objects
+before they will be allowed to draw themselves.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Line(PegThing
+*Caller, SIGNED wXStart, SIGNED wYStart, SIGNED wXEnd, SIGNED wYEnd, const
+PegColor &amp;Color, SIGNED wWidth = 1)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This is the basic line
+drawing function. Optimizations are performed internally for vertical and
+horizontal lines. The start and end points of the line are inclusive.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegFont *MakeFont(UCHAR
+uHeight, BOOL bBold = FALSE, BOOL bItalic = FALSE)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">The MakeFont function is
+used to create a new bitmapped font at the indicated point size and style.
+Normally, you should create fonts using PegFontCapture. MakeFont and DeleteFont
+(below) are used to create new fonts at run time. Because of rounding errors
+and limitations in the vector font format, fonts generated using MakeFont
+are generally not as visually appealing as fonts generated using PegFontCapture.
+The MakeFont function is only available if the definition PEG_VECTOR_FONTS
+is enabled when the PEG library is built. PEG_VECTOR_FONTS is defined in
+the file \peg\include\peg.hpp.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual DWORD NumColors(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Returns the current color
+depth expressed as the number of colors supported.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void PatternLine(PegThing
+*Caller, SIGNED wXStart, SIGNED wYStart, SIGNED wXEnd, SIGNED wYEnd, PegColor
+&amp;Color, SIGNED wWidth, DWORD dPattern)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws a
+dashed line. The dash pattern is determined by the dPattern value. For example,
+a dPattern value of 0xf0f0f0f0 would draw a line alternating between 4 pixels
+on and four pixels off. This function is only provided if the definition
+PEG_FULL_GRAPHICS is turned on in the file \peg\include\peg.hpp.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void Polygon(PegThing
+*Caller, PegPoint *pPoints, SIGNED iNumPoints, const PegColor &amp;Color,
+SIGNED iWidth = 1)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws a
+polygon on the screen. The polygon may be concave or convex, filled or bordered.
+PEG objects do not use the polygon function, and it is therefore optional
+in derived classes.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void PutBitmapPixel(SIGNED xPos, SIGNED yPos, PegBitmap *pMap, COLORVAL Color)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function plots a single point at the indicated x,y position in the indicated color.  This function is only provided if the #define PEG_IMAGE_SCALING is enabled in the configuration file pconfig.hpp when the PEG library is built.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void PutPixel(PegThing
+*Caller, SIGNED xPos, SIGNED yPos, COLORVAL Color)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function plots a
+single point at the indicated x,y position in the indicated color.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Rectangle(PegThing
+*Caller, const PegRect &amp;Rect, const PegColor &amp;Color, SIGNED wWidth
+= 1)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function draws a
+rectangle on the screen. The rectangle may have any border width, and may
+optionally be filled if the Color.uFlags parameter is set to CF_FILL. The
+rectangle border is drawn with Color.uForeground, and if the rectangle is
+filled it is filled with Color.uBackground.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>void RectangleXOR(PegThing
+*Caller, const PegRect &amp;InRect)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function inverts the
+pixel color values of the indicated rectangle.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void RectMove(PegThing
+*Caller, PegRect Get, PegPoint Put)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">When FAST_BLIT is enabled,
+PEG objects use this function to rapidly scroll. For hi-end video controllers
+with hardware accelerated bitblit capability, this function directly invokes
+the hardware pixel move operation. This function is software emulated when
+running with a low-end video controller.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void ResetPalette(void)</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">This function resets the
+current color palette back to the default state.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegBitmap *ResizeImage(PegBitmap
+*pSrc, SIGNED iWidth, SIGNED iHeight)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function creates a
+new PegBitmap from an existing PegBitmap. The new bitmap is resized to iWidth
+x iHeight pixels regardless of the size of the source bitmap. A PegBitmap
+created in this manner should be destroyed by calling the DestroyBitmap() 
+function.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void Restore(PegThing
+*Caller, PegCapture *Info, BOOL bOnTop = FALSE)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function restores 
+a captured area of screen pixels.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void SetFillPattern(PegThing *Caller, PegBitmap *Getmap)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function uses a PegBitmap to set the fill pattern.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void SetPalette(SIGNED
+iFirst, SIGNED iNum, const UCHAR *pPal)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function installs 
+the palette indicated by pPal. The number of entries in the palette is indicated
+by iNum, and the first entry to be modified is indicated by iFirst. To install
+a custom 256 color palette, for example, you would call SetPalette like this:</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">SetPalette(0, 256, &amp;PalData);</font></font>
+  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">PEG color palettes are
+simple 8-8-8 RGB color values. There should be (3 * iNum) UCHAR values in
+the array pointed to by pPal.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void SetPointer(PegPoint
+Where)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function sets the
+current position of the mouse pointer on the screen.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void SetPointerType(UCHAR
+bType)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is used
+to change the active pointer type. For example, PegWindow objects change
+the pointer type during resize operations as an indication to the user that
+the window border is being dragged. The available pointer types are defined
+in the header file pscreen.hpp. They include:</font></font> </p>
+<pre><font face="Arial,Helvetica"><font color="#000000">PPT_NORMAL&nbsp;<br>PPT_VSIZE&nbsp;&nbsp;<br>PPT_HSIZE&nbsp;&nbsp;<br>PPT_NWSE_SIZE&nbsp;<br>PPT_NESW_SIZE&nbsp;<br>PPT_IBEAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>PPT_HAND</font></font></pre>
+ 
+<p><font face="Arial,Helvetica"><font color="#000000">Most often an application 
+will capture the mouse pointer before changing the pointer type, and release 
+the pointer after restoring the pointer to normal.</font></font></p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"><b>virtual void ShowPointer(BOOL
+bShow)</b></font></font><br>
+<font face="Arial,Helvetica"><font color="#000000">This function is used
+to show and hide the pointer bitmap. Passing FALSE to this function disables
+display of the pointer bitmap, and passing TRUE enables display of the pointer
+bitmap. The pointer bitmap is displayed by default after power up if PEG_MOUSE_SUPPORT
+is defined. Note that &nbsp;the pointer still operates normally, including
+tracking pointer position and sending click messages, even if the bitmap
+is not displayed.</font></font></p>
+<p>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual SIGNED TextHeight(const
+PEGCHAR *Text, PegFont *pFont)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function returns the
+height, in pixels, of the indicated string using the indicated font.</font></font>
+  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual SIGNED TextWidth(const
+PEGCHAR *Text, PegFont *pFont, SIGNED iLen = -1)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function returns the
+width, in pixels, of the indicated string up to a maximum of iLen characters 
+using the indicated font. If iLen is -1, the width of the entire null terminated 
+string is returned.</font></font>  </p>
+<p><img src="bullet1.jpg" height="11" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>virtual void ViewportMove(PegThing
+*Caller, PegRect MoveRect, PegPoint MoveTo)</b></font></font> <br>
+<font face="Arial,Helvetica"><font color="#000000">This function is similar
+to RectMove. However this version does viewport validation. This can produce
+interesting effects, such as scrolling the background of a window underneath
+child windows without affecting the child windows.</font></font>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000">This function is implemented
+using "Capture" and "Bitmap". This is required to add viewport validation.
+If the derived PegScreen class uses SPRITE style bitmaps, this automatically
+makes use of that feature.</font></font>  </p>
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+Protected Members:</font></font></font></u>  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegBitmap *mpCurPointer</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Address of current mouse
+pointer bitmap.</font></font>  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED miCurXOffset</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Offset in X-axis between
+upper-left corner of mouse pointer bitmap and pointer hotspot.</font></font>
+  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED miCurYOffset</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Offset in Y-axis between
+upper-left corner of mouse pointer bitmap and pointer hotspot.</font></font>
+  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>WORD mwDrawNesting</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Nesting level within Draw
+functions.</font></font>  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegRect mInvalid</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">The current invalid screen
+rectangle.</font></font>  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED mwHRes</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">The horizontal screen resolution
+in pixels.</font></font>  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>DWORD mdNumColors</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Number of output colors.
+This is the number of colors supported by the output device, rather than
+the number of colors in the current palette.</font></font>  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>PegPointer mpPointers[NUM_POINTER_TYPES]</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">Array of mouse pointer 
+bitmap addresses. This array must be extended if new pointer types are defined.</font></font>
+  </p>
+<p><img src="bullet2.jpg" height="10" width="12">
+<font face="Arial,Helvetica"><font color="#000000"> <b>SIGNED mwVRes</b></font></font>
+ <br>
+<font face="Arial,Helvetica"><font color="#000000">The vertical screen resolution
+in pixels.</font></font>  </p>
+<p> </p>
+<hr>  
+<p><a name="Examples"></a>
+  </p>
+<p><u><font face="Arial,Helvetica"><font color="#000000"><font size="+1">
+Examples:</font></font></font></u>  </p>
+<p><font face="Arial,Helvetica"><font color="#000000"><a href="pmc7.htm#DRAWING">
+Draw() Function Example</a>
+</font></font>  </p>
+<p> </p>
+<hr>  
+<p><font face="Arial,Helvetica"><font color="#000000">The following example 
+installs a custom palette. This palette would normally be a palette generated 
+by PegImageConvert, although a palette can be created using several means.</font></font>
+ </p>
+<pre><font face="Arial,Helvetica"><font color="#000000">SIGNED MyWindow::Message(const PegMessage &amp;Mesg)<br>{<br>&nbsp;&nbsp;&nbsp; switch(Mesg.wType)<br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp; case PM_SHOW:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screen()-&gt;SetupPalette(PegCustomPalette, 256);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PegWindow::Message(Mesg);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br><br>&nbsp;&nbsp;&nbsp; case PM_HIDE:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screen()-&gt;ResetPalette();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PegWindow::Message(Mesg);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br><br>&nbsp;&nbsp;&nbsp; default:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PegWindow::Message(Mesg);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; return 0;<br>}</font></font></pre>
+  
+</body>
+</html>

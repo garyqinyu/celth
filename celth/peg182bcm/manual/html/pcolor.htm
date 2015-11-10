@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegColor</FONT></FONT></B></CENTER>
+
+<P><BR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegColor structure
+is used to pass color information to the PegScreen drawing functions. PegColor
+contains foreground, background, and drawing flag information.&nbsp;</FONT></FONT>
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The PegColor structure
+is defined as:</FONT></FONT>
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<PRE>
+
+struct PegColor
+{
+   PegColor (COLORVAL fore, COLORVAL back = PCLR_DIALOG, UCHAR Flags = CF_NONE)
+   {
+      uForeground = fore;
+      uBackground = back;
+      uFlags = Flags;
+   }
+
+   PegColor()
+   {
+      uForeground = uBackground = BLACK;
+      uFlags = CF_NONE;
+   }
+
+   void Set(COLORVAL fore, COLORVAL back = BLACK, UCHAR Flags = CF_NONE)
+   {
+      uForeground = fore;
+      uBackground = back;
+      uFlags = Flags;
+   }
+
+   COLORVAL uForeground;
+   COLORVAL uBackground;
+   UCHAR uFlags;
+};
+
+</PRE>
+</FONT></FONT></B>
+<FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The color Flags are:</FONT></FONT>
+<B><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<P>CF_NONE- This flag is used when the default operation is desired.
+<P>CF_FILL-   This flag is used to fill rectangles, and polygons, and text. For text functions, CF_FILL will cause the text background area to be filled with the background color, while CF_NONE will cause only the text foreground to be drawn.
+
+<HR>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<BR>&nbsp;
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pmc6.htm#PEGCOLOR">PEG
+Programming Manual</A></FONT></FONT>
+</BODY>
+</HTML>

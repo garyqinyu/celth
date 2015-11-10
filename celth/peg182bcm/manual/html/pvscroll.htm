@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Kenneth G. Maxwell">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en]C-gatewaynet  (Win98; I) [Netscape]">
+   <TITLE>PEG Reference Manual</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFBF7" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A HREF="../refman.htm"><IMG SRC="index.gif" BORDER=0 ></A>
+<TABLE BORDER=2 COLS=6 WIDTH="100%" BGCOLOR="#CCCCCC" >
+<TR>
+<TD>
+<CENTER><A HREF="#Derivation">Derivation</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Members">Members</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Styles">Styles</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Signals">Signals</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#Examples">Example</A></CENTER>
+</TD>
+
+<TD>
+<CENTER><A HREF="#See Also">See Also</A></CENTER>
+</TD>
+</TR>
+</TABLE>
+
+<CENTER><B><FONT COLOR="#9C0000"><FONT SIZE=+2>PegVScroll</FONT></FONT></B></CENTER>
+
+<P><B><U><FONT FACE="Arial,Helvetica"><FONT SIZE=+1>Overview</FONT></FONT></U></B>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll is a vertical
+scroll bar class. The scroll bar elevator is proportional to the visible
+area of the object being scrolled.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll takes
+two forms. The most common form is a NONCLIENT area scroll bar. In this
+form PegVScroll calls the parent window GetVScrollInfo function to determine
+position, size, and limit information. An instance of this form of PegVScroll
+has PSF_NONCLIENT system status.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The second form is
+a client area scroll bar. This form does not have PSF_NONCLIENT system
+status. This type of scroll bar is under system software control, and does
+not attempt to automatically determine position and limit information.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Client area PegVScroll
+objects are very similar in operation to <A HREF="pslider.htm">PegSlider</A>
+objects. They are useful for allowing the user to update a field on the
+display by dragging the scroll elevator or selecting the directional scrolling
+buttons.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<P><A NAME="See Also"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>See
+Also</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="scrinfo.htm">PegScrollInfo</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="phscroll.htm">PegHScroll</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="pslider.htm">PegSlider</A></FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><A HREF="mansup.htm#SCROLLING">How
+Scrolling Works</A></FONT></FONT>
+<P><A NAME="Styles"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Style
+Flags</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">There are no styles
+associated with PegVScroll Objects.</FONT></FONT>
+<P><A NAME="Signals"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Signals</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll sends
+PSF_SCROLL_CHANGE signals when the position of the scroll bar elevator
+is changed either by dragging the elevator or by selecting the directional
+scroll buttons. The signal message contains the following information:</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">Message.lData&nbsp;&nbsp; = Current scroll position.
+Message.iData&nbsp;&nbsp; = Last reported scroll position.
+Message.pSource = Pointer to PegVScroll object.</FONT></FONT></PRE>
+<A NAME="Derivation"></A><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Derivation</FONT></FONT></FONT></U>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll is derived
+from <A HREF="pthing.htm">PegThing</A>.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><A NAME="Members"></A>
+<BR><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Constructors:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegVScroll(void)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegVScroll(const
+PegRect &amp;InRect, PegScrollInfo *si, WORD wId = 0)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The first constructor
+creates a non-client area scroll bar. The scroll bar will automatically
+determine its position and size itself to the height of the parent window.</FONT></FONT>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The second constructor
+creates a client area scroll bar. In this mode, a pointer to a <A HREF="scrinfo.htm">PegScrollInfo</A>
+structure is passed to setup the initial scrolling range. In this mode
+the scroll bar position and size are passed to the constructor, along with
+the scroll bar ID, if any.</FONT></FONT>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Public
+Functions:</FONT></FONT></FONT></U>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+void Draw(void)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll overrides
+the Draw() function to fill the scroll bar background area.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>PegScrollInfo
+*GetScrollInfo(void) {return &amp;mScrollInfo;}</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">This inline function
+can be called to retrieve the current scroll bar information.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>virtual
+SIGNED Message(const PegMessage &amp;Mesg)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll catches
+PM_SHOW, directional button selection and elevator drag messages.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Reset(void)</B></FONT></FONT>
+<BR><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Reset(PegScrollInfo *)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">These functions
+are provided to allow the scroll bar position to be recalculated or reset
+at any time. The first form is used with non-client scroll bars, and the
+second form is used with client-area scroll bars that are under program
+control.</FONT></FONT>
+<P><IMG SRC="bullet1.jpg" HEIGHT=11 WIDTH=12><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">
+<B>void
+Resize(PegRect Rect)</B></FONT></FONT>
+<BR><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">PegVScroll overrides
+the Resize() function to insure that the elevator remains proportional
+to the overall scroll bar size.&nbsp;</FONT></FONT>
+<HR>
+<P><A NAME="Examples"></A>
+<P><U><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000"><FONT SIZE=+1>Examples:</FONT></FONT></FONT></U>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following are
+examples of PegVScroll:</FONT></FONT>
+<P><IMG SRC="image22.gif" >
+<HR>
+<P><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">The following example
+initializes a PegScrollInfo structure and creates a client area scroll bar.
+The scroll bar will report values between 0 and 200, will initially be
+positioned at 100, and the scroll bar elevator will be 25% as high as the
+scroll bar.</FONT></FONT>
+<PRE><FONT FACE="Arial,Helvetica"><FONT COLOR="#000000">void MyWindow::AddVScroll(void)
+{
+&nbsp;&nbsp;&nbsp; PegScrollInfo si;
+
+&nbsp;&nbsp;&nbsp; si.wMin = 0;
+&nbsp;&nbsp;&nbsp; si.wMax = 200;
+&nbsp;&nbsp;&nbsp; si.wCurrent = 100;
+&nbsp;&nbsp;&nbsp; si.wStep = 1;
+&nbsp;&nbsp;&nbsp; si.wVisible = 50;
+
+&nbsp;&nbsp;&nbsp; PegRect ScrollRect;
+&nbsp;&nbsp;&nbsp; ScrollRect.Set(10, 10, PEG_SCROLL_WIDTH + 10, 80);
+
+&nbsp;&nbsp;&nbsp; Add(new PegVScroll(ScrollRect, &amp;si));
+}</FONT></FONT></PRE>
+
+<HR>
+</BODY>
+</HTML>
